@@ -1,0 +1,19 @@
+{
+    "compilerOptions": {
+        "module": "Node16",
+        "esModuleInterop": true,
+        "outDir": "pub/",
+        "rootDir": "src/",
+        "target": "ES2019",
+        "strict": true,
+        "skipLibCheck": true,
+        "noUncheckedIndexedAccess": true,
+        "incremental": true,
+        "tsBuildInfoFile": "typings/tsconfig.tsbuildinfo",
+        "noErrorTruncation": true,
+        "stripInternal": true,
+        "forceConsistentCasingInFileNames": true,
+        "watch": true
+    },
+    "include": ["src/"]
+}
