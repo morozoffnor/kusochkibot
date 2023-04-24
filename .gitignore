@@ -6,3 +6,4 @@ typings
 lib
 src/config.ts
 .idea
+tsconfig.tsbuildinfo

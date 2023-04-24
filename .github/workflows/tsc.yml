@@ -1,18 +1,14 @@
+name: Build
+
 on:
   push:
   pull_request:
 
 jobs:
-  tsc:
-    name: tsc
+  build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
-      - name: install node v16
-        uses: actions/setup-node@v1
-        with:
-          node-version: 16
-      - name: yarn install
-        run: yarn install
-      - name: tsc
-        uses: icrawl/action-tsc@v1
+      - name: Checkout project
+        uses: actions/checkout@v3
+      - name: Build and push
+        uses: alexthemaster/action-build-typescript@master
