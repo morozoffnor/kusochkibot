@@ -177,11 +177,14 @@ export async function getCockSizeByUsername(username:string) {
 
 export async function addAttempt(username:string) {
     const connection = new DBConnection(new ConsoleLogQueryRunner(new Sqlite3QueryRunner(db)))
+    const date = new Date(Date.now())
+    const dateValue = connection.const(date, 'localDateTime')
 
     const i = connection
         .update(tCockSize)
         .set({
-            attempts: tCockSize.attempts.add(1)
+            attempts: tCockSize.attempts.add(1),
+            lastUsed: dateValue
         })
         .where(tCockSize.username.equals(username))
         .executeUpdate()

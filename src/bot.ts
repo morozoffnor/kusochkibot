@@ -4,7 +4,6 @@ import {CockSize} from "./functions/cockSize";
 import {CockNames} from './functions/cockNames'
 import * as console from "console";
 import {constructCockMessage} from "./functions/constructCockMessage";
-import {dbh} from './database/db'
 import {
   getLastCockSizeUsageByUsername,
   getLastQueryByUser,
