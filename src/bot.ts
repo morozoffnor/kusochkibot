@@ -1,5 +1,4 @@
 import { Telegraf } from 'telegraf';
-import { message } from 'telegraf/filters';
 import {CockSize} from "./functions/cockSize";
 import {CockNames} from './functions/cockNames'
 import * as console from "console";
@@ -16,7 +15,7 @@ import {config} from "./config";
 const cron = require('node-cron');
 
 
-const bot = new Telegraf(config.botToken);
+const bot = new Telegraf(config.botToken!);
 const cockNames = new CockNames()
 
 // dbh.createdb()
