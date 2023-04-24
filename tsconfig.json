@@ -12,7 +12,6 @@
         "noErrorTruncation": true,
         "stripInternal": true,
         "forceConsistentCasingInFileNames": true,
-        "watch": true
     },
     "include": ["src/"]
 }
