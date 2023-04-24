@@ -189,3 +189,18 @@ export async function addAttempt(username:string) {
         .where(tCockSize.username.equals(username))
         .executeUpdate()
 }
+
+export async function getAttempts(username:string) {
+    const connection = new DBConnection(new ConsoleLogQueryRunner(new Sqlite3QueryRunner(db)))
+
+   try {
+       const i = connection
+           .selectFrom(tCockSize)
+           .selectOneColumn(tCockSize.attempts)
+           .where(tCockSize.username.equals(username))
+           .executeSelectOne()
+       return i
+   } catch (e) {
+        console.log(e)
+   }
+}

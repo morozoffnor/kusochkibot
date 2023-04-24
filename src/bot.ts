@@ -8,7 +8,7 @@ import {
   getLastQueryByUser,
   getWinner,
   insertNewCock, changeSizesOnWin,
-  updateCockSize, getCockSizeByUsername, addAttempt
+  updateCockSize, getCockSizeByUsername, addAttempt, getAttempts
 } from "./database/dbnew";
 
 import {config} from "./config";
@@ -100,6 +100,10 @@ bot.on('chosen_inline_result', async ctx => {
           if (await getCockSizeByUsername(username) > lastQuery) {
             await updateCockSize(username, lastQuery)
           } else {
+            if (await getAttempts(username) == 0) {
+              await updateCockSize(username, lastQuery)
+              return
+            }
             await addAttempt(username)
             return
           }

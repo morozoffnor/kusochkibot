@@ -4,7 +4,6 @@
 /node_modules/
 typings
 lib
-src/config.ts
 .idea
 tsconfig.tsbuildinfo
 src/.env
