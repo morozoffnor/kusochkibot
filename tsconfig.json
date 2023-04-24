@@ -9,7 +9,6 @@
         "skipLibCheck": true,
         "noUncheckedIndexedAccess": true,
         "incremental": true,
-        "tsBuildInfoFile": "typings/tsconfig.tsbuildinfo",
         "noErrorTruncation": true,
         "stripInternal": true,
         "forceConsistentCasingInFileNames": true,
