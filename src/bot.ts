@@ -98,7 +98,7 @@ bot.on('chosen_inline_result', async ctx => {
 });
 
 
-cron.schedule('0 0 * * *', function() {
+cron.schedule('0 0 0 * * *', function() {
   console.log('running a task every minute');
   const i = async function() {
     const winner = await getWinner()
