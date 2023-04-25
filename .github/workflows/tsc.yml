@@ -26,10 +26,8 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
       - name: Build and push
-        uses: docker/build-push-action@v4
-        with:
-          context: .
-          file: ./Dockerfile
-          push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/kusochkibot:latest
+        run: |
+          docker buildx build --push \
+            --tag ${{ secrets.DOCKERHUB_USERNAME }}/kusochkibot:latest \
+            --platform linux/amd64,linux/arm/v7,linux/arm64 .
         
