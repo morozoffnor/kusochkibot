@@ -1,4 +1,4 @@
-FROM node:18-alpine
+FROM node:18
 LABEL authors="igormorozov"
 WORKDIR /usr/src/app
 COPY package*.json ./
