@@ -8,7 +8,7 @@ import {
   getLastQueryByUser,
   getWinner,
   insertNewCock, changeSizesOnWin,
-  updateCockSize, getCockSizeByUsername, addAttempt, getAttempts
+  updateCockSize, getCockSizeByUsername, addAttempt, getAttempts, deleteQueries
 } from "./database/dbnew";
 
 import {config} from "./config";
@@ -131,6 +131,7 @@ cron.schedule('0 0 * * * *', function() {
       await bot.telegram.sendMessage(config.chatId, 'Победитель этого часа - @'+winner.username+'! \nКол-во попыток: '+winner.attempts.toString()+'\nТеперь можно с уверенностью сказать мужикам: "'+cock+' у меня '+winner.minSize+'"')
           .then(async () => {
             await changeSizesOnWin()
+            await deleteQueries()
           })
     } catch (e) {
       console.log(e)

@@ -157,7 +157,8 @@ export async function changeSizesOnWin() {
     const i = connection
         .update(tCockSize)
         .set({
-            attempts: 0
+            attempts: 0,
+            minSize: 100
         })
         .where(tCockSize.attempts.greaterThan(0))
         .executeUpdate()
@@ -203,4 +204,13 @@ export async function getAttempts(username:string) {
    } catch (e) {
         console.log(e)
    }
+}
+
+export async function deleteQueries() {
+    const connection = new DBConnection(new ConsoleLogQueryRunner(new Sqlite3QueryRunner(db)))
+
+    const i = connection
+        .deleteFrom(tCockSizeQueries)
+        .where(tCockSizeQueries.size.isNotNull())
+        .executeDelete()
 }
