@@ -3,8 +3,7 @@ import {config} from "../config";
 
 export class CockSize {
     async getCockSize() {
-        let size = (Math.random() * (40 - 0.1 + 1) + 0.1).toFixed(3)
-        return size
+        return (Math.random() * (40 - 0.1 + 1) + 0.1).toFixed(3)
     }
 
     async checkIfCockSizeAllowed(username:string) {

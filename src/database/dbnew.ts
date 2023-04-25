@@ -3,7 +3,7 @@ import {SqliteDateTimeFormat, SqliteDateTimeFormatType} from "ts-sql-query/conne
 import {ConsoleLogQueryRunner} from "ts-sql-query/queryRunners/ConsoleLogQueryRunner";
 import {Sqlite3QueryRunner} from "ts-sql-query/queryRunners/Sqlite3QueryRunner";
 import {Table} from "ts-sql-query/Table";
-import { Database } from 'sqlite3';
+import {Database} from 'sqlite3';
 
 // const sqlite3 = require('sqlite3').verbose();
 
@@ -45,13 +45,12 @@ export async function getLastCockSizeUsageByUsername(username:string){
 
     // await connection.beginTransaction()
     try {
-        const date = await connection
+        return await connection
             .selectFrom(tCockSize)
             .where(tCockSize.username.equals(username))
             .selectOneColumn(tCockSize.lastUsed)
             .executeSelectOne()
-            .catch();
-        return date
+            .catch()
     }
     catch (e) {
     }
@@ -60,13 +59,13 @@ export async function getLastCockSizeUsageByUsername(username:string){
 export async function insertQuery(username:string, size: number) {
     const connection = new DBConnection(new ConsoleLogQueryRunner(new Sqlite3QueryRunner(db)))
     try {
-        const i = await connection
+        await connection
             .insertInto(tCockSizeQueries)
             .set({
                 username: username,
                 size: size
             })
-            .executeInsert()
+            .executeInsert();
     } catch (e) {
 
     }
@@ -99,7 +98,7 @@ export async function updateCockSize(username:string, size:number) {
     try {
         const date = new Date(Date.now())
         const dateValue = connection.const(date, 'localDateTime')
-        const i = await connection
+        await connection
             .update(tCockSize)
             .set({
                 minSize: size,
@@ -107,7 +106,7 @@ export async function updateCockSize(username:string, size:number) {
                 attempts: tCockSize.attempts.add(1)
             })
             .where(tCockSize.username.equals(username))
-            .executeUpdate()
+            .executeUpdate();
     } catch (e) {
         console.log(e)
     }
@@ -119,7 +118,7 @@ export async function insertNewCock(username:string, size:number) {
     const dateValue = connection.const(date, 'localDateTime')
 
     try {
-        const i = connection
+        await connection
             .insertInto(tCockSize)
             .set({
                 username: username,
@@ -128,7 +127,7 @@ export async function insertNewCock(username:string, size:number) {
                 lastUsed: dateValue,
                 wins: 0
             })
-            .executeInsert()
+            .executeInsert();
     } catch (e) {
 
     }
@@ -137,7 +136,7 @@ export async function insertNewCock(username:string, size:number) {
 export async function getWinner() {
     const connection = new DBConnection(new ConsoleLogQueryRunner(new Sqlite3QueryRunner(db)))
 
-    const i = await connection
+    return await connection
         .selectFrom(tCockSize)
         .select({
             username: tCockSize.username,
@@ -147,60 +146,53 @@ export async function getWinner() {
         .orderBy(tCockSize.minSize, 'asc')
         .limit(1)
         .executeSelectOne()
-
-    return i
 }
 
 export async function changeSizesOnWin() {
     const connection = new DBConnection(new ConsoleLogQueryRunner(new Sqlite3QueryRunner(db)))
-
-    const i = connection
+    await connection
         .update(tCockSize)
         .set({
             attempts: 0,
             minSize: 100
         })
         .where(tCockSize.attempts.greaterThan(0))
-        .executeUpdate()
+        .executeUpdate();
 }
 
 export async function getCockSizeByUsername(username:string) {
     const connection = new DBConnection(new ConsoleLogQueryRunner(new Sqlite3QueryRunner(db)))
 
-    const i = connection
+    return await connection
         .selectFrom(tCockSize)
         .selectOneColumn(tCockSize.minSize)
         .where(tCockSize.username.equals(username))
         .executeSelectOne()
-
-    return i
 }
 
 export async function addAttempt(username:string) {
     const connection = new DBConnection(new ConsoleLogQueryRunner(new Sqlite3QueryRunner(db)))
     const date = new Date(Date.now())
     const dateValue = connection.const(date, 'localDateTime')
-
-    const i = connection
+    await connection
         .update(tCockSize)
         .set({
             attempts: tCockSize.attempts.add(1),
             lastUsed: dateValue
         })
         .where(tCockSize.username.equals(username))
-        .executeUpdate()
+        .executeUpdate();
 }
 
 export async function getAttempts(username:string) {
     const connection = new DBConnection(new ConsoleLogQueryRunner(new Sqlite3QueryRunner(db)))
 
    try {
-       const i = connection
+       return await connection
            .selectFrom(tCockSize)
            .selectOneColumn(tCockSize.attempts)
            .where(tCockSize.username.equals(username))
            .executeSelectOne()
-       return i
    } catch (e) {
         console.log(e)
    }
@@ -208,9 +200,8 @@ export async function getAttempts(username:string) {
 
 export async function deleteQueries() {
     const connection = new DBConnection(new ConsoleLogQueryRunner(new Sqlite3QueryRunner(db)))
-
-    const i = connection
+    await connection
         .deleteFrom(tCockSizeQueries)
         .where(tCockSizeQueries.size.isNotNull())
-        .executeDelete()
+        .executeDelete();
 }

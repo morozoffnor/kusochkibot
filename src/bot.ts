@@ -13,13 +13,8 @@ import {
 
 import {config} from "./config";
 const cron = require('node-cron');
-
-
 const bot = new Telegraf(config.botToken!);
 const cockNames = new CockNames()
-
-// dbh.createdb()
-
 
 bot.command('addcockname', async (ctx) => {
   let text = ctx.message.text.split(' ')
@@ -47,22 +42,6 @@ bot.command('setcooldown', async (ctx) => {
     console.log(e)
   }
 });
-
-// bot.on(message('text'), async (ctx) => {
-//   // Explicit usage
-//   await ctx.telegram.sendMessage(ctx.message.chat.id, `Hello ${ctx.state.role}`);
-//
-//   // Using context shortcut
-//   await ctx.reply(`Hello ${ctx.state.role}`);
-// });
-//
-// bot.on('callback_query', async (ctx) => {
-//   // Explicit usage
-//   await ctx.telegram.answerCbQuery(ctx.callbackQuery.id);
-//
-//   // Using context shortcut
-//   await ctx.answerCbQuery();
-// });
 
 bot.on('inline_query', async ctx => {
   const cz = new CockSize()
@@ -119,7 +98,7 @@ bot.on('chosen_inline_result', async ctx => {
 });
 
 
-cron.schedule('0 0 * * * *', function() {
+cron.schedule('0 0 * * *', function() {
   console.log('running a task every minute');
   const i = async function() {
     const winner = await getWinner()
@@ -128,7 +107,7 @@ cron.schedule('0 0 * * * *', function() {
       return
     }
     try {
-      await bot.telegram.sendMessage(config.chatId, 'Победитель этого часа - @'+winner.username+'! \nКол-во попыток: '+winner.attempts.toString()+'\nТеперь можно с уверенностью сказать мужикам: "'+cock+' у меня '+winner.minSize+'"')
+      await bot.telegram.sendMessage(config.chatId, 'Победитель этого дня - @'+winner.username+'! \nКол-во попыток: '+winner.attempts.toString()+'\nТеперь можно с уверенностью сказать мужикам: "'+cock+' у меня '+winner.minSize+'"')
           .then(async () => {
             await changeSizesOnWin()
             await deleteQueries()
