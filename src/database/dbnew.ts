@@ -205,3 +205,14 @@ export async function deleteQueries() {
         .where(tCockSizeQueries.size.isNotNull())
         .executeDelete();
 }
+
+export async function addWin(username:string) {
+    const connection = new DBConnection(new ConsoleLogQueryRunner(new Sqlite3QueryRunner(db)))
+    await connection
+        .update(tCockSize)
+        .set({
+            wins: tCockSize.wins.add(1)
+        })
+        .where(tCockSize.username.equals(username))
+        .executeUpdate()
+}
