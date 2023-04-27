@@ -17,6 +17,7 @@ import {
 } from "./database/dbnew";
 
 import {config} from "./config";
+import {importNames} from "./functions/insertFileToDB";
 
 const cron = require('node-cron');
 const bot = new Telegraf(config.botToken!);
@@ -47,6 +48,10 @@ bot.command('setcooldown', async (ctx) => {
     console.log(e)
   }
 });
+
+bot.command('insert', async (ctx) => {
+  await importNames(process.cwd() + "/resources/cocknames.txt")
+})
 
 bot.on('inline_query', async ctx => {
   const cz = new CockSize()
