@@ -1,5 +1,4 @@
 import * as fs from "fs";
-import * as process from "process";
 
 export async function getRandomLineFromFile(filename:string) {
     const file = fs.readFileSync(filename)

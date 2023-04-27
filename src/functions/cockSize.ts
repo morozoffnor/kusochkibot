@@ -10,11 +10,7 @@ export class CockSize {
     async checkIfCockSizeAllowed(username:string) {
         const lastTime = await getLastCockSizeUsageByUsername(username)
         if (lastTime) {
-            if (new Date().valueOf() - lastTime.valueOf() < config.cockSizeUsageCooldown) {
-                return false
-            } else {
-                return true
-            }
+            return new Date().valueOf() - lastTime.valueOf() >= config.cockSizeUsageCooldown;
         } else {
             return true
         }
