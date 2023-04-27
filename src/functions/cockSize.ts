@@ -1,5 +1,6 @@
-import {getLastCockSizeUsageByUsername} from "../database/dbnew";
+import {getLastCockSizeUsageByUsername, insertQuery} from "../database/dbnew";
 import {config} from "../config";
+import {CockNames} from "./cockNames";
 
 export class CockSize {
     async getCockSize() {
@@ -17,5 +18,12 @@ export class CockSize {
         } else {
             return true
         }
+    }
+
+    async constructCockMessage(username:string) {
+        const cockNames = new CockNames()
+        const s = await this.getCockSize()
+        await insertQuery(username,parseFloat(s))
+        return await cockNames.getRandomCockName() + " у меня " + s.toString() + "см"
     }
 }

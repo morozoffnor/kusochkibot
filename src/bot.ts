@@ -1,17 +1,23 @@
-import { Telegraf } from 'telegraf';
+import {Telegraf} from 'telegraf';
 import {CockSize} from "./functions/cockSize";
 import {CockNames} from './functions/cockNames'
 import * as console from "console";
-import {constructCockMessage} from "./functions/constructCockMessage";
 import {
+  addAttempt,
+  addWin,
+  changeSizesOnWin,
+  deleteQueries,
+  getAttempts,
+  getCockSizeByUsername,
   getLastCockSizeUsageByUsername,
   getLastQueryByUser,
   getWinner,
-  insertNewCock, changeSizesOnWin,
-  updateCockSize, getCockSizeByUsername, addAttempt, getAttempts, deleteQueries, addWin
+  insertNewCock,
+  updateCockSize
 } from "./database/dbnew";
 
 import {config} from "./config";
+
 const cron = require('node-cron');
 const bot = new Telegraf(config.botToken!);
 const cockNames = new CockNames()
@@ -34,8 +40,7 @@ bot.command('setcooldown', async (ctx) => {
   let text = ctx.message.text.split(' ')
   text.shift()
   try {
-    const cooldown = Number.parseFloat(text.join(''))
-    config.cockSizeUsageCooldown = cooldown
+    config.cockSizeUsageCooldown = Number.parseFloat(text.join(''))
     await ctx.reply('Кулдаун был изменён на ' + config.cockSizeUsageCooldown, {reply_to_message_id : ctx.message.message_id})
   } catch (e) {
     await ctx.reply('Ошибка при изменении кулдауна', {reply_to_message_id : ctx.message.message_id})
@@ -45,7 +50,7 @@ bot.command('setcooldown', async (ctx) => {
 
 bot.on('inline_query', async ctx => {
   const cz = new CockSize()
-  let size = await constructCockMessage(ctx.from.username!)
+  let size = await cz.constructCockMessage(ctx.from.username!)
   // console.log(size)
   let newArr = [];
   if (await cz.checkIfCockSizeAllowed(ctx.from.username!)) {
