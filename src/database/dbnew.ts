@@ -257,3 +257,20 @@ export async function getTopThree() {
         .limit(3)
         .executeSelectMany()
 }
+
+export async function addCockName(cockname:string, author:string) {
+    const connection = new DBConnection(new ConsoleLogQueryRunner(new Sqlite3QueryRunner(db)))
+    try {
+        await connection
+            .insertInto(tCockNames)
+            .set({
+                cockName: cockname,
+                addedBy: author,
+                addedOn: connection.const(new Date(Date.now()), 'localDateTime'),
+                timesUsed: 0
+            })
+            .executeInsert()
+    } catch (e) {
+        console.log(e)
+    }
+}

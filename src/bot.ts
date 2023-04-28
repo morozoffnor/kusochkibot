@@ -3,7 +3,7 @@ import {CockSize} from "./functions/cockSize";
 import {CockNames} from './functions/cockNames'
 import * as console from "console";
 import {
-  addAttempt,
+  addAttempt, addCockName,
   addWin,
   changeSizesOnWin,
   deleteQueries,
@@ -31,6 +31,11 @@ bot.command('addcockname', async (ctx) => {
   let name = text.join(' ')
   if (name.length < 1) {
     await ctx.reply('Invalid cock name, ' + await cockNames.getRandomCockName(), {reply_to_message_id : ctx.message.message_id});
+    try {
+      await addCockName(name, ctx.from.username!)
+    } catch (e) {
+      console.log(e)
+    }
     return
   }
   await cockNames.addCockName(name)
