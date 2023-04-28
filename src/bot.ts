@@ -3,7 +3,7 @@ import {CockSize} from "./functions/cockSize";
 import {CockNames} from './functions/cockNames'
 import * as console from "console";
 import {
-  addAttempt,
+  addAttempt, addCockName,
   addWin,
   changeSizesOnWin,
   deleteQueries,
@@ -17,7 +17,7 @@ import {
 } from "./database/dbnew";
 
 import {config} from "./config";
-import {message} from "telegraf/filters";
+import {importNames} from "./functions/insertFileToDB";
 import {winnerAnnouncement} from "./resources/messages/winnerAnnouncement";
 
 const cron = require('node-cron');
@@ -31,6 +31,11 @@ bot.command('addcockname', async (ctx) => {
   let name = text.join(' ')
   if (name.length < 1) {
     await ctx.reply('Invalid cock name, ' + await cockNames.getRandomCockName(), {reply_to_message_id : ctx.message.message_id});
+    try {
+      await addCockName(name, ctx.from.username!)
+    } catch (e) {
+      console.log(e)
+    }
     return
   }
   await cockNames.addCockName(name)
@@ -49,6 +54,10 @@ bot.command('setcooldown', async (ctx) => {
     console.log(e)
   }
 });
+
+bot.command('insert', async (ctx) => {
+  await importNames(process.cwd() + "/resources/cocknames.txt")
+})
 
 bot.on('inline_query', async ctx => {
   const cz = new CockSize()

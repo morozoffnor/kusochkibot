@@ -28,8 +28,8 @@ export async function winnerAnnouncement():Promise<string> {
         `2. @${second.username}: ${second.minSize}\n` +
         `3. @${third.username}: ${third.minSize}\n` +
         '\n' +
-        `${winner.username} попытал удачу ${winner.attempts} раз(а) и смог прийти к успеху!\n ` +
-        `До этого он побеждал ${winner.wins} раз(а).`
+        `@${winner.username} попытал удачу *${winner.attempts}* раз(а) и смог прийти к успеху!\n ` +
+        `До этого он побеждал *${winner.wins}* раз(а).`
 
     return message
 }
