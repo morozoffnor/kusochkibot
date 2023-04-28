@@ -6,10 +6,6 @@ on:
       - 'develop'
       - 'release/**'
   workflow_dispatch:
-  pull_request:
-    branches:
-      - 'release/**'
-      - 'develop'
 
 jobs:
   build:

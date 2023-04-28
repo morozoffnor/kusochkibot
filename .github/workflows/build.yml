@@ -1,0 +1,22 @@
+name: Build
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches:
+      - 'release/**'
+      - 'develop'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout project
+        uses: actions/checkout@v3
+      - name: Install dependencies
+        run: npm install --save-dev
+      - name: Install types
+        run: npm i --save-dev @types/node
+      - name: Install typescript
+        run: npm install -g typescript
+      - name: Build
+        run: tsc
