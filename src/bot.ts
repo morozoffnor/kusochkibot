@@ -18,6 +18,7 @@ import {
 
 import {config} from "./config";
 import {importNames} from "./functions/insertFileToDB";
+import {winnerAnnouncement} from "./resources/messages/winnerAnnouncement";
 
 const cron = require('node-cron');
 const bot = new Telegraf(config.botToken!);
@@ -116,8 +117,9 @@ cron.schedule('0 0 0 * * *', function() {
     if (winner.attempts == 0) {
       return
     }
+    let message = await winnerAnnouncement()
     try {
-      await bot.telegram.sendMessage(config.chatId, 'Победитель этого дня - @'+winner.username+'! \nКол-во попыток: '+winner.attempts.toString()+'\nТеперь можно с уверенностью сказать мужикам: "'+cock+' у меня '+winner.minSize+'"')
+      await bot.telegram.sendMessage(config.chatId, message, { parse_mode: "Markdown" })
           .then(async () => {
             await changeSizesOnWin()
             await addWin(winner.username)

@@ -241,3 +241,19 @@ export async function insertName(cockname:string, addedBy:string) {
         })
         .executeInsert()
 }
+
+
+export async function getTopThree() {
+    const connection = new DBConnection(new ConsoleLogQueryRunner(new Sqlite3QueryRunner(db)))
+    return await connection
+        .selectFrom(tCockSize)
+        .select({
+            username: tCockSize.username,
+            minSize: tCockSize.minSize,
+            attempts: tCockSize.attempts,
+            wins: tCockSize.wins
+        })
+        .orderBy(tCockSize.minSize, 'asc')
+        .limit(3)
+        .executeSelectMany()
+}
