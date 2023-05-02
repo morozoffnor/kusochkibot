@@ -41,7 +41,7 @@ bot.command('addcockname', async (ctx) => {
   await cockNames.addCockName(name)
 
   // Using context shortcut
-  await ctx.reply('done', {reply_to_message_id : ctx.message.message_id});
+  await ctx.reply('Теперь я знаю больше', {reply_to_message_id : ctx.message.message_id});
 });
 bot.command('setcooldown', async (ctx) => {
   let text = ctx.message.text.split(' ')
@@ -112,6 +112,13 @@ bot.on('chosen_inline_result', async ctx => {
     console.log('You chosed an inline query result 1');
   }
 });
+
+bot.on('message', async ctx =>{
+  let i = Math.random()
+  if (i < 0.05) {
+    await ctx.reply('Теперь я знаю чуть больше', {reply_to_message_id : ctx.message.message_id})
+  }
+})
 
 
 cron.schedule('0 0 0 * * *', function() {
