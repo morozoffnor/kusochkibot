@@ -114,8 +114,7 @@ bot.on('chosen_inline_result', async ctx => {
 });
 
 bot.on('message', async ctx =>{
-  let i = Math.random()
-  if (i < 0.05) {
+  if (Math.random() < 0.005) {
     await ctx.reply('Теперь я знаю чуть больше', {reply_to_message_id : ctx.message.message_id})
   }
 })
@@ -125,7 +124,6 @@ cron.schedule('0 0 0 * * *', function() {
   console.log('running a task every minute');
   const i = async function() {
     const winner = await getWinner()
-    const cock = await cockNames.getRandomCockName()
     if (winner.attempts == 0) {
       return
     }
