@@ -41,7 +41,7 @@ bot.command('addcockname', async (ctx) => {
   await cockNames.addCockName(name)
 
   // Using context shortcut
-  await ctx.reply('Теперь я знаю больше', {reply_to_message_id : ctx.message.message_id});
+  await ctx.reply('Запомнил эту хуйню', {reply_to_message_id : ctx.message.message_id});
 });
 bot.command('setcooldown', async (ctx) => {
   let text = ctx.message.text.split(' ')
@@ -114,8 +114,12 @@ bot.on('chosen_inline_result', async ctx => {
 });
 
 bot.on('message', async ctx =>{
-  if (Math.random() < 0.005) {
-    await ctx.reply('Теперь я знаю чуть больше', {reply_to_message_id : ctx.message.message_id})
+  if (Math.random() < 0.01) {
+    if (Math.random() < 0.5) {
+      await ctx.reply('Понты', {reply_to_message_id : ctx.message.message_id})
+    } else {
+      await ctx.reply('Теперь я знаю чуть больше', {reply_to_message_id : ctx.message.message_id})
+    }
   }
 })
 
