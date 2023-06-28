@@ -23,13 +23,13 @@ export async function winnerAnnouncement():Promise<string> {
         }
     }
 
-    const message:string = "*Настало время огласить победителей!*\n" +
+    const message:string = "<b>Настало время огласить победителей!</b>\n" +
         `1. @${winner.username}: ${winner.minSize} 🏆\n` +
         `2. @${second.username}: ${second.minSize}\n` +
         `3. @${third.username}: ${third.minSize}\n` +
         '\n' +
-        `@${winner.username} попытал удачу *${winner.attempts}* раз(а) и смог прийти к успеху!\n ` +
-        `До этого он побеждал *${winner.wins}* раз(а).`
+        `@${winner.username} попытал удачу <b>${winner.attempts}</b> раз(а) и смог прийти к успеху!\n ` +
+        `До этого он побеждал <b>${winner.wins}</b> раз(а).`
 
     return message
 }

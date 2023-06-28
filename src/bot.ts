@@ -133,7 +133,7 @@ cron.schedule('0 0 0 * * *', function() {
     }
     let message = await winnerAnnouncement()
     try {
-      await bot.telegram.sendMessage(config.chatId, message, { parse_mode: "Markdown" })
+      await bot.telegram.sendMessage(config.chatId, message, { parse_mode: "HTML" })
           .then(async () => {
             await changeSizesOnWin()
             await addWin(winner.username)
