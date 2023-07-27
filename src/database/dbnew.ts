@@ -253,6 +253,7 @@ export async function getTopThree() {
             attempts: tCockSize.attempts,
             wins: tCockSize.wins
         })
+        .where(tCockSize.minSize.lessThan(100))
         .orderBy(tCockSize.minSize, 'asc')
         .limit(3)
         .executeSelectMany()
