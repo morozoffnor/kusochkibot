@@ -24,6 +24,15 @@ const cron = require('node-cron');
 const bot = new Telegraf(config.botToken!);
 const cockNames = new CockNames()
 
+const mongoose = require('mongoose');
+
+async function connectMongo() {
+  await mongoose.connect('mongodb://127.0.0.1:27017/test')
+}
+
+connectMongo()
+
+
 bot.command('addcockname', async (ctx) => {
   let text = ctx.message.text.split(' ')
   text.shift()
