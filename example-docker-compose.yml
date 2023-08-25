@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+  mongo:
+    container_name: mongo
+    image: mongo
+    restart: always
+    ports:
+      - '27017:27017'
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=bot
+      - MONGO_INITDB_ROOT_PASSWORD=kuski
+      - MONGO_INITDB_DATABASE=kusoki
+    volumes:
+      - PATH TO RESOURCES:/data/resources
+      - PATH TO DATA:/data/db
+  kuski:
+    container_name: kuski
+    image: morozoffnor/kusochkibot:latest
+    restart: always
+    depends_on:
+      - mongo
+    environment:
+      - TZ=Europe/Moscow
+      - CHATID=TELEGRAM CHAT ID
+      - PRIZEEVERY="0 0 0 * * *"
+      - COCKSIZECOOLDOWN=3600000
+      - BOTTOKEN=TELEGRAM BOT TOKEN
+      - MONGOURL=mongodb://bot:kuski@mongo:27017/kuski
+      - OPENAPITOKEN=
+    volumes:
+      - PATH TO RESOURCES:/usr/src/app/resources
