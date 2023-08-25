@@ -1,7 +1,6 @@
-import {Telegraf} from "telegraf";
 import {getRandomName} from "./generator/namesGenerator.mjs";
 import {getRandomSize} from "./generator/mainSizeGenerator.mjs";
-import {createQuery, getLastAttempt, getLastQuery, getTopThreeUsers, getUserById} from "../database/database.mjs";
+import {createQuery, getLastAttempt, getLastQuery, getUserById} from "../database/database.mjs";
 import {createNewUser} from "../tools/createNewUser.mjs";
 import {config} from "../config.mjs";
 
@@ -22,7 +21,7 @@ export async function createInline(ctx)  {
 
 async function answerInline(ctx) {
     const lastAttempt = await getLastAttempt(ctx.from.id)
-    const query = await createQuery({
+    await createQuery({
         userId: ctx.from.id,
         size: await getRandomSize(),
         cockName: await getRandomName(),

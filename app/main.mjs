@@ -1,66 +1,33 @@
 import {Telegraf} from "telegraf";
 // const {createInline} = require('app/sizes/inlineQuery.mjs')
 import {createInline} from "./sizes/inlineQuery.mjs"
-import {connect, createDay, createNewName, createQuery} from "./database/database.mjs";
+import {connect, createNewName} from "./database/database.mjs";
 import {createNewDay, initDays} from "./sizes/days/createNewDay.mjs";
 import cron from "node-cron";
-import {getRandomSize} from "./sizes/generator/mainSizeGenerator.mjs";
-import {getRandomName} from "./sizes/generator/namesGenerator.mjs";
 import {addAttempt} from "./sizes/inlineResult.mjs";
 import {config} from "./config.mjs";
 import console from "console";
 import {getTopThree} from "./sizes/results.mjs";
 import {sizesCleanup} from "./sizes/clearUpSizes.mjs";
 
+// connect to DB
 await connect()
 
-
-
-// const attemptData = {
-//     userid: 12351551521,
-//     userName: 'test', cockName: 'testbot', size: 123214, time: new Date()}
 
 export const bot = new Telegraf(config.botToken)
 await initDays()
 bot.start((ctx) => ctx.reply('Welcome'))
-// bot.help((ctx) => {
-//     ctx.reply('Send me a sticker')
-//     console.log(`chat id: ${ctx.chat.id}`)
-// })
-// bot.on('sticker', (ctx) => ctx.reply('👍'))
 
 bot.on('inline_query', async ctx => {
     await createInline(ctx)
-    // const attemptData = {
-    //     userid: ctx.from.id,
-    //     userName: ctx.from.username,
-    //     cockName: await getRandomName(),
-    //     size: await getRandomSize(),
-    //     time: Date.now()
-    // }
-    // console.log(attemptData)
-    // await createQuery({
-    //     userId: ctx.from.id,
-    //     size: await getRandomSize(),
-    //     cockName: await getRandomName(),
-    //     time: Date.now()
-    // })
 });
 
-// await createNewName({
-//     title: await getRandomSize(),
-//     addedAt: Date.now(),
-//     addedBy: 1
-// })
 
 bot.on('chosen_inline_result', async ctx => {
     await addAttempt(ctx)
 })
 
-// bot.on('chosen_inline_result', async ctx => {
-//
-// })
-bot.hears('hi', (ctx) => ctx.reply('Hey there'))
+bot.hears('Понты', (ctx) => ctx.reply('Точно понты'))
 
 bot.command('addcockname', async (ctx) => {
     let text = ctx.message.text.split(' ')
@@ -89,14 +56,6 @@ bot.command('addcockname', async (ctx) => {
 
 cron.schedule('0 0 0 * * *', async function() {
 // prod 0 0 0 * * *
-//     await createNewDay()
-//     console.log('new day')
-//     await createNewName({
-//         title: await getRandomSize(),
-//         addedAt: Date.now(),
-//         addedBy: 1
-//     })
-//     console.log('new name')
     await getTopThree().then(async () => {
         await sizesCleanup()
         await createNewDay()

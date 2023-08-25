@@ -5,10 +5,6 @@ const DaySchema = new Schema({
     attempts: []
 });
 
-DaySchema.method.getTopThree = function getTopThree() {
-    const att = this.attempts
-
-}
 
 DaySchema.method.addAttempt = async function(attemptData) {
   this.attempts.push(attemptData)

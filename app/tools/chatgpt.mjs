@@ -17,6 +17,3 @@ export async function getResultString(username, size) {
   console.log(response)
   return response
 }
-
-
-// getResultString('igormorozovv', 1.043)
