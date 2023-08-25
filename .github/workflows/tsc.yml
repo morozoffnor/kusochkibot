@@ -15,12 +15,6 @@ jobs:
         uses: actions/checkout@v3
       - name: Install dependencies
         run: npm install --save-dev
-      - name: Install types
-        run: npm i --save-dev @types/node
-      - name: Install typescript
-        run: npm install -g typescript
-      - name: Build
-        run: tsc
       - name: Login to Docker Hub
         uses: docker/login-action@v2
         with:
@@ -33,18 +27,18 @@ jobs:
           docker buildx build --push \
             --tag ${{ secrets.DOCKERHUB_USERNAME }}/kusochkibot:latest \
             --platform linux/amd64,linux/arm/v7,linux/arm64 .
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - id: ssh
-        uses: invi5H/ssh-action@v1
-        with:
-          SSH_HOST: ${{ secrets.SSH_HOST }}
-          SSH_PORT: ${{ secrets.SSH_PORT }}
-          SSH_USER: ${{ secrets.SSH_USER }}
-          SSH_KEY: ${{ secrets.SSH_KEY }}
-      - run: ssh ${{ steps.ssh.outputs.SERVER }} pwd
-      - run: ssh ${{ steps.ssh.outputs.SERVER }} docker pull morozoffnor/kusochkibot
-      - run: ssh ${{ steps.ssh.outputs.SERVER }} 'cd /home/${{ secrets.SSH_USER }}/containers/kusochkibot && docker-compose up -d'
+#  deploy:
+#    needs: build
+#    runs-on: ubuntu-latest
+#    steps:
+#      - id: ssh
+#        uses: invi5H/ssh-action@v1
+#        with:
+#          SSH_HOST: ${{ secrets.SSH_HOST }}
+#          SSH_PORT: ${{ secrets.SSH_PORT }}
+#          SSH_USER: ${{ secrets.SSH_USER }}
+#          SSH_KEY: ${{ secrets.SSH_KEY }}
+#      - run: ssh ${{ steps.ssh.outputs.SERVER }} pwd
+#      - run: ssh ${{ steps.ssh.outputs.SERVER }} docker pull morozoffnor/kusochkibot
+#      - run: ssh ${{ steps.ssh.outputs.SERVER }} 'cd /home/${{ secrets.SSH_USER }}/containers/kusochkibot && docker-compose up -d'
 
