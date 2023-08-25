@@ -60,6 +60,11 @@ export async function createNewName(nameData) {
   await name.save()
 }
 
+export async function getNames() {
+  const q = await Name.findOne()
+  return q.exec()
+}
+
 // Users
 export async function getUserById(userid) {
   const query = User.findOne({userid: userid})
