@@ -7,3 +7,5 @@ lib
 .idea
 tsconfig.tsbuildinfo
 src/.env
+docker-compose.yml
+data

@@ -1,9 +1,8 @@
-import {createAttempt, getCurrentDay, getLastAttempt, getLastQuery, getUserById} from "../database/database.mjs";
+import {createAttempt, getCurrentDay, getLastAttempt, getLastQuery} from "../database/database.mjs";
 import {processUserSize} from "./profileSizeUpdater.mjs";
 
 
 export const addAttempt = async function(ctx) {
-  const username = ctx.from.username
   if (ctx.chosenInlineResult.result_id === '0') {
     const lastQuery = await getLastQuery(ctx.from.id)
     console.log('last' + lastQuery)

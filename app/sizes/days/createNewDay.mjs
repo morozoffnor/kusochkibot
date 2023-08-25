@@ -1,4 +1,3 @@
-import {Day} from '../../database/Schemas/Day.mjs'
 import {createDay, getCurrentDay} from "../../database/database.mjs";
 
 export async function createNewDay() {
@@ -28,4 +27,3 @@ export async function initDays() {
   }
 }
 
-//// get TZ right

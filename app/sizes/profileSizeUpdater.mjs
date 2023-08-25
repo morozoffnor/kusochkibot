@@ -6,8 +6,12 @@ export async function processUserSize(userid, size) {
   console.log(user)
   if (!user.cockStats.currentSize) {
     user.cockStats.currentSize = size
-    user.cockStats.lowestSize = size
-    user.cockStats.highestSize = size
+    if (!user.cockStats.highestSize) {
+      user.cockStats.highestSize = size
+    }
+    if (!user.cockStats.lowestSize) {
+      user.cockStats.lowestSize = size
+    }
     await user.save()
   } else {
     if (user.cockStats.currentSize > size) {

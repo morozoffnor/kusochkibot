@@ -1,4 +1,4 @@
-import {getCurrentDay, getTopThreeUsers} from "../database/database.mjs";
+import {getTopThreeUsers} from "../database/database.mjs";
 import {config} from "../config.mjs";
 import {bot} from "../main.mjs";
 import {getResultString} from "../tools/chatgpt.mjs";

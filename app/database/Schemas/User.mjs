@@ -1,4 +1,4 @@
-import { Schema, model, connect } from 'mongoose';
+import { Schema, model } from 'mongoose';
 import {AttemptSchema} from "./Attempt.mjs";
 
 const UserSchema = new Schema({

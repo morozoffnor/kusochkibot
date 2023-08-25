@@ -6,13 +6,6 @@ import {Query} from "./Schemas/Query.mjs";
 import {Name} from "./Schemas/Name.mjs";
 import {User} from "./Schemas/User.mjs"
 
-// global.mongoose = mongoose
-
-const attemptData = {
-  userid: 12351551521,
-  userName: 'test', cockName: 'testbot', size: 123214, time: new Date()}
-
-
 connect().catch(err => console.log(err))
 export async function connect() {
   await mongoose.connect(config.mongoUrl, {
@@ -22,8 +15,7 @@ export async function connect() {
     authSource: "admin"
   });
 }
-// mongodb://bot:kuski@localhost:27017/kusoki
-// mongodb://root:example@localhost:27017/?authMechanism=DEFAULT
+
 // Queries
 export async function createQuery(queryData) {
   const query = new Query(queryData)
