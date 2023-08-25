@@ -1,5 +1,6 @@
 import {Name} from "../../database/Schemas/Name.mjs";
 import {migrateNames} from "../../database/migration.mjs";
+import {getNames} from "../../database/database.mjs";
 
 export async function getRandomName() {
   const count = await Name.count()
@@ -11,9 +12,9 @@ export async function getRandomName() {
 
 export async function initNames(){
   const count = await Name.count()
-  if (count > 0) {
-    return
-  } else {
+  if (await getNames() == null) {
     await migrateNames()
+  } else {
+    return
   }
 }
