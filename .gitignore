@@ -8,3 +8,4 @@ lib
 tsconfig.tsbuildinfo
 src/.env
 docker-compose.yml
+data

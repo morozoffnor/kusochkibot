@@ -1,5 +1,4 @@
 import {Telegraf} from "telegraf";
-// const {createInline} = require('app/sizes/inlineQuery.mjs')
 import {createInline} from "./sizes/inlineQuery.mjs"
 import {connect, createNewName} from "./database/database.mjs";
 import {createNewDay, initDays} from "./sizes/days/createNewDay.mjs";
@@ -9,6 +8,7 @@ import {config} from "./config.mjs";
 import console from "console";
 import {getTopThree} from "./sizes/results.mjs";
 import {sizesCleanup} from "./sizes/clearUpSizes.mjs";
+import {initNames} from "./sizes/generator/namesGenerator.mjs";
 
 // connect to DB
 await connect()
@@ -16,6 +16,7 @@ await connect()
 
 export const bot = new Telegraf(config.botToken)
 await initDays()
+await initNames()
 bot.start((ctx) => ctx.reply('Welcome'))
 
 bot.on('inline_query', async ctx => {

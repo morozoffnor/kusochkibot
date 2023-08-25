@@ -1,8 +1,8 @@
 import fs from "fs";
 import {createNewName} from "./database.mjs";
 
-export async function fileToJson() {
-  const file = fs.readFileSync('/Users/igormorozov/Downloads/cocknames.txt')
+export async function migrateNames() {
+  const file = fs.readFileSync('resources/cocknames.txt')
   const str = file.toString()
   const lines = str.split('\n')
   for (let i = 0; i < lines.length; i++) {
@@ -14,5 +14,3 @@ export async function fileToJson() {
     console.log('added ' + lines[i])
   }
 }
-
-// fileToJson()
