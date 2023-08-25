@@ -26,7 +26,7 @@ jobs:
         run: |
           docker buildx build --push \
             --tag ${{ secrets.DOCKERHUB_USERNAME }}/kusochkibot:latest \
-            --platform linux/amd64 .
+            --platform linux/amd64, linux/arm64 .
 #  deploy:
 #    needs: build
 #    runs-on: ubuntu-latest
