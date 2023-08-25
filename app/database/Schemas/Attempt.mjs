@@ -1,7 +1,7 @@
 import { Schema, model, connect } from 'mongoose';
 
 
-const AttemptSchema = new Schema({
+export const AttemptSchema = new Schema({
     userid: {type: Number, required: true},
     userName: {type: String, required: true},
     cockName: {type: String, required: true},
@@ -9,6 +9,11 @@ const AttemptSchema = new Schema({
     time: {type: Date, required: true}
 });
 
-const Attempt = model('Attempt', AttemptSchema);
+AttemptSchema.method.getNameAndSize = function add(){
+    return {
+        name: this.cockName,
+        size: this.size
+    }
+}
 
-module.exports = Attempt
+export const Attempt = model('Attempt', AttemptSchema);

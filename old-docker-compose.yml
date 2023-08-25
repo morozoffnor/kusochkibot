@@ -1,0 +1,16 @@
+version: '2.1'
+
+services:
+  notes:
+    image: morozoffnor/kusochkibot
+    container_name: kuski
+    environment:
+      - TZ=Europe/Moscow
+      - TOKEN=6264596120:AAEte8F_Tw1zlAbLvYi92legxCGeCX9s4_k_not_valid
+      - COCKSIZECOOLDOWN=3600000
+      - PRIZEEVERY='* * * *'
+      - CHATID=-1001945633693
+    volumes:
+      - /home/igoryan/containers/kusochkibot/db:/usr/src/app/db
+      - /home/igoryan/containers/kusochkibot/resources/cocknames.txt:/usr/src/app/resources/cocknames.txt
+    restart: always

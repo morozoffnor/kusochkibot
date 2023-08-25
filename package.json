@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "chatgpt": "^5.2.5",
     "dotenv": "^16.0.3",
     "node-fetch": "^3.3.2",
     "sqlite3": "^5.1.6",
@@ -19,7 +20,7 @@
     "typescript": "^5.0.4"
   },
   "devDependencies": {
-    "mongoose": "^7.3.1",
+    "mongoose": "^7.4.3",
     "node-cron": "^3.0.2"
   }
 }

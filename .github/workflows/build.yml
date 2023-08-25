@@ -14,9 +14,3 @@ jobs:
         uses: actions/checkout@v3
       - name: Install dependencies
         run: npm install --save-dev
-      - name: Install types
-        run: npm i --save-dev @types/node
-      - name: Install typescript
-        run: npm install -g typescript
-      - name: Build
-        run: tsc

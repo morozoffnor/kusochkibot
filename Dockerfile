@@ -3,6 +3,6 @@ LABEL authors="igormorozov"
 WORKDIR /usr/src/app
 COPY package*.json ./
 RUN npm install
-COPY /pub .
+COPY /app .
 
-ENTRYPOINT ["node", "bot.js"]
+ENTRYPOINT ["node", "main.mjs"]

@@ -1,11 +1,17 @@
-const mongoose = require('mongoose');
-const Attempt = require('Attempt')
+import { Schema, model } from 'mongoose';
 
-const DaySchema = new mongoose.Schema({
+const DaySchema = new Schema({
     date: Date,
-    attempts: [Attempt]
+    attempts: []
 });
 
-const Day = mongoose.model('Day', DaySchema);
+DaySchema.method.getTopThree = function getTopThree() {
+    const att = this.attempts
 
-module.exports = Day
+}
+
+DaySchema.method.addAttempt = async function(attemptData) {
+  this.attempts.push(attemptData)
+}
+
+ export const Day = model('Day', DaySchema);
