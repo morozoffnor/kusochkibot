@@ -61,8 +61,8 @@ export async function createNewName(nameData) {
 }
 
 export async function getNames() {
-  const q = await Name.findOne()
-  return q.exec()
+
+  return await Name.findOne({}).exec()
 }
 
 // Users
