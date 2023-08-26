@@ -6,6 +6,10 @@ import {getResultString} from "../tools/chatgpt.mjs";
 
 async function postResultsWith3(users) {
   console.log('winner: ' + users[0].userName)
+  let winner = users[0]
+  winner.cockStats.wins = winner.cockStats.wins + 1
+  await winner.save()
+
   getResultString(users[0].userName, users[0].cockStats.currentSize).then(async (story) => {
     const message =
       `Настало время огласить победителей!\n` +
@@ -19,6 +23,9 @@ async function postResultsWith3(users) {
 
 async function postResultsWith2(users) {
   console.log('winner: ' + users[0].userName)
+  let winner = users[0]
+  winner.cockStats.wins = winner.cockStats.wins + 1
+  await winner.save()
 
   getResultString(users[0].userName, users[0].cockStats.currentSize).then(async (story) => {
     const message =
@@ -32,6 +39,10 @@ async function postResultsWith2(users) {
 
 async function postResultsWith1(users) {
   console.log('winner: ' + users[0].userName)
+  let winner = users[0]
+  winner.cockStats.wins = winner.cockStats.wins + 1
+  await winner.save()
+
   getResultString(users[0].userName, users[0].cockStats.currentSize).then(async (story) => {
     const message =
       `Настало время огласить победителей!\n` +
