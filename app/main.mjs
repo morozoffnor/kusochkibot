@@ -23,6 +23,10 @@ bot.on('inline_query', async ctx => {
     await createInline(ctx)
 });
 
+bot.on('message', async ctx => {
+    console.log(ctx.chat.id)
+})
+
 
 bot.on('chosen_inline_result', async ctx => {
     await addAttempt(ctx)
