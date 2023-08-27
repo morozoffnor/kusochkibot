@@ -1,3 +1,5 @@
+name: Build and push (tag)
+
 on:
   workflow_dispatch:
     inputs:
