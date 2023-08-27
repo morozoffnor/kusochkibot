@@ -42,6 +42,10 @@ export async function getLastAttempt(userid) {
   return await query.exec();
 }
 
+export async function getAttemptsCountByUser(userid) {
+  return await Attempt.countDocuments({userid: userid}).exec()
+}
+
 // Days
 export async function createDay(dayData) {
   const day = new Day(dayData)
