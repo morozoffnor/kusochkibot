@@ -41,6 +41,8 @@ bot.command('addcockname', async (ctx) => {
     let name = text.join(' ')
     if (name.length < 1) {
         await ctx.reply('Не правильно, попробуй ещё раз...', {reply_to_message_id : ctx.message.message_id});
+        return
+    } else {
         try {
             await createNewName({
                 title: name,
@@ -51,7 +53,6 @@ bot.command('addcockname', async (ctx) => {
             console.log(e)
             await ctx.reply('Произошла какая-то хуйня и я не смог то, что должен был смочь. НЕ СМОГ Я ЧЕГО ПРИСТАЛИ БЛЯТЬ', {reply_to_message_id : ctx.message.message_id});
         }
-        return
     }
 
     // Using context shortcut
