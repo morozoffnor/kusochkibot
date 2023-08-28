@@ -10,6 +10,7 @@ import {getTopThree} from "./sizes/results.mjs";
 import {sizesCleanup} from "./sizes/clearUpSizes.mjs";
 import {initNames} from "./sizes/generator/namesGenerator.mjs";
 import {addName} from "./commands/addName.mjs";
+import {help} from "./commands/help.mjs";
 
 // connect to DB
 await connect()
@@ -25,8 +26,11 @@ bot.on('inline_query', async ctx => {
 });
 
 bot.on('message', async (ctx, next) => {
-    console.log(ctx.message.text)
     next()
+})
+
+bot.help(async (ctx) =>{
+    await help(ctx)
 })
 
 
