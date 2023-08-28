@@ -68,6 +68,10 @@ export async function getNames() {
   return await Name.findOne({}).exec()
 }
 
+export async function getName(title) {
+  return await Name.findOne({title: title}).exec()
+}
+
 // Users
 export async function getUserById(userid) {
   const query = User.findOne({userid: userid})

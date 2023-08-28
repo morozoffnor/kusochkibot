@@ -1,6 +1,6 @@
 import {Telegraf} from "telegraf";
 import {createInline} from "./sizes/inlineQuery.mjs"
-import {connect, createNewName} from "./database/database.mjs";
+import {connect} from "./database/database.mjs";
 import {createNewDay, initDays} from "./sizes/days/createNewDay.mjs";
 import cron from "node-cron";
 import {addAttempt} from "./sizes/inlineResult.mjs";
@@ -9,6 +9,7 @@ import console from "console";
 import {getTopThree} from "./sizes/results.mjs";
 import {sizesCleanup} from "./sizes/clearUpSizes.mjs";
 import {initNames} from "./sizes/generator/namesGenerator.mjs";
+import {addName} from "./commands/addName.mjs";
 
 // connect to DB
 await connect()
@@ -23,8 +24,9 @@ bot.on('inline_query', async ctx => {
     await createInline(ctx)
 });
 
-bot.on('message', async ctx => {
-
+bot.on('message', async (ctx, next) => {
+    console.log(ctx.message.text)
+    next()
 })
 
 
@@ -34,29 +36,8 @@ bot.on('chosen_inline_result', async ctx => {
 
 bot.hears('Понты', (ctx) => ctx.reply('Точно понты'))
 
-bot.command('addcockname', async (ctx) => {
-    let text = ctx.message.text.split(' ')
-    text.shift()
-    console.log(ctx.chat.id)
-    let name = text.join(' ')
-    if (name.length < 1) {
-        await ctx.reply('Не правильно, попробуй ещё раз...', {reply_to_message_id : ctx.message.message_id});
-        return
-    } else {
-        try {
-            await createNewName({
-                title: name,
-                addedAt: Date.now(),
-                addedBy: ctx.from.id
-            })
-        } catch (e) {
-            console.log(e)
-            await ctx.reply('Произошла какая-то хуйня и я не смог то, что должен был смочь. НЕ СМОГ Я ЧЕГО ПРИСТАЛИ БЛЯТЬ', {reply_to_message_id : ctx.message.message_id});
-        }
-    }
-
-    // Using context shortcut
-    await ctx.reply('Запомнил эту хуйню', {reply_to_message_id : ctx.message.message_id});
+bot.command('addname', async (ctx) => {
+    await addName(ctx)
 });
 
 
