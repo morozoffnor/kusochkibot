@@ -21,8 +21,12 @@ async function initSizes(user, size) {
 }
 
 async function updateSize(user, size) {
-  if (user.cockStats.currentSize > size) {
+  if (!user.cockStats.currentSize) {
     user.cockStats.currentSize = size
+  } else {
+    if (user.cockStats.currentSize > size) {
+      user.cockStats.currentSize = size
+  }
   }
   if (size < user.cockStats.lowestSize) {
     user.cockStats.lowestSize = size
