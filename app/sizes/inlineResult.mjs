@@ -5,7 +5,7 @@ import {processUserSize} from "./profileSizeUpdater.mjs";
 export const addAttempt = async function(ctx) {
   if (ctx.chosenInlineResult.result_id === '0') {
     const lastQuery = await getLastQuery(ctx.from.id)
-    console.log('last' + lastQuery)
+    // console.log('last' + lastQuery)
     await createAttempt({
         userid: ctx.from.id,
         userName: ctx.from.username,

@@ -65,7 +65,7 @@ async function answerInline(ctx) {
                     id: 2,
                     title: 'Stats',
                     description: 'штуки',
-                    input_message_content: {message_text: statsString}
+                    input_message_content: {message_text: statsString, parse_mode: 'HTML'}
                 }
             }
         }
