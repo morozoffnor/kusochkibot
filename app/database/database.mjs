@@ -19,7 +19,6 @@ export async function connect() {
 // Queries
 export async function createQuery(queryData) {
   const query = new Query(queryData)
-  console.log(query)
   await query.save()
 }
 export async function getLastQuery(userid) {
@@ -31,15 +30,19 @@ export async function getLastQuery(userid) {
 // Attempts
 export async function createAttempt(attemptData) {
   const attempt = new Attempt(attemptData)
-  // console.log(attempt)
+
   await attempt.save()
 }
 
 export async function getLastAttempt(userid) {
   const query = Attempt.findOne({userid: userid})
     .sort({time: -1})
-  // query.select('userName size cockName')
+
   return await query.exec();
+}
+
+export async function getAttemptsCountByUser(userid) {
+  return await Attempt.countDocuments({userid: userid}).exec()
 }
 
 // Days

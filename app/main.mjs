@@ -24,7 +24,7 @@ bot.on('inline_query', async ctx => {
 });
 
 bot.on('message', async ctx => {
-    console.log(ctx.chat.id)
+
 })
 
 
