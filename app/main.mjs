@@ -82,6 +82,10 @@ cron.schedule('0 0 0 * * *', async function() {
     })
 })
 
+cron.schedule('0 */15 * * * *', async function() {
+
+})
+
 bot.catch((err) => {
     console.log(`Ooops, encountered an error for `, err)
 })
