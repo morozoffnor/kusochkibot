@@ -11,6 +11,9 @@ import {sizesCleanup} from "./sizes/clearUpSizes.mjs";
 import {initNames} from "./sizes/generator/namesGenerator.mjs";
 import {addName} from "./commands/addName.mjs";
 import {help} from "./commands/help.mjs";
+import {message} from "telegraf/filters";
+import {collectStats} from "./stats/statsCollector.mjs";
+import {myStats} from "./commands/myStats.mjs";
 
 // connect to DB
 await connect()
@@ -25,8 +28,30 @@ bot.on('inline_query', async ctx => {
     await createInline(ctx)
 });
 
-bot.on('message', async (ctx, next) => {
-    next()
+// Bot triggers
+bot.on(message('voice'), async (ctx, next) => {
+    await collectStats(ctx.from.id, 'voice').then(next())
+})
+bot.on(message('text'), async (ctx, next) => {
+    await collectStats(ctx.from.id, 'text').then(next())
+})
+bot.on(message('video'), async (ctx, next) => {
+    await collectStats(ctx.from.id, 'video').then(next())
+})
+bot.on(message('video_note'), async (ctx, next) => {
+    await collectStats(ctx.from.id, 'video_note').then(next())
+})
+bot.on(message('poll'), async (ctx, next) => {
+    await collectStats(ctx.from.id, 'poll').then(next())
+})
+bot.on(message('via_bot'), async (ctx, next) => {
+    await collectStats(ctx.from.id, 'via_bot').then(next())
+})
+bot.on(message('sticker'), async (ctx, next) => {
+    await collectStats(ctx.from.id, 'sticker').then(next())
+})
+bot.on(message('photo'), async (ctx, next) => {
+    await collectStats(ctx.from.id, 'image').then(next())
 })
 
 bot.help(async (ctx) =>{
@@ -43,6 +68,10 @@ bot.hears('Понты', (ctx) => ctx.reply('Точно понты'))
 bot.command('addname', async (ctx) => {
     await addName(ctx)
 });
+
+bot.command('mystats', async (ctx) => {
+    await myStats(ctx)
+})
 
 
 cron.schedule('0 0 0 * * *', async function() {

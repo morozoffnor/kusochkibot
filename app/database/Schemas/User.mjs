@@ -12,6 +12,10 @@ const UserSchema = new Schema({
     imagesSent: {type: Number},
     voicesSent: {type: Number},
     stickersSent: {type: Number},
+    videosSent: {type: Number},
+    circlesSent: {type: Number},
+    pollsSent: {type: Number},
+    botUses: {type: Number}
   },
   cockStats: {
     currentSize: {type: Number},
