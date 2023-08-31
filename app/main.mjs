@@ -47,6 +47,12 @@ bot.on(message('poll'), async (ctx, next) => {
 bot.on(message('via_bot'), async (ctx, next) => {
     await collectStats(ctx.from.id, 'via_bot').then(next())
 })
+bot.on(message('sticker'), async (ctx, next) => {
+    await collectStats(ctx.from.id, 'sticker').then(next())
+})
+bot.on(message('photo'), async (ctx, next) => {
+    await collectStats(ctx.from.id, 'image').then(next())
+})
 
 bot.help(async (ctx) =>{
     await help(ctx)

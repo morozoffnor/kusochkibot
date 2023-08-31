@@ -14,7 +14,7 @@ export async function getUserStatsString(userid) {
     const botUses = user.stats.botUses === undefined ? 0 : user.stats.botUses
 
     return await formStatsString(
-      user.username,
+      user.userName,
       messagesSent,
       imagesSent,
       voicesSent,
@@ -37,7 +37,7 @@ export async function getUserStatsString(userid) {
     } = 0
 
     return await formStatsString(
-      user.username,
+      user.userName,
       messagesSent,
       imagesSent,
       voicesSent,
