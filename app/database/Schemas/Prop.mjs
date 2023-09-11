@@ -2,7 +2,8 @@ import { Schema, model } from 'mongoose';
 
 const PropSchema = new Schema({
   sizesCooldown: {type: Number},
-  latestChangelogTag: {type: String}
+  latestChangelogTag: {type: Number},
+  openAIIntegration: {type: Boolean}
 })
 
 export const Prop = model('Prop', PropSchema)

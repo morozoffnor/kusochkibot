@@ -6,5 +6,6 @@ export const config = {
   cockSizeUsageCooldown: Number.parseInt(process.env.COCKSIZECOOLDOWN),
   botToken: process.env.BOTTOKEN,
   mongoUrl: process.env.MONGOURL,
-  openAPItoken: process.env.OPENAPITOKEN
+  openAPItoken: process.env.OPENAPITOKEN,
+  openAIIntegration: true
 }
