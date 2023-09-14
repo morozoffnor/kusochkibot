@@ -20,3 +20,12 @@ async function createProperties() {
   })
   await prop.save()
 }
+
+async function getLastPostedChangelog() {
+  const properties = await getProperties()
+  if (!properties.latestChangelogTag) {
+    return 0
+  } else {
+    return parseInt(properties.latestChangelogTag)
+  }
+}
