@@ -3,7 +3,10 @@ import {config} from "../config.mjs";
 import {bot} from "../main.mjs";
 import {getResultString} from "../tools/chatgpt.mjs";
 
-
+/**
+ * Post result with 3 winners
+ * @param {Array} users
+ */
 async function postResultsWith3(users) {
   console.log('winner: ' + users[0].userName)
   let winner = users[0]
@@ -21,6 +24,10 @@ async function postResultsWith3(users) {
   })
 }
 
+/**
+ * Post result with 2 winners
+ * @param {Array} users
+ */
 async function postResultsWith2(users) {
   console.log('winner: ' + users[0].userName)
   let winner = users[0]
@@ -37,6 +44,10 @@ async function postResultsWith2(users) {
   })
 }
 
+/**
+ * Post result with only 1 winner
+ * @param {Array} users
+ */
 async function postResultsWith1(users) {
   console.log('winner: ' + users[0].userName)
   let winner = users[0]
@@ -53,8 +64,9 @@ async function postResultsWith1(users) {
 }
 
 
-
-
+/**
+ * Gets top 3 users and posts results in the chat
+ */
 export async function getTopThree() {
   const users = await getTopThreeUsers()
   console.log('users length ' + users.length)
@@ -82,5 +94,3 @@ export async function getTopThree() {
 
   }
 }
-
-// getTopThree()
