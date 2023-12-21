@@ -7,5 +7,22 @@ export const config = {
   botToken: process.env.BOTTOKEN,
   mongoUrl: process.env.MONGOURL,
   openAPItoken: process.env.OPENAPITOKEN,
-  openAIIntegration: true
+  openAIIntegration: parseBoolFromEnv()
+}
+
+function parseBoolFromEnv() {
+  const option = process.env.ENABLEOPENAI
+
+  switch (option) {
+    case "true":
+      return true
+    case "True":
+      return true
+    case "false":
+      return false
+    case "False":
+      return false
+    default:
+      return false
+  }
 }

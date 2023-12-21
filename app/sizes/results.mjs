@@ -3,6 +3,8 @@ import {config} from "../config.mjs";
 import {bot} from "../main.mjs";
 import {getResultString} from "../tools/chatgpt.mjs";
 
+const chatGPTEnabled = config.openAIIntegration
+
 /**
  * Post result with 3 winners
  * @param {Array} users
@@ -13,7 +15,7 @@ async function postResultsWith3(users) {
   winner.cockStats.wins = winner.cockStats.wins + 1
   await winner.save()
 
-  getResultString(users[0].userName, users[0].cockStats.currentSize).then(async (story) => {
+  getResultString(users[0].userName, users[0].cockStats.currentSize, chatGPTEnabled).then(async (story) => {
     const message =
       `Настало время огласить победителей!\n` +
       `1. @${users[0].userName} - ${users[0].cockStats.currentSize}🏆\n` +
@@ -34,7 +36,7 @@ async function postResultsWith2(users) {
   winner.cockStats.wins = winner.cockStats.wins + 1
   await winner.save()
 
-  getResultString(users[0].userName, users[0].cockStats.currentSize).then(async (story) => {
+  getResultString(users[0].userName, users[0].cockStats.currentSize, chatGPTEnabled).then(async (story) => {
     const message =
       `Настало время огласить победителей!\n` +
       `1. @${users[0].userName} - ${users[0].cockStats.currentSize}🏆\n` +
@@ -54,7 +56,7 @@ async function postResultsWith1(users) {
   winner.cockStats.wins = winner.cockStats.wins + 1
   await winner.save()
 
-  getResultString(users[0].userName, users[0].cockStats.currentSize).then(async (story) => {
+  getResultString(users[0].userName, users[0].cockStats.currentSize, chatGPTEnabled).then(async (story) => {
     const message =
       `Настало время огласить победителей!\n` +
       `1. @${users[0].userName} - ${users[0].cockStats.currentSize}🏆\n\n` +
