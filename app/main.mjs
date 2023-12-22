@@ -14,6 +14,8 @@ import {help} from "./commands/help.mjs";
 import {message} from "telegraf/filters";
 import {collectStats} from "./stats/statsCollector.mjs";
 import {myStats} from "./commands/myStats.mjs";
+import {initProperties} from "./tools/properties.mjs";
+import {detectYakuza} from "./tools/yakuzaDetector.mjs";
 
 // connect to DB
 await connect()
@@ -22,6 +24,7 @@ await connect()
 export const bot = new Telegraf(config.botToken)
 await initDays()
 await initNames()
+await initProperties()
 bot.start((ctx) => ctx.reply('Welcome'))
 
 bot.on('inline_query', async ctx => {
@@ -34,6 +37,7 @@ bot.on(message('voice'), async (ctx, next) => {
 })
 bot.on(message('text'), async (ctx, next) => {
     await collectStats(ctx.from.id, 'text').then(next())
+    await detectYakuza(ctx.message.text)
 })
 bot.on(message('video'), async (ctx, next) => {
     await collectStats(ctx.from.id, 'video').then(next())
