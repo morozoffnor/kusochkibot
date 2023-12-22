@@ -17,7 +17,8 @@ async function createProperties() {
   const prop = new Prop({
     sizesCooldown: config.cockSizeUsageCooldown,
     latestChangelogTag: null,
-    openAIIntegration: false
+    openAIIntegration: false,
+    yakuzaMention: new Date.now()
   })
   await prop.save()
 }
