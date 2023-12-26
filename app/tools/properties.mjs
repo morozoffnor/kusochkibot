@@ -18,7 +18,8 @@ async function createProperties() {
     sizesCooldown: config.cockSizeUsageCooldown,
     latestChangelogTag: null,
     openAIIntegration: false,
-    yakuzaMention: new Date.now()
+    yakuzaMention: Date.now()
   })
   await prop.save()
+  console.log('Properties created')
 }
