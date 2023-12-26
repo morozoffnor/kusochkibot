@@ -10,3 +10,4 @@ src/.env
 docker-compose.yml
 data
 app/.env
+.env

@@ -15,11 +15,9 @@ function parseBoolFromEnv() {
 
   switch (option) {
     case "true":
-      return true
     case "True":
       return true
     case "false":
-      return false
     case "False":
       return false
     default:

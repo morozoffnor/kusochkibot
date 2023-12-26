@@ -16,12 +16,21 @@ export async function detectYakuza(ctx){
         await updateYakuza()
     }
 }
-
+/**
+ * Latest Yakuza mention in chat
+ * @type {function}
+ * @returns Date
+ */
 async function getLatestYakuza() {
     const props = await getProperties()
     return props.yakuzaMention
 }
 
+/**
+ * Time difference between now and latest Yakuza mention
+ * @type {function}
+ * @returns Number - time difference in milliseconds
+ */
 async function getTimeDifference() {
     const lastYakuza = await getLatestYakuza()
     const timeDifference = (Date.now() - lastYakuza)
