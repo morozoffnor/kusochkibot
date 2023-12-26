@@ -10,7 +10,7 @@ async function updateYakuza() {
 }
 
 export async function detectYakuza(ctx){
-    let yakuzaz = ['якуза', 'якузе', 'якузу']
+    let yakuzaz = ['якуза', 'якузе', 'якузу', 'якуза', 'якузе', 'якузу', 'якудза', 'якудзе', 'якудзу', 'якудза', 'якудзе', 'якудзу', 'кирио', 'кирию']
     if (yakuzaz.some(v => ctx.message.text.includes(v))) {
         await sendMessage(ctx)
         await updateYakuza()
