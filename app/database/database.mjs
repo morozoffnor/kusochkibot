@@ -5,6 +5,7 @@ import {Day} from "./Schemas/Day.mjs";
 import {Query} from "./Schemas/Query.mjs";
 import {Name} from "./Schemas/Name.mjs";
 import {User} from "./Schemas/User.mjs"
+import {Prop} from "./Schemas/Prop.mjs";
 
 connect().catch(err => console.log(err))
 export async function connect() {
@@ -165,4 +166,8 @@ export class IncUserStats {
         }}
     ).exec()
   }
+}
+
+export async function getProperties() {
+  return await Prop.findOne({}).exec()
 }

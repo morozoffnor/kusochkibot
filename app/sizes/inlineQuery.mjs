@@ -5,21 +5,28 @@ import {createNewUser} from "../tools/createNewUser.mjs";
 import {config} from "../config.mjs";
 import {getCockStatsString} from "../stats/sizeStats.mjs";
 
-
+/**
+ * Creates inline for the user. Creates a new user if necessary
+ * @param ctx - Telegram inline context
+ * @returns {Promise<void>}
+ */
 export async function createInline(ctx)  {
     if (await getUserById(ctx.from.id) === null) {
-        console.log('user not found')
         createNewUser(ctx).then(async () => {
             await answerInline(ctx)
         })
     } else {
-        console.log('user found')
         await answerInline(ctx)
     }
 
 
 }
 
+/**
+ * Answers inline request according to the user's state
+ * @param ctx - Telegram inline context
+ * @returns {Promise<void>}
+ */
 async function answerInline(ctx) {
     const lastAttempt = await getLastAttempt(ctx.from.id)
     await createQuery({

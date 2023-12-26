@@ -1,11 +1,14 @@
 import {createAttempt, getCurrentDay, getLastAttempt, getLastQuery} from "../database/database.mjs";
 import {processUserSize} from "./profileSizeUpdater.mjs";
 
-
+/**
+ * Saves an attempt and processes user's size
+ * @param ctx - Telegram inlineResult context
+ * @returns {Promise<void>}
+ */
 export const addAttempt = async function(ctx) {
   if (ctx.chosenInlineResult.result_id === '0') {
     const lastQuery = await getLastQuery(ctx.from.id)
-    // console.log('last' + lastQuery)
     await createAttempt({
         userid: ctx.from.id,
         userName: ctx.from.username,
