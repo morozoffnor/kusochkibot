@@ -20,6 +20,8 @@ services:
     restart: always
     depends_on:
       - mongo
+    ports:
+        - 'YOUR PORT:80'
     environment:
       - TZ=Europe/Moscow
       - CHATID=TELEGRAM CHAT ID
@@ -28,5 +30,6 @@ services:
       - BOTTOKEN=TELEGRAM BOT TOKEN
       - MONGOURL=mongodb://bot:kuski@mongo:27017/kuski
       - OPENAPITOKEN=
+      - APITOKEN=PLEASE GENERATE STRONG TOKEN
     volumes:
       - PATH TO RESOURCES:/usr/src/app/resources
