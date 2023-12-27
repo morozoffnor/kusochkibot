@@ -1,6 +1,7 @@
 import console from "console";
 import {createNewName} from "../database/database.mjs";
 import {checkIfNameExists} from "../tools/namesChecker.mjs";
+import {logger} from "../tools/logger.mjs";
 
 const invalidSyntaxErrorMessage = `Нихуя\n\n` +
   `Чекай как надо:\n` +
@@ -34,13 +35,10 @@ export async function addName(ctx) {
         })
         await ctx.reply(allDoneMessage, {reply_to_message_id : ctx.message.message_id});
       } catch (e) {
-        console.log(e)
+        logger.error('Error while adding a new name: ',e)
         const fatalErrorMessage = `Произошла какая-то хуйня и я не смог то, что должен был смочь. НЕ СМОГ Я ЧЕГО ПРИСТАЛИ БЛЯТЬ\n\nВот ошибка для тупого разраба: \n${e}`
         await ctx.reply(fatalErrorMessage, {reply_to_message_id : ctx.message.message_id});
       }
     }
   }
-
-  // Using context shortcut
-  // await ctx.reply(allDoneMessage, {reply_to_message_id : ctx.message.message_id});
 }

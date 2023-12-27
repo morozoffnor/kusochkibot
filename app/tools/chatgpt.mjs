@@ -1,5 +1,6 @@
 import {ChatGPTAPI} from "chatgpt";
 import {config} from "../config.mjs";
+import {logger} from "./logger.mjs";
 
 /**
  * @param {String} username
@@ -20,7 +21,7 @@ export async function getResultString(username, size, enabled) {
         "История должна быть на 300 символов максимум."
 
     const response = await gpt.sendMessage(string)
-    console.log(response)
+    logger.info(`Generated string: ${response}`)
     return response
   } else {
     return ""

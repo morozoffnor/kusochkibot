@@ -34,12 +34,11 @@ async function getLatestYakuza() {
 async function getTimeDifference() {
     const lastYakuza = await getLatestYakuza()
     const timeDifference = (Date.now() - lastYakuza)
-    console.log(timeDifference)
     return timeDifference
 }
+
 async function sendMessage(ctx) {
     const timeDifference = await getTimeDifference()
-
     if (timeDifference > YakuzaMessageCooldown) {
         await ctx.reply(`Времени без упоминания якузы: ${timeDifference / 1000 / 60 / 60} час(ов)`)
     }

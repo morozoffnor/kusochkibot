@@ -1,5 +1,11 @@
 import {getAttemptsCountByUser, getUserById} from "../database/database.mjs";
 
+/**
+ * Fetches all the size stats from the database and forms a string
+ * @type {function}
+ * @param {Number} userid
+ * @returns String
+ */
 export async function getCockStatsString(userid) {
   const user = await getUserById(userid)
   const count = await getAttemptsCountByUser(userid)

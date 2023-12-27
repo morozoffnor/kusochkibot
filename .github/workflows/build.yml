@@ -1,4 +1,4 @@
-name: Build
+name: Build image
 
 on:
   workflow_dispatch:
@@ -12,9 +12,15 @@ jobs:
     steps:
       - name: Checkout project
         uses: actions/checkout@v3
-      - name: Build and push
-        uses: docker/build-push-action@v4
-        with:
-          context: .
-          platforms: linux/amd64,linux/arm64
-          push: false
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3.0.0
+      - name: Create multi-platform image
+        run: |
+          docker buildx create \
+            --name multiplatform \
+            --driver docker-container \
+            --use
+      - name: Build
+        run: |
+          docker buildx build \
+            --platform linux/amd64,linux/arm64 .

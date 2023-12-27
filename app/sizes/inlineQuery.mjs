@@ -41,7 +41,6 @@ async function answerInline(ctx) {
         let newArr = [];
         // console.log('last - ' + (new Date(2023,8,20,12,0,0) - new Date(2023,8,20,11,0,0)))
         // check if attempt is allowed (3600000 = 1 hour)
-        console.log('creating inline')
         if (lastAttempt == null) {
             newArr[0] = {
                 type: 'article',
