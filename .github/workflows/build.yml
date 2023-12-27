@@ -14,8 +14,13 @@ jobs:
         uses: actions/checkout@v3
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3.0.0
-      - name: Build and push
+      - name: Create multi-platform image
+        run: |
+          docker buildx create \
+            --name multiplatform \
+            --driver docker-container \
+            --use
+      - name: Build
         run: |
           docker buildx build \
-            --tag ${{ secrets.DOCKERHUB_USERNAME }}/kusochkibot:${{ github.event.inputs.tag }} \
             --platform linux/amd64,linux/arm64 .
