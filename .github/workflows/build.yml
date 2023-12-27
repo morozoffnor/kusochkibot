@@ -1,4 +1,4 @@
-name: Build
+name: Build image
 
 on:
   workflow_dispatch:
@@ -13,8 +13,9 @@ jobs:
       - name: Checkout project
         uses: actions/checkout@v3
       - name: Build and push
-        uses: docker/build-push-action@v4
+        uses: docker/build-push-action@v5.1.0
         with:
+          driver: docker-container
           context: .
           platforms: linux/amd64,linux/arm64
           push: false
