@@ -1,10 +1,12 @@
 import {getProperties} from "../database/database.mjs";
 import {config} from "../config.mjs";
 import {Prop} from "../database/Schemas/Prop.mjs";
+import {logger} from "./logger.mjs";
 
 export async function initProperties() {
   let properties = await getProperties()
   if (!properties) {
+    logger.info("Properties not found, creating...")
     await createProperties()
   } else{
     config.openAIIntegration = properties.openAIIntegration
@@ -21,5 +23,5 @@ async function createProperties() {
     yakuzaMention: Date.now()
   })
   await prop.save()
-  console.log('Properties created')
+  logger.info("Created properties")
 }

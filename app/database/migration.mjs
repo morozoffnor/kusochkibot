@@ -1,7 +1,9 @@
 import fs from "fs";
 import {createNewName} from "./database.mjs";
+import {logger} from "../tools/logger.mjs";
 
 export async function migrateNames() {
+  logger.info('Migrating names...')
   const file = fs.readFileSync('resources/cocknames.txt')
   const str = file.toString()
   const lines = str.split('\n')
@@ -11,6 +13,6 @@ export async function migrateNames() {
       addedAt: Date.now(),
       addedBy: 0
     })
-    console.log('added ' + lines[i])
+    logger.info('Migrated "' + lines[i] + '"')
   }
 }

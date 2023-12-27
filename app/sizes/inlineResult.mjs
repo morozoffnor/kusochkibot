@@ -23,7 +23,6 @@ export const addAttempt = async function(ctx) {
 
 
     // update user
-
     await processUserSize(ctx.from.id, lastQuery.size)
   }
 }

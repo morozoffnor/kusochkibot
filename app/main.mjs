@@ -16,6 +16,7 @@ import {collectStats} from "./stats/statsCollector.mjs";
 import {myStats} from "./commands/myStats.mjs";
 import {initProperties} from "./tools/properties.mjs";
 import {detectYakuza} from "./tools/yakuzaDetector.mjs";
+import {logger} from "./tools/logger.mjs";
 
 // connect to DB
 await connect()
@@ -38,11 +39,6 @@ bot.on(message('voice'), async (ctx, next) => {
 bot.on(message('text'), async (ctx, next) => {
     await collectStats(ctx.from.id, 'text').then(next())
     await detectYakuza(ctx)
-    // let yakuzaz = ['якуза', 'якузе', 'якузу']
-    // if (yakuzaz.some(v => ctx.message.text.includes(v))) {
-    //     await detectYakuza(ctx.message.text)
-    // }
-
 })
 bot.on(message('video'), async (ctx, next) => {
     await collectStats(ctx.from.id, 'video').then(next())
@@ -97,6 +93,7 @@ cron.schedule('0 */15 * * * *', async function() {
 
 bot.catch((err) => {
     console.log(`Ooops, encountered an error for `, err)
+    logger.error(`Ooops, encountered an error for `, err)
 })
 
 bot.launch()

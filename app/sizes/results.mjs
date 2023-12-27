@@ -2,6 +2,7 @@ import {getTopThreeUsers} from "../database/database.mjs";
 import {config} from "../config.mjs";
 import {bot} from "../main.mjs";
 import {getResultString} from "../tools/chatgpt.mjs";
+import {logger} from "../tools/logger.mjs";
 
 const chatGPTEnabled = config.openAIIntegration
 
@@ -10,7 +11,7 @@ const chatGPTEnabled = config.openAIIntegration
  * @param {Array} users
  */
 async function postResultsWith3(users) {
-  console.log('winner: ' + users[0].userName)
+  logger.info('winner: ' + users[0].userName)
   let winner = users[0]
   winner.cockStats.wins = winner.cockStats.wins + 1
   await winner.save()
@@ -31,7 +32,7 @@ async function postResultsWith3(users) {
  * @param {Array} users
  */
 async function postResultsWith2(users) {
-  console.log('winner: ' + users[0].userName)
+  logger.info('winner: ' + users[0].userName)
   let winner = users[0]
   winner.cockStats.wins = winner.cockStats.wins + 1
   await winner.save()
@@ -71,26 +72,26 @@ async function postResultsWith1(users) {
  */
 export async function getTopThree() {
   const users = await getTopThreeUsers()
-  console.log('users length ' + users.length)
+  logger.info('There are ' + users.length + ' participants today')
 
   switch (users.length){
     case 1: {
         await postResultsWith1(users)
-        console.log('found one')
+        logger.info('Found one winner today')
         break
     }
     case 2: {
         await postResultsWith2(users)
-        console.log('found two')
+        logger.info('Found two winners today')
         break
     }
     case 3: {
         await postResultsWith3(users)
-        console.log('found three')
+      logger.info('Found three winners today')
         break
     }
     case 0: {
-        console.log('found zero')
+      logger.info('Found no winners today')
         break
     }
 
