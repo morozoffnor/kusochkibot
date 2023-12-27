@@ -12,10 +12,10 @@ jobs:
     steps:
       - name: Checkout project
         uses: actions/checkout@v3
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3.0.0
       - name: Build and push
-        uses: docker/build-push-action@v5.1.0
-        with:
-          driver: docker-container
-          context: .
-          platforms: linux/amd64,linux/arm64
-          push: false
+        run: |
+          docker buildx build \
+            --tag ${{ secrets.DOCKERHUB_USERNAME }}/kusochkibot:${{ github.event.inputs.tag }} \
+            --platform linux/amd64,linux/arm64 .
