@@ -42,6 +42,11 @@ api.get('/users/', async (req, res) => {
     logger.info(req.headers)
 })
 
+api.post('/github/webhook/release/', async (req, res) => {
+    logger.info(req.body)
+    res.status(200).send('OK')
+})
+
 // Bot
 export const bot = new Telegraf(config.botToken)
 await initDays()
