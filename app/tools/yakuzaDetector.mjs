@@ -1,4 +1,5 @@
 import {getProperties} from "../database/database.mjs";
+import {convertNumberToTimeString} from "./timeConverter.mjs";
 
 const YakuzaMessageCooldown = 1000 * 60 * 60 // 1 hour
 
@@ -11,7 +12,7 @@ async function updateYakuza() {
 
 export async function detectYakuza(ctx){
     let yakuzaz = ['якуза', 'якузе', 'якузу', 'якуза', 'якузе', 'якузу', 'якудза', 'якудзе', 'якудзу', 'якудза', 'якудзе', 'якудзу', 'кирио', 'кирию']
-    if (yakuzaz.some(v => ctx.message.text.includes(v))) {
+    if (yakuzaz.some(v => ctx.message.text.toLowerCase().includes(v))) {
         await sendMessage(ctx)
         await updateYakuza()
     }
@@ -40,6 +41,7 @@ async function getTimeDifference() {
 async function sendMessage(ctx) {
     const timeDifference = await getTimeDifference()
     if (timeDifference > YakuzaMessageCooldown) {
-        await ctx.reply(`Времени без упоминания якузы: ${timeDifference / 1000 / 60 / 60} час(ов)`)
+
+        await ctx.reply(`Времени без упоминания якузы: ${await convertNumberToTimeString(timeDifference)}`)
     }
 }

@@ -93,6 +93,15 @@ export async function cleanAllCurrentSizes() {
   const query = User.updateMany({}, {'cockStats.currentSize': null})
   await query.exec()
 }
+
+export async function getAllUsers() {
+  const users = User.find()
+  return await users.exec()
+}
+// Properties
+export async function getProperties() {
+  return await Prop.findOne({}).exec()
+}
 // User stats class
 export class IncUserStats {
 
@@ -166,8 +175,4 @@ export class IncUserStats {
         }}
     ).exec()
   }
-}
-
-export async function getProperties() {
-  return await Prop.findOne({}).exec()
 }

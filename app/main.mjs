@@ -19,7 +19,7 @@ import {detectYakuza} from "./tools/yakuzaDetector.mjs";
 import {logger} from "./tools/logger.mjs";
 import express from "express";
 import {tokenChecker} from "./api/tools/APItokenChecker.mjs";
-import {apiGetUserById} from "./api/users.mjs";
+import {apiGetAllUsers, apiGetUserById} from "./api/users.mjs";
 
 // connect to DB
 await connect()
@@ -35,6 +35,11 @@ api.use(tokenChecker)
 
 api.get('/user/:id', async (req, res) => {
     await apiGetUserById(req, res)
+})
+
+api.get('/users/', async (req, res) => {
+    await apiGetAllUsers(req, res)
+    logger.info(req.headers)
 })
 
 // Bot

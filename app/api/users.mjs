@@ -1,4 +1,4 @@
-import {getUserById} from "../database/database.mjs";
+import {getAllUsers, getUserById} from "../database/database.mjs";
 import {logger} from "../tools/logger.mjs";
 
 export async function apiGetUserById(req, res) {
@@ -9,5 +9,15 @@ export async function apiGetUserById(req, res) {
   } catch (e) {
     logger.error('User not found', e)
     res.status(404).send('User not found')
+  }
+}
+
+export async function apiGetAllUsers(req, res) {
+  const users = await getAllUsers()
+  try {
+    res.send(users)
+  } catch (e) {
+    logger.error('Users not found', e)
+    res.status(404).send('Users not found')
   }
 }
