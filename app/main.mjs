@@ -20,6 +20,8 @@ import {logger} from "./tools/logger.mjs";
 import express from "express";
 import {tokenChecker} from "./api/tools/APItokenChecker.mjs";
 import {apiGetAllUsers, apiGetUserById} from "./api/users.mjs";
+import {sendPatchnotes} from "./tools/sendPatchnotes.mjs";
+import {ensureStats} from "./database/migration.mjs";
 
 // connect to DB
 await connect()
@@ -42,9 +44,9 @@ api.get('/users/', async (req, res) => {
     logger.info(req.headers)
 })
 
-api.post('/github/webhook/release/', async (req, res) => {
-    logger.info(req.body)
+api.post('/github/webhook/release/', express.json ({type: 'application/json'}), async (req, res) => {
     res.status(200).send('OK')
+    await sendPatchnotes(req.body['release'])
 })
 
 // Bot
@@ -52,6 +54,7 @@ export const bot = new Telegraf(config.botToken)
 await initDays()
 await initNames()
 await initProperties()
+await ensureStats()
 bot.start((ctx) => ctx.reply('Welcome'))
 
 bot.on('inline_query', async ctx => {
