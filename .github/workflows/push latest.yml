@@ -49,6 +49,6 @@ jobs:
           port: ${{ secrets.SSH_PORT }}
           script: |
             pwd
-            docker pull morozoffnor/kusochkibot:${{ github.event.inputs.tag }}
+            docker pull morozoffnor/kusochkibot:latest
             cd /${{ secrets.SSH_USER }}/kuski && docker compose up -d
 
