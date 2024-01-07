@@ -10,7 +10,7 @@ import {getCockStatsString} from "../stats/sizeStats.mjs";
  * @param ctx - Telegram inline context
  * @returns {Promise<void>}
  */
-export async function createInline(ctx)  {
+export async function createInline(ctx) {
     if (await getUserById(ctx.from.id) === null) {
         createNewUser(ctx).then(async () => {
             await answerInline(ctx)
@@ -18,8 +18,8 @@ export async function createInline(ctx)  {
     } else {
         await answerInline(ctx)
     }
-
-
+    
+    
 }
 
 /**
@@ -39,7 +39,6 @@ async function answerInline(ctx) {
         const message = await result.cockName + " у меня " + await result.size + "см"
         const statsString = await getCockStatsString(ctx.from.id)
         let newArr = [];
-        // console.log('last - ' + (new Date(2023,8,20,12,0,0) - new Date(2023,8,20,11,0,0)))
         // check if attempt is allowed (3600000 = 1 hour)
         if (lastAttempt == null) {
             newArr[0] = {
@@ -75,7 +74,7 @@ async function answerInline(ctx) {
                 }
             }
         }
-
+        
         return ctx.answerInlineQuery(newArr, {cache_time: 0});
     })
 }
