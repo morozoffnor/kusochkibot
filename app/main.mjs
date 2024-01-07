@@ -17,15 +17,44 @@ import {myStats} from "./commands/myStats.mjs";
 import {initProperties} from "./tools/properties.mjs";
 import {detectYakuza} from "./tools/yakuzaDetector.mjs";
 import {logger} from "./tools/logger.mjs";
+import express from "express";
+import {tokenChecker} from "./api/tools/APItokenChecker.mjs";
+import {apiGetAllUsers, apiGetUserById} from "./api/users.mjs";
+import {sendPatchnotes} from "./tools/sendPatchnotes.mjs";
+import {ensureStats} from "./database/migration.mjs";
 
 // connect to DB
 await connect()
 
+// API
+export const api = express()
+const port = 80
 
+api.listen(port, () => {
+    logger.info('API is listening on port ' + port)
+})
+api.use(tokenChecker)
+
+api.get('/user/:id', async (req, res) => {
+    await apiGetUserById(req, res)
+})
+
+api.get('/users/', async (req, res) => {
+    await apiGetAllUsers(req, res)
+    logger.info(req.headers)
+})
+
+api.post('/github/webhook/release/', express.json ({type: 'application/json'}), async (req, res) => {
+    res.status(200).send('OK')
+    await sendPatchnotes(req.body['release'])
+})
+
+// Bot
 export const bot = new Telegraf(config.botToken)
 await initDays()
 await initNames()
 await initProperties()
+await ensureStats()
 bot.start((ctx) => ctx.reply('Welcome'))
 
 bot.on('inline_query', async ctx => {

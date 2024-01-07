@@ -7,7 +7,8 @@ export const config = {
   botToken: process.env.BOTTOKEN,
   mongoUrl: process.env.MONGOURL,
   openAPItoken: process.env.OPENAPITOKEN,
-  openAIIntegration: parseBoolFromEnv()
+  openAIIntegration: parseBoolFromEnv(),
+  apiToken: process.env.APITOKEN
 }
 
 function parseBoolFromEnv() {
