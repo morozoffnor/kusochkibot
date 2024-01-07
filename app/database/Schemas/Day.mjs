@@ -1,4 +1,4 @@
-import { Schema, model } from 'mongoose';
+import {Schema, model} from 'mongoose';
 
 const DaySchema = new Schema({
     date: Date,
@@ -6,8 +6,8 @@ const DaySchema = new Schema({
 });
 
 
-DaySchema.method.addAttempt = async function(attemptData) {
-  this.attempts.push(attemptData)
+DaySchema.method.addAttempt = async function (attemptData) {
+    this.attempts.push(attemptData)
 }
 
- export const Day = model('Day', DaySchema);
+export const Day = model('Day', DaySchema);
