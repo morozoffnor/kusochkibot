@@ -5,5 +5,5 @@ import {cleanAllCurrentSizes} from "../database/database.mjs";
  * @returns {Promise<void>}
  */
 export async function sizesCleanup() {
-  await cleanAllCurrentSizes()
+    await cleanAllCurrentSizes()
 }

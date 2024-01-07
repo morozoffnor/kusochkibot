@@ -1,4 +1,4 @@
-import { Schema, model } from 'mongoose';
+import {Schema, model} from 'mongoose';
 
 
 export const AttemptSchema = new Schema({
@@ -9,7 +9,7 @@ export const AttemptSchema = new Schema({
     time: {type: Date, required: true}
 });
 
-AttemptSchema.method.getNameAndSize = function add(){
+AttemptSchema.method.getNameAndSize = function add() {
     return {
         name: this.cockName,
         size: this.size

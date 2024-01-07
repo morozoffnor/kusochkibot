@@ -6,11 +6,11 @@ import {logger} from "../../tools/logger.mjs";
  * @returns {Promise<void>}
  */
 export async function createNewDay() {
-  const dayData = {
-    date: Date.now(),
-    attempts: []
-  }
-  await createDay(dayData)
+    const dayData = {
+        date: Date.now(),
+        attempts: []
+    }
+    await createDay(dayData)
 }
 
 /**
@@ -18,19 +18,19 @@ export async function createNewDay() {
  * @returns {Promise<void>}
  */
 export async function initDays() {
-  const day = await getCurrentDay()
-  if (day != null) {
-    const date = day.date
-    const currentTime = Date.now()
-    if ((currentTime - date)> 86400000) {
-      logger.info('Creating a new day')
-      await createNewDay()
+    const day = await getCurrentDay()
+    if (day != null) {
+        const date = day.date
+        const currentTime = Date.now()
+        if ((currentTime - date) > 86400000) {
+            logger.info('Creating a new day')
+            await createNewDay()
+        } else {
+            logger.info('Day is up to date')
+        }
     } else {
-      logger.info('Day is up to date')
+        logger.info('No days found. Creating a new one')
+        await createNewDay()
     }
-  } else {
-    logger.info('No days found. Creating a new one')
-    await createNewDay()
-  }
 }
 

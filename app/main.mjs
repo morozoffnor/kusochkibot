@@ -44,7 +44,7 @@ api.get('/users/', async (req, res) => {
     logger.info(req.headers)
 })
 
-api.post('/github/webhook/release/', express.json ({type: 'application/json'}), async (req, res) => {
+api.post('/github/webhook/release/', express.json({type: 'application/json'}), async (req, res) => {
     res.status(200).send('OK')
     await sendPatchnotes(req.body['release'])
 })
@@ -88,7 +88,7 @@ bot.on(message('photo'), async (ctx, next) => {
     await collectStats(ctx.from.id, 'image').then(next())
 })
 
-bot.help(async (ctx) =>{
+bot.help(async (ctx) => {
     await help(ctx)
 })
 
@@ -108,7 +108,7 @@ bot.command('mystats', async (ctx) => {
 })
 
 
-cron.schedule('0 0 0 * * *', async function() {
+cron.schedule('0 0 0 * * *', async function () {
 // prod 0 0 0 * * *
     await getTopThree().then(async () => {
         await sizesCleanup()
@@ -116,7 +116,7 @@ cron.schedule('0 0 0 * * *', async function() {
     })
 })
 
-cron.schedule('0 */15 * * * *', async function() {
+cron.schedule('0 */15 * * * *', async function () {
 
 })
 

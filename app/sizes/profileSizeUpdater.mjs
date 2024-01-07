@@ -6,13 +6,13 @@ import {getUserById} from "../database/database.mjs";
  * @param {Number} size - User's size returned from an attempt
  */
 export async function processUserSize(userid, size) {
-  let user = await getUserById(userid)
-  if (!user.cockStats.currentSize && !user.cockStats.highestSize && !user.cockStats.lowestSize) {
-    await initSizes(user, size)
-  } else {
-    await updateSize(user, size)
-  }
-
+    let user = await getUserById(userid)
+    if (!user.cockStats.currentSize && !user.cockStats.highestSize && !user.cockStats.lowestSize) {
+        await initSizes(user, size)
+    } else {
+        await updateSize(user, size)
+    }
+    
 }
 
 /**
@@ -21,11 +21,11 @@ export async function processUserSize(userid, size) {
  * @param size - User's size returned from an attempt
  */
 async function initSizes(user, size) {
-  user.cockStats.currentSize = size
-  user.cockStats.highestSize = size
-  user.cockStats.lowestSize = size
-
-  await user.save()
+    user.cockStats.currentSize = size
+    user.cockStats.highestSize = size
+    user.cockStats.lowestSize = size
+    
+    await user.save()
 }
 
 /**
@@ -34,20 +34,20 @@ async function initSizes(user, size) {
  * @param size - User's size returned from an attempt
  */
 async function updateSize(user, size) {
-  if (!user.cockStats.currentSize) {
-    user.cockStats.currentSize = size
-  } else {
-    if (user.cockStats.currentSize > size) {
-      user.cockStats.currentSize = size
-  }
-  }
-  if (size < user.cockStats.lowestSize) {
-    user.cockStats.lowestSize = size
-  }
-
-  if (size > user.cockStats.highestSize) {
-    user.cockStats.highestSize = size
-  }
-
-  await user.save()
+    if (!user.cockStats.currentSize) {
+        user.cockStats.currentSize = size
+    } else {
+        if (user.cockStats.currentSize > size) {
+            user.cockStats.currentSize = size
+        }
+    }
+    if (size < user.cockStats.lowestSize) {
+        user.cockStats.lowestSize = size
+    }
+    
+    if (size > user.cockStats.highestSize) {
+        user.cockStats.highestSize = size
+    }
+    
+    await user.save()
 }

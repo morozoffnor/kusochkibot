@@ -10,13 +10,14 @@ async function updateYakuza() {
     })
 }
 
-export async function detectYakuza(ctx){
+export async function detectYakuza(ctx) {
     let yakuzaz = ['якуза', 'якузе', 'якузу', 'якуза', 'якузе', 'якузу', 'якудза', 'якудзе', 'якудзу', 'якудза', 'якудзе', 'якудзу', 'кирио', 'кирию']
     if (yakuzaz.some(v => ctx.message.text.toLowerCase().includes(v))) {
         await sendMessage(ctx)
         await updateYakuza()
     }
 }
+
 /**
  * Latest Yakuza mention in chat
  * @type {function}
@@ -34,14 +35,13 @@ async function getLatestYakuza() {
  */
 async function getTimeDifference() {
     const lastYakuza = await getLatestYakuza()
-    const timeDifference = (Date.now() - lastYakuza)
-    return timeDifference
+    return (Date.now() - lastYakuza)
 }
 
 async function sendMessage(ctx) {
     const timeDifference = await getTimeDifference()
     if (timeDifference > YakuzaMessageCooldown) {
-
+        
         await ctx.reply(`Времени без упоминания якузы: ${await convertNumberToTimeString(timeDifference)}`)
     }
 }
