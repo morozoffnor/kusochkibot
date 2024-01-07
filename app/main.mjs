@@ -46,6 +46,9 @@ api.get('/users/', async (req, res) => {
 
 api.post('/github/webhook/release/', express.json({type: 'application/json'}), async (req, res) => {
     res.status(200).send('OK')
+    if (req.body['action'] !== 'published') {
+        return
+    }
     await sendPatchnotes(req.body['release'])
 })
 
