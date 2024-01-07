@@ -1,8 +1,17 @@
 import {bot} from "../main.mjs";
 import {config} from "../config.mjs";
+import {logger} from "./logger.mjs";
 
 
 export async function sendPatchnotes(release) {
+    if (release['prerelease']) {
+        logger.info('Received pre-release, skipping')
+        return
+    }
+    if (release['draft']) {
+        logger.info('Received draft release, skipping')
+        return
+    }
     let body = getHeaderString(release) + toEscapeMSg(release['body'].toString())
     await bot.telegram.sendMessage(config.chatId, `${body}`, {parse_mode: "Markdown"})
 }
