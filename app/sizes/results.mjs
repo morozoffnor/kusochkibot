@@ -22,7 +22,7 @@ async function postResultsWith3(users) {
           `1. @${users[0].userName} - ${users[0].cockStats.currentSize}🏆\n` +
           `2. @${users[1].userName} - ${users[1].cockStats.currentSize}\n` +
           `3. @${users[2].userName} - ${users[2].cockStats.currentSize}\n\n` +
-          `${story.text}`
+          `${story}`
         await bot.telegram.sendMessage(config.chatId, message, {parse_mode: "HTML"})
     })
 }
@@ -42,7 +42,7 @@ async function postResultsWith2(users) {
           `Настало время огласить победителей!\n` +
           `1. @${users[0].userName} - ${users[0].cockStats.currentSize}🏆\n` +
           `2. @${users[1].userName} - ${users[1].cockStats.currentSize}\n\n` +
-          `${story.text}`
+          `${story}`
         await bot.telegram.sendMessage(config.chatId, message, {parse_mode: "HTML"})
     })
 }
@@ -61,7 +61,7 @@ async function postResultsWith1(users) {
         const message =
           `Настало время огласить победителей!\n` +
           `1. @${users[0].userName} - ${users[0].cockStats.currentSize}🏆\n\n` +
-          `${story.text}`
+          `${story}`
         await bot.telegram.sendMessage(config.chatId, message, {parse_mode: "HTML"})
     })
 }

@@ -22,7 +22,7 @@ export async function getResultString(username, size, enabled) {
         
         const response = await gpt.sendMessage(string)
         logger.info(`Generated string: ${response}`)
-        return response
+        return response.text
     } else {
         return ""
     }
