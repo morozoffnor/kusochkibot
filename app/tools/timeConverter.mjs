@@ -4,11 +4,15 @@
  * @returns {Promise<String>} - time in human-readable format
  */
 export async function convertNumberToTimeString(number) {
-    const date = new Date(number * 1000)
-    const hours = date.getUTCHours()
-    const minutes = date.getUTCMinutes()
-    const seconds = date.getUTCSeconds()
+    const days = Math.floor((number / (1000*60*60*24)))
+    const hours = Math.floor(((number/ (1000*60*60)) % 24))
+    const minutes = Math.floor(((number / (1000*60)) % 60))
+    const seconds = Math.floor(((number / 1000) % 60))
+    
     let timeString = ''
+    if (days > 0) {
+        timeString += days + 'д '
+    }
     if (hours > 0) {
         timeString += hours + 'ч '
     }
