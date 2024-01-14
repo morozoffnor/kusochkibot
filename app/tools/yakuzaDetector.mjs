@@ -11,7 +11,8 @@ async function updateYakuza() {
 }
 
 export async function detectYakuza(ctx) {
-    let yakuzaz = ['якуза', 'якузе', 'якузу', 'якуза', 'якузе', 'якузу', 'якудза', 'якудзе', 'якудзу', 'якудза', 'якудзе', 'якудзу', 'кирио', 'кирию']
+    let yakuzaz = ['якуза', 'якузе', 'якузу', 'якуза', 'якузе', 'якузу', 'якудза', 'якудзе', 'якудзу', 'якудза',
+        'якудзе', 'якудзу', 'кирио', 'кирию', 'якузду', 'якузде', 'якузда', 'кабукичо', 'камаручо']
     if (yakuzaz.some(v => ctx.message.text.toLowerCase().includes(v))) {
         await sendMessage(ctx)
         await updateYakuza()
