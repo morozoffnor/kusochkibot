@@ -69,5 +69,7 @@ async function formStatsString(
       `Видосы: ${videosSent}\n` +
       `Кружки: ${circlesSent}\n` +
       `Опросы: ${pollsSent}\n` +
-      `Дрюканье бота: ${botUses}`
+      `Дрюканье бота: ${botUses}` +
+      `\n\n` +
+      `Больше инфы: <a href="t.me/Kusochkibot/stats">(тык)</a>`
 }
