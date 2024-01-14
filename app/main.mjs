@@ -5,7 +5,6 @@ import {createNewDay, initDays} from "./sizes/days/createNewDay.mjs";
 import cron from "node-cron";
 import {addAttempt} from "./sizes/inlineResult.mjs";
 import {config} from "./config.mjs";
-import console from "console";
 import {getTopThree} from "./sizes/results.mjs";
 import {sizesCleanup} from "./sizes/clearUpSizes.mjs";
 import {initNames} from "./sizes/generator/namesGenerator.mjs";
@@ -22,6 +21,7 @@ import {tokenChecker} from "./api/tools/APItokenChecker.mjs";
 import {apiGetAllUsers, apiGetUserById} from "./api/users.mjs";
 import {sendPatchnotes} from "./tools/sendPatchnotes.mjs";
 import {ensureStats} from "./database/migration.mjs";
+import {textTriggersHandler} from "./tools/phraseTrigger.mjs";
 
 // connect to DB
 await connect()
@@ -71,6 +71,7 @@ bot.on(message('voice'), async (ctx, next) => {
 bot.on(message('text'), async (ctx, next) => {
     await collectStats(ctx.from.id, 'text').then(next())
     await detectYakuza(ctx)
+    await textTriggersHandler(ctx)
 })
 bot.on(message('video'), async (ctx, next) => {
     await collectStats(ctx.from.id, 'video').then(next())
@@ -100,7 +101,6 @@ bot.on('chosen_inline_result', async ctx => {
     await addAttempt(ctx)
 })
 
-bot.hears('Понты', (ctx) => ctx.reply('Точно понты'))
 
 bot.command('addname', async (ctx) => {
     await addName(ctx)
@@ -124,7 +124,6 @@ cron.schedule('0 */15 * * * *', async function () {
 })
 
 bot.catch((err) => {
-    console.log(`Ooops, encountered an error for `, err)
     logger.error(`Ooops, encountered an error for `, err)
 })
 
