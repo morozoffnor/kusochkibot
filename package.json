@@ -10,6 +10,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bson": "^6.2.0",
+    "bson-objectid": "^2.0.4",
     "chatgpt": "^5.2.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
