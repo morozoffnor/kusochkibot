@@ -22,6 +22,8 @@ import {apiGetAllUsers, apiGetUserById} from "./api/users.mjs";
 import {sendPatchnotes} from "./tools/sendPatchnotes.mjs";
 import {ensureStats} from "./database/migration.mjs";
 import {textTriggersHandler} from "./tools/phraseTrigger.mjs";
+import ItemsRouter from "./api/items.mjs"
+import {addItem} from "./commands/test/addItem.mjs";
 
 // connect to DB
 await connect()
@@ -34,6 +36,7 @@ api.listen(port, () => {
     logger.info('API is listening on port ' + port)
 })
 api.use(tokenChecker)
+api.use('/items/', ItemsRouter)
 
 api.get('/user/:id', async (req, res) => {
     await apiGetUserById(req, res)
@@ -108,6 +111,11 @@ bot.command('addname', async (ctx) => {
 
 bot.command('mystats', async (ctx) => {
     await myStats(ctx)
+})
+
+bot.command('additem', async (ctx) => {
+    logger.error('additem')
+    await addItem(ctx)
 })
 
 
