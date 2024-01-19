@@ -7,9 +7,9 @@ export class Minimizer300 {
             type: "math",
             subtype: "multiply",
             effect: {
-                descriptions: ["умножает размер хуя на 0.5", "test2", "test3"],
-                alert: "test alert",
-                title: "test title"
+                descriptions: ["умножает размер хуя на 0.5"],
+                alert: "",
+                title: ""
             },
             createdBy: createdBy,
             icon: "1.png",
@@ -26,9 +26,9 @@ export class Minimizer300 {
             type: "math",
             subtype: "multiply",
             effect: {
-                descriptions: ["умножает размер хуя на 0.4", "test2", "test3"],
-                alert: "test alert",
-                title: "test title"
+                descriptions: ["умножает размер хуя на 0.4"],
+                alert: "",
+                title: ""
             },
             createdBy: createdBy,
             icon: "1.png",
@@ -45,9 +45,9 @@ export class Minimizer300 {
             type: "math",
             subtype: "multiply",
             effect: {
-                descriptions: ["умножает размер хуя на 0.3", "test2", "test3"],
-                alert: "test alert",
-                title: "test title"
+                descriptions: ["умножает размер хуя на 0.3"],
+                alert: "",
+                title: ""
             },
             createdBy: createdBy,
             icon: "1.png",
@@ -64,15 +64,19 @@ export class Minimizer300 {
             type: "math",
             subtype: "multiply",
             effect: {
-                descriptions: ["умножает размер хуя на 0.2", "ну и я хз, предмет легендарный жеж, так что пусть всем остальным участникам умножает на 0.5", "test3"],
-                alert: "хули смотришь",
-                title: "test title"
+                descriptions: ["умножает размер хуя на 0.2"],
+                alert: "",
+                title: ""
             },
             createdBy: createdBy,
             icon: "1.png",
             multiplier: 0.2
             
         }
+    }
+    
+    async useItem(item, size) {
+        return (size * item.multiplier).toFixed(3)
     }
     
 }

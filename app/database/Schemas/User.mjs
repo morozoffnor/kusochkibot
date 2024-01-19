@@ -1,6 +1,5 @@
 import {Schema, model} from 'mongoose';
 import {AttemptSchema} from "./Attempt.mjs";
-import {Item} from "./Items/Item.mjs";
 
 const UserSchema = new Schema({
     userid: {type: Number, required: true},
@@ -25,7 +24,8 @@ const UserSchema = new Schema({
         wins: {type: Number},
         wonLastTime: {type: Boolean}
     },
-    items: []
+    items: [],
+    activatedItem: {}
 })
 
 export const User = model('User', UserSchema)

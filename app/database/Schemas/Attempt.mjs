@@ -6,7 +6,8 @@ export const AttemptSchema = new Schema({
     userName: {type: String, required: true},
     cockName: {type: String, required: true},
     size: {type: Number, required: true},
-    time: {type: Date, required: true}
+    time: {type: Date, required: true},
+    item: {}
 });
 
 AttemptSchema.method.getNameAndSize = function add() {
