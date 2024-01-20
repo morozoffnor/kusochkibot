@@ -12,7 +12,7 @@ export class Minimizer300 {
                 title: ""
             },
             createdBy: createdBy,
-            icon: "1.png",
+            icon: "scissorsCommon.png",
             multiplier: 0.5
             
         }
@@ -31,7 +31,7 @@ export class Minimizer300 {
                 title: ""
             },
             createdBy: createdBy,
-            icon: "1.png",
+            icon: "scissorsUncommon.png",
             multiplier: 0.4
             
         }
@@ -50,7 +50,7 @@ export class Minimizer300 {
                 title: ""
             },
             createdBy: createdBy,
-            icon: "1.png",
+            icon: "scissorsRare.png",
             multiplier: 0.3
             
         }
@@ -69,7 +69,7 @@ export class Minimizer300 {
                 title: ""
             },
             createdBy: createdBy,
-            icon: "1.png",
+            icon: "scissorsLegendary.png",
             multiplier: 0.2
             
         }
