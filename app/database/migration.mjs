@@ -37,3 +37,15 @@ export async function ensureStats() {
     }
     logger.info(`Found ${users.length} users, created ${counter} stats`)
 }
+
+export async function backupSizes() {
+    logger.info('Backing up sizes...')
+    const users = await getAllUsers()
+    for (let i = 0; i < users.length; i++) {
+        const user = users[i]
+        console.log(user.userName)
+        user.cockStatsBackup = user.cockStats
+        await user.save()
+    }
+    logger.info('Backed up sizes')
+}

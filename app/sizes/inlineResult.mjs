@@ -1,4 +1,4 @@
-import {createAttempt, getCurrentDay, getLastAttempt, getLastQuery} from "../database/database.mjs";
+import {createAttempt, getCurrentDay, getLastAttempt, getLastQuery, getUserById} from "../database/database.mjs";
 import {processUserSize} from "./profileSizeUpdater.mjs";
 
 /**
@@ -14,12 +14,16 @@ export const addAttempt = async function (ctx) {
             userName: ctx.from.username,
             cockName: lastQuery.cockName,
             size: lastQuery.size,
+            item: lastQuery.item,
             time: Date.now()
         })
         // get day and add an attempt to it
         const currentDay = await getCurrentDay()
         currentDay.attempts.push(await getLastAttempt(ctx.from.id))
         currentDay.save()
+        let user = await getUserById(ctx.from.id)
+        user.activatedItem = null
+        await user.save()
         
         
         // update user

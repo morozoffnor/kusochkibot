@@ -4,6 +4,7 @@ import {createQuery, getLastAttempt, getLastQuery, getUserById} from "../databas
 import {createNewUser} from "../tools/createNewUser.mjs";
 import {config} from "../config.mjs";
 import {getCockStatsString} from "../stats/sizeStats.mjs";
+import {handleItem} from "../tools/items/tools/itemsHandler.mjs";
 
 /**
  * Creates inline for the user. Creates a new user if necessary
@@ -29,14 +30,13 @@ export async function createInline(ctx) {
  */
 async function answerInline(ctx) {
     const lastAttempt = await getLastAttempt(ctx.from.id)
-    await createQuery({
-        userId: ctx.from.id,
-        size: await getRandomSize(),
-        cockName: await getRandomName(),
-        time: Date.now()
-    }).then(async () => {
+    await createQuery(await createQueryData(ctx)).then(async () => {
         const result = await getLastQuery(ctx.from.id)
-        const message = await result.cockName + " у меня " + await result.size + "см"
+        let message = await result.cockName + " у меня " + await result.size + "см"
+        if (result.item != null) {
+            console.log('found item in last query')
+            message = message + '\nUsing `' + result.item.name + ' [' + result.item.rarity + ']`'
+        }
         const statsString = await getCockStatsString(ctx.from.id)
         let newArr = [];
         // check if attempt is allowed (3600000 = 1 hour)
@@ -55,7 +55,7 @@ async function answerInline(ctx) {
                     id: 0,
                     title: 'У кого меньше',
                     description: 'у того больше',
-                    input_message_content: {message_text: message}
+                    input_message_content: {message_text: message, parse_mode: 'Markdown'}
                 };
             } else {
                 newArr[0] = {
@@ -77,4 +77,28 @@ async function answerInline(ctx) {
         
         return ctx.answerInlineQuery(newArr, {cache_time: 0});
     })
+}
+
+async function createQueryData(ctx){
+    let userid = ctx.from.id
+    let user = await getUserById(userid)
+    if (user.activatedItem != null) {
+        console.log('found activated item in user')
+        console.log(user.activatedItem)
+        const affectedSize = await handleItem(user.activatedItem, await getRandomSize(), user)
+        return {
+            userId: ctx.from.id,
+            size: affectedSize,
+            cockName: await getRandomName(),
+            time: Date.now(),
+            item: user.activatedItem
+        }
+    } else {
+        return {
+            userId: ctx.from.id,
+            size: await getRandomSize(),
+            cockName: await getRandomName(),
+            time: Date.now()
+        }
+    }
 }
