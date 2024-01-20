@@ -2,6 +2,7 @@ import {Item} from "../../database/Schemas/Items/Item.mjs";
 import {getUserById} from "../../database/database.mjs";
 import {Minimizer300} from "../../tools/items/minimizer300.mjs";
 import {Gondonfedi} from "../../tools/items/gondonfedi.mjs";
+import {ChinesePump} from "../../tools/items/chinesePump.mjs";
 
 
 export async function addItem(ctx) {
@@ -18,6 +19,7 @@ function getRandomItem(id) {
     let items = []
     const minimizer = new Minimizer300()
     const condom = new Gondonfedi()
+    const pump = new ChinesePump()
     items.push(minimizer.common(id))
     items.push(minimizer.uncommon(id))
     items.push(minimizer.rare(id))
@@ -26,6 +28,11 @@ function getRandomItem(id) {
     items.push(condom.uncommon())
     items.push(condom.rare())
     items.push(condom.legendary())
+    items.push(pump.common())
+    items.push(pump.uncommon())
+    items.push(pump.rare())
+    items.push(pump.legendary())
+    
     
     return items[Math.floor(Math.random()*items.length)];
 }

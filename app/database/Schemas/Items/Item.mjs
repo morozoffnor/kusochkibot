@@ -14,8 +14,8 @@ export const ItemSchema = new Schema({
     },
     createdBy: {type: String, required: true},
     icon: {type: String, required: true},
-    multiplier: {type: Number}
-    
+    multiplier: {type: Number},
+    effectInfo: {}
 });
 
 

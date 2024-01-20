@@ -1,5 +1,6 @@
 import {Minimizer300} from "../minimizer300.mjs";
 import {Gondonfedi} from "../gondonfedi.mjs";
+import {ChinesePump} from "../chinesePump.mjs";
 
 export async function handleItem(item, size, user) {
     switch (item.name) {
@@ -9,5 +10,8 @@ export async function handleItem(item, size, user) {
         case "Гондон Феди":
             const condom = new Gondonfedi()
             return condom.useItem(user, item)
+        case "Китайская помпа":
+            const pump = new ChinesePump()
+            return pump.useItem(item, size)
     }
 }
