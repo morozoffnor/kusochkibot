@@ -12,7 +12,7 @@ export async function addItem(ctx) {
     const item = new Item(generatedItem)
     user.items.push(item)
     await user.save()
-    await ctx.reply('Вы получили предмет ' + generatedItem.name + ' редкости: ' + generatedItem.rarity)
+    await ctx.reply('Вы получили предмет ' + generatedItem.name + ` [${generatedItem.rarity}]`)
 }
 
 function getRandomItem(id) {

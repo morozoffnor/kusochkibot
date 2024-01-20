@@ -25,7 +25,8 @@ const UserSchema = new Schema({
         wonLastTime: {type: Boolean}
     },
     items: [],
-    activatedItem: {}
+    activatedItem: {},
+    cockStatsBackup: {}
 })
 
 export const User = model('User', UserSchema)
