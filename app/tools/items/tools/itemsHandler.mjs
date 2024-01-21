@@ -22,6 +22,7 @@ export async function getRandomItem(place) {
     const items = getItemsByPlace(place)
     return items[Math.floor(Math.random() * items.length)]
 }
+
 function getItemsByPlace(place) {
     
     switch (place) {
@@ -53,8 +54,9 @@ function getItemsByPlace(place) {
             }
             return items4
     }
-
+    
 }
+
 function getCommonItem() {
     let items = []
     items.push(minimizer.common())

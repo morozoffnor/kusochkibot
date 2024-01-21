@@ -8,7 +8,7 @@ export async function useItem(usedItem) {
     // console.log('got item id ' + usedItem['itemId'])
     // logger.info(user)
     console.log(user.items.length)
-    for (let i= 0; i < user.items.length; i++) {
+    for (let i = 0; i < user.items.length; i++) {
         console.log('iterating through item ' + user.items[i]._id)
         if (user.items[i]._id == usedItem['itemId']) {
             // console.log('found item in user ' + user.id)

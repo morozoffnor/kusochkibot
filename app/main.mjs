@@ -62,7 +62,6 @@ await initDays()
 await initNames()
 await initProperties()
 await ensureStats()
-await giveItems()
 bot.start((ctx) => ctx.reply('Welcome'))
 
 bot.on('inline_query', async ctx => {

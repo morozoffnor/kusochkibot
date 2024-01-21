@@ -1,5 +1,5 @@
 export class Minimizer300 {
-    common(createdBy= 0)  {
+    common(createdBy = 0) {
         return {
             name: "Уменьшатор 3000",
             description: "фуфелшмерц мне похурейтед",
@@ -17,7 +17,7 @@ export class Minimizer300 {
         }
     }
     
-    uncommon(createdBy= 0)  {
+    uncommon(createdBy = 0) {
         return {
             name: "Уменьшатор 3000",
             description: "фуфелшмерц мне похурейтед",
@@ -35,7 +35,7 @@ export class Minimizer300 {
         }
     }
     
-    rare(createdBy= 0)  {
+    rare(createdBy = 0) {
         return {
             name: "Уменьшатор 3000",
             description: "фуфелшмерц мне похурейтед",
@@ -53,7 +53,7 @@ export class Minimizer300 {
         }
     }
     
-    legendary(createdBy = 0)  {
+    legendary(createdBy = 0) {
         return {
             name: "Уменьшатор 3000",
             description: "фуфелшмерц мне похурейтед",
