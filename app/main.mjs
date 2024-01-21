@@ -20,10 +20,11 @@ import express from "express";
 import {tokenChecker} from "./api/tools/APItokenChecker.mjs";
 import {apiGetAllUsers, apiGetUserById} from "./api/users.mjs";
 import {sendPatchnotes} from "./tools/sendPatchnotes.mjs";
-import {ensureStats} from "./database/migration.mjs";
+import {ensureStats, giveItems} from "./database/migration.mjs";
 import {textTriggersHandler} from "./tools/phraseTrigger.mjs";
 import ItemsRouter from "./api/items.mjs"
 import {addItem} from "./commands/test/addItem.mjs";
+import {items} from "./commands/items.mjs";
 
 // connect to DB
 await connect()
@@ -61,6 +62,7 @@ await initDays()
 await initNames()
 await initProperties()
 await ensureStats()
+await giveItems()
 bot.start((ctx) => ctx.reply('Welcome'))
 
 bot.on('inline_query', async ctx => {
@@ -116,6 +118,10 @@ bot.command('mystats', async (ctx) => {
 bot.command('additem', async (ctx) => {
     logger.error('additem')
     await addItem(ctx)
+})
+
+bot.command('items', async (ctx) => {
+    await items(ctx)
 })
 
 

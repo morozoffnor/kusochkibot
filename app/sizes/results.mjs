@@ -4,6 +4,7 @@ import {bot} from "../main.mjs";
 import {getResultString} from "../tools/chatgpt.mjs";
 import {logger} from "../tools/logger.mjs";
 import {getRandomItem} from "../tools/items/tools/itemsHandler.mjs";
+import {Item} from "../database/Schemas/Items/Item.mjs";
 
 const chatGPTEnabled = config.openAIIntegration
 
@@ -16,9 +17,9 @@ async function postResultsWith3(users) {
     let winner = users[0]
     winner.cockStats.wins = winner.cockStats.wins + 1
     await winner.save()
-    const item1 = await getRandomItem(1)
-    const item2 = await getRandomItem(2)
-    const item3 = await getRandomItem(3)
+    const item1 = new Item(await getRandomItem(1))
+    const item2 = new Item(await getRandomItem(2))
+    const item3 = new Item(await getRandomItem(3))
     giveItemToUser(winner, item1)
     giveItemToUser(users[1], item2)
     giveItemToUser(users[2], item3)
@@ -48,8 +49,8 @@ async function postResultsWith2(users) {
     let winner = users[0]
     winner.cockStats.wins = winner.cockStats.wins + 1
     await winner.save()
-    const item1 = await getRandomItem(1)
-    const item2 = await getRandomItem(2)
+    const item1 = new Item(await getRandomItem(1))
+    const item2 = new Item(await getRandomItem(2))
     giveItemToUser(winner, item1)
     giveItemToUser(users[1], item2)
     
@@ -75,7 +76,7 @@ async function postResultsWith1(users) {
     let winner = users[0]
     winner.cockStats.wins = winner.cockStats.wins + 1
     await winner.save()
-    const item1 = await getRandomItem(1)
+    const item1 = new Item(await getRandomItem(1))
     giveItemToUser(winner, item1)
     
     getResultString(users[0].userName, users[0].cockStats.currentSize, chatGPTEnabled).then(async (story) => {

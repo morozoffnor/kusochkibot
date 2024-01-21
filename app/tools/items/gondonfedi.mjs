@@ -13,7 +13,6 @@ export class Gondonfedi {
                 alert: "",
                 title: ""
             },
-            createdBy: createdBy,
             icon: "condomCommon.png",
             multiplier: 5
             
@@ -34,7 +33,6 @@ export class Gondonfedi {
                 alert: "",
                 title: ""
             },
-            createdBy: createdBy,
             icon: "condomUncommon.png",
             multiplier: 3
             
@@ -55,7 +53,6 @@ export class Gondonfedi {
                 alert: "",
                 title: ""
             },
-            createdBy: createdBy,
             icon: "condomRare.png",
             multiplier: 2
             
@@ -76,7 +73,6 @@ export class Gondonfedi {
                 alert: "",
                 title: ""
             },
-            createdBy: createdBy,
             icon: "condomLegendary.png",
             multiplier: 1
             
