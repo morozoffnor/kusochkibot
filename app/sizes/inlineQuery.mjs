@@ -30,6 +30,7 @@ export async function createInline(ctx) {
  */
 async function answerInline(ctx) {
     const lastAttempt = await getLastAttempt(ctx.from.id)
+    const user = await getUserById(ctx.from.id)
     await createQuery(await createQueryData(ctx)).then(async () => {
         const result = await getLastQuery(ctx.from.id)
         let message = await result.cockName + " у меня " + await result.size + "см"
@@ -50,13 +51,23 @@ async function answerInline(ctx) {
             };
         } else {
             if ((Date.now() - lastAttempt.time) > config.cockSizeUsageCooldown) {
-                newArr[0] = {
-                    type: 'article',
-                    id: 0,
-                    title: 'У кого меньше',
-                    description: 'у того больше',
-                    input_message_content: {message_text: message, parse_mode: 'Markdown'}
-                };
+                if (user.activatedItem != null) {
+                    newArr[0] = {
+                        type: 'article',
+                        id: 0,
+                        title: 'Достать линейку',
+                        description: `item: ${user.activatedItem.name} [${user.activatedItem.rarity}]`,
+                        input_message_content: {message_text: message}
+                    };
+                } else {
+                    newArr[0] = {
+                        type: 'article',
+                        id: 0,
+                        title: 'Достать линейку',
+                        description: 'Lower number better person',
+                        input_message_content: {message_text: message, parse_mode: 'Markdown'}
+                    };
+                }
             } else {
                 newArr[0] = {
                     type: 'article',
