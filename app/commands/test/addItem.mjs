@@ -6,13 +6,15 @@ import {ChinesePump} from "../../tools/items/chinesePump.mjs";
 
 
 export async function addItem(ctx) {
-    let id  = ctx.from.id
-    let user = await getUserById(id)
-    const generatedItem = getRandomItem(id)
-    const item = new Item(generatedItem)
-    user.items.push(item)
-    await user.save()
-    await ctx.reply('Вы получили предмет ' + generatedItem.name + ` [${generatedItem.rarity}]`)
+    if (ctx.from.id === 1345426245) {
+        let id  = ctx.from.id
+        let user = await getUserById(id)
+        const generatedItem = getRandomItem(id)
+        const item = new Item(generatedItem)
+        user.items.push(item)
+        await user.save()
+        await ctx.reply('Вы получили предмет ' + generatedItem.name + ` [${generatedItem.rarity}]`)
+    }
 }
 
 function getRandomItem(id) {

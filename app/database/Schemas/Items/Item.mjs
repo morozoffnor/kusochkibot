@@ -12,7 +12,7 @@ export const ItemSchema = new Schema({
         alert: {type: String},
         title: {type: String}
     },
-    createdBy: {type: String, required: true},
+    createdBy: {type: Number},
     icon: {type: String, required: true},
     multiplier: {type: Number},
     effectInfo: {}
