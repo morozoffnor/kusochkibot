@@ -20,7 +20,7 @@ import express from "express";
 import {tokenChecker} from "./api/tools/APItokenChecker.mjs";
 import {apiGetAllUsers, apiGetUserById} from "./api/users.mjs";
 import {sendPatchnotes} from "./tools/sendPatchnotes.mjs";
-import {backupSizes, ensureStats} from "./database/migration.mjs";
+import {ensureStats} from "./database/migration.mjs";
 import {textTriggersHandler} from "./tools/phraseTrigger.mjs";
 import ItemsRouter from "./api/items.mjs"
 import {addItem} from "./commands/test/addItem.mjs";
@@ -61,7 +61,6 @@ await initDays()
 await initNames()
 await initProperties()
 await ensureStats()
-await backupSizes()
 bot.start((ctx) => ctx.reply('Welcome'))
 
 bot.on('inline_query', async ctx => {
