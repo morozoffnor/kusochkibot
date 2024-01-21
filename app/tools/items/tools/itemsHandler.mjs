@@ -9,46 +9,49 @@ const pump = new ChinesePump()
 export async function handleItem(item, size, user) {
     switch (item.name) {
         case "Уменьшатор 3000":
-            return minimizer.useItem(item, size)
+            return await minimizer.useItem(item, size)
         case "Гондон Феди":
-            return condom.useItem(user, item)
+            return await condom.useItem(user, item)
         case "Китайская помпа":
-            return pump.useItem(item, size)
+            return await pump.useItem(item, size)
     }
 }
 
 
 export async function getRandomItem(place) {
     const items = getItemsByPlace(place)
-    const item = items[Math.floor(Math.random() * items.length)]
-    return item
+    return items[Math.floor(Math.random() * items.length)]
 }
 function getItemsByPlace(place) {
-    let items = []
+    
     switch (place) {
         case 1:
+            let items = []
             for (let i = 0; i < 3; i++) {
-                items.push(getLegendaryItem())
                 items.push(getRareItem())
             }
+            items.push(getLegendaryItem())
             return items
         case 2:
+            let items2 = []
             for (let i = 0; i < 3; i++) {
-                items.push(getRareItem())
-                items.push(getUncommonItem())
+                items2.push(getRareItem())
+                items2.push(getUncommonItem())
             }
-            return items
+            return items2
         case 3:
+            let items3 = []
             for (let i = 0; i < 3; i++) {
-                items.push(getUncommonItem())
-                items.push(getCommonItem())
+                items3.push(getUncommonItem())
+                items3.push(getCommonItem())
             }
-            return items
+            return items3
         default:
+            let items4 = []
             for (let i = 0; i < 3; i++) {
-                items.push(getCommonItem())
+                items4.push(getCommonItem())
             }
-            return items
+            return items4
     }
 
 }

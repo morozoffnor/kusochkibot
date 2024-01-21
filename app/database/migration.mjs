@@ -1,6 +1,8 @@
 import fs from "fs";
 import {createNewName, getAllUsers} from "./database.mjs";
 import {logger} from "../tools/logger.mjs";
+import {getRandomItem} from "../tools/items/tools/itemsHandler.mjs";
+import {Item} from "./Schemas/Items/Item.mjs";
 
 export async function migrateNames() {
     logger.info('Migrating names...')
@@ -48,4 +50,18 @@ export async function backupSizes() {
         await user.save()
     }
     logger.info('Backed up sizes')
+}
+
+export async function giveItems() {
+    let users = await getAllUsers()
+    for (let i = 0; i < users.length; i++) {
+        const user = users[i]
+        user.items = []
+        user.items.push(new Item(await getRandomItem(1)))
+        user.items.push(new Item(await getRandomItem(2)))
+        user.items.push(new Item(await getRandomItem(3)))
+        console.log(user.items)
+        await user.save()
+        
+    }
 }
