@@ -269,7 +269,7 @@ async function checkForLvlUp(userid) {
         await incrementLvl(user)
         let item = await getLvlUpItem()
         await giveItemToUser(user, new Item(item))
-        let message = `@${user.userName} is now level ${user.lvl.lvl}\n\nHere is your reward: ${item.name} [${item.rarity}]`
+        let message = `@${user.userName} <b>is now level ${user.lvl.lvl +1}</b>\nHere is your reward: <tg-spoiler>${item.name} [${item.rarity}]</tg-spoiler>`
         await bot.telegram.sendMessage(config.chatId, message, {parse_mode: "HTML"})
         // send message here
         console.log('lvl up!')
