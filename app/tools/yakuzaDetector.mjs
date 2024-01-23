@@ -1,4 +1,4 @@
-import {getProperties} from "../database/database.mjs";
+import {getProperties, IncUserStats} from "../database/database.mjs";
 import {convertNumberToTimeString} from "./timeConverter.mjs";
 
 const YakuzaMessageCooldown = 1000 * 60 * 60 // 1 hour
@@ -12,9 +12,12 @@ async function updateYakuza() {
 
 export async function detectYakuza(ctx) {
     let yakuzaz = ['якуза', 'якузе', 'якузу', 'якуза', 'якузе', 'якузу', 'якудза', 'якудзе', 'якудзу', 'якудза',
-        'якудзе', 'якудзу', 'кирио', 'кирию', 'якузду', 'якузде', 'якузда', 'кабукичо', 'камаручо']
+        'якудзе', 'якудзу', 'кирио', 'кирию', 'якузду', 'якузде', 'якузда', 'кабукичо', 'камаручо', 'кирью-чан', 'кирью',
+        'йокохама', 'лиюманг', 'тачибана', 'казума']
     if (yakuzaz.some(v => ctx.message.text.toLowerCase().includes(v))) {
         await sendMessage(ctx)
+        const inc = new IncUserStats()
+        await inc.yakuza(ctx.from.id)
         await updateYakuza()
     }
 }

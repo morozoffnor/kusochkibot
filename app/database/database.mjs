@@ -236,6 +236,17 @@ export class IncUserStats {
         ).exec()
         await checkForLvlUp(userid)
     }
+    
+    async yakuza(userid) {
+        await User.findOneAndUpdate(
+          {userid: userid},
+          {
+              $inc: {
+                  'stats.yakuza': 1
+              }
+          }
+        ).exec()
+    }
 }
 
 // exp
