@@ -17,6 +17,11 @@ export async function createInline(ctx) {
             await answerInline(ctx)
         })
     } else {
+        let user = await getUserById(ctx.from.id)
+        if (ctx.from.username != user.userName) {
+            user.userName = ctx.from.username
+            await user.save()
+        }
         await answerInline(ctx)
     }
     
