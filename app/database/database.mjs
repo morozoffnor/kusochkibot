@@ -126,7 +126,7 @@ export class IncUserStats {
           {
               $inc: {
                   'stats.messagesSent': 1,
-                  'lvl.exp': 1
+                  'lvl.exp': 5
               }
           }
         ).exec()
@@ -139,7 +139,7 @@ export class IncUserStats {
           {
               $inc: {
                   'stats.imagesSent': 1,
-                  'lvl.exp': 5
+                  'lvl.exp': 15
               }
           }
         ).exec()
@@ -152,7 +152,7 @@ export class IncUserStats {
           {
               $inc: {
                   'stats.voicesSent': 1,
-                  'lvl.exp': 1
+                  'lvl.exp': 2
               }
           }
         ).exec()
@@ -165,7 +165,7 @@ export class IncUserStats {
           {
               $inc: {
                   'stats.stickersSent': 1,
-                  'lvl.exp': 1
+                  'lvl.exp': 2
               }
           }
         ).exec()
@@ -178,7 +178,7 @@ export class IncUserStats {
           {
               $inc: {
                   'stats.videosSent': 1,
-                  'lvl.exp': 5
+                  'lvl.exp': 15
               }
           }
         ).exec()
@@ -191,7 +191,7 @@ export class IncUserStats {
           {
               $inc: {
                   'stats.circlesSent': 1,
-                  'lvl.exp': 3
+                  'lvl.exp': 7
               }
           }
         ).exec()
@@ -204,7 +204,7 @@ export class IncUserStats {
           {
               $inc: {
                   'stats.pollsSent': 1,
-                  'lvl.exp': 2
+                  'lvl.exp': 20
               }
           }
         ).exec()
@@ -217,7 +217,7 @@ export class IncUserStats {
           {
               $inc: {
                   'stats.botUses': 1,
-                  'lvl.exp': 1
+                  'lvl.exp': 5
               }
           }
         ).exec()
@@ -230,7 +230,7 @@ export class IncUserStats {
           {
               $inc: {
                   'stats.itemsUsed': 1,
-                  'lvl.exp': 5
+                  'lvl.exp': 30
               }
           }
         ).exec()
