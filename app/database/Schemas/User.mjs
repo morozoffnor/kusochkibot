@@ -15,7 +15,8 @@ const UserSchema = new Schema({
         videosSent: {type: Number},
         circlesSent: {type: Number},
         pollsSent: {type: Number},
-        botUses: {type: Number}
+        botUses: {type: Number},
+        itemsUsed: {type: Number}
     },
     cockStats: {
         currentSize: {type: Number},
@@ -26,7 +27,12 @@ const UserSchema = new Schema({
     },
     items: [],
     activatedItem: {},
-    cockStatsBackup: {}
+    cockStatsBackup: {},
+    lvl: {
+        exp: {type: Number, default: 1000},
+        lvl: {type: Number, default: 1},
+        history: []
+    }
 })
 
 export const User = model('User', UserSchema)

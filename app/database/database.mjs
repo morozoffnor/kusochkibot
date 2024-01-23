@@ -6,6 +6,10 @@ import {Query} from "./Schemas/Query.mjs";
 import {Name} from "./Schemas/Name.mjs";
 import {User} from "./Schemas/User.mjs"
 import {Prop} from "./Schemas/Prop.mjs";
+import {giveItemToUser} from "../sizes/results.mjs";
+import {Item} from "./Schemas/Items/Item.mjs";
+import {getLvlUpItem} from "../tools/items/tools/itemsHandler.mjs";
+import {bot} from "../main.mjs";
 
 connect().catch(err => console.log(err))
 
@@ -121,10 +125,12 @@ export class IncUserStats {
           {userid: userid},
           {
               $inc: {
-                  'stats.messagesSent': 1
+                  'stats.messagesSent': 1,
+                  'lvl.exp': 1
               }
           }
         ).exec()
+        await checkForLvlUp(userid)
     }
     
     async image(userid) {
@@ -132,10 +138,12 @@ export class IncUserStats {
           {userid: userid},
           {
               $inc: {
-                  'stats.imagesSent': 1
+                  'stats.imagesSent': 1,
+                  'lvl.exp': 5
               }
           }
         ).exec()
+        await checkForLvlUp(userid)
     }
     
     async voice(userid) {
@@ -143,10 +151,12 @@ export class IncUserStats {
           {userid: userid},
           {
               $inc: {
-                  'stats.voicesSent': 1
+                  'stats.voicesSent': 1,
+                  'lvl.exp': 1
               }
           }
         ).exec()
+        await checkForLvlUp(userid)
     }
     
     async sticker(userid) {
@@ -154,10 +164,12 @@ export class IncUserStats {
           {userid: userid},
           {
               $inc: {
-                  'stats.stickersSent': 1
+                  'stats.stickersSent': 1,
+                  'lvl.exp': 1
               }
           }
         ).exec()
+        await checkForLvlUp(userid)
     }
     
     async video(userid) {
@@ -165,10 +177,12 @@ export class IncUserStats {
           {userid: userid},
           {
               $inc: {
-                  'stats.videosSent': 1
+                  'stats.videosSent': 1,
+                  'lvl.exp': 5
               }
           }
         ).exec()
+        await checkForLvlUp(userid)
     }
     
     async circle(userid) {
@@ -176,10 +190,12 @@ export class IncUserStats {
           {userid: userid},
           {
               $inc: {
-                  'stats.circlesSent': 1
+                  'stats.circlesSent': 1,
+                  'lvl.exp': 3
               }
           }
         ).exec()
+        await checkForLvlUp(userid)
     }
     
     async poll(userid) {
@@ -187,10 +203,12 @@ export class IncUserStats {
           {userid: userid},
           {
               $inc: {
-                  'stats.pollsSent': 1
+                  'stats.pollsSent': 1,
+                  'lvl.exp': 2
               }
           }
         ).exec()
+        await checkForLvlUp(userid)
     }
     
     async bot(userid) {
@@ -198,9 +216,62 @@ export class IncUserStats {
           {userid: userid},
           {
               $inc: {
-                  'stats.botUses': 1
+                  'stats.botUses': 1,
+                  'lvl.exp': 1
               }
           }
         ).exec()
+        await checkForLvlUp(userid)
+    }
+    
+    async items(userid){
+        await User.findOneAndUpdate(
+          {userid: userid},
+          {
+              $inc: {
+                  'stats.itemsUsed': 1,
+                  'lvl.exp': 5
+              }
+          }
+        ).exec()
+        await checkForLvlUp(userid)
+    }
+}
+
+// exp
+
+export async function incrementExp(userid, amount) {
+    await User.findOneAndUpdate(
+      {userid: userid},
+      {
+          $inc: {
+              'lvl.exp': amount
+          }
+      }
+    ).exec()
+    await checkForLvlUp(userid)
+}
+
+export async function incrementLvl(user) {
+    await User.findOneAndUpdate(
+      {userid: user.userid},
+      {
+          $inc: {
+              'lvl.lvl': 1
+          }
+      }
+    ).exec()
+}
+
+async function checkForLvlUp(userid) {
+    let user = await getUserById(userid)
+    if (Math.floor(user.lvl.exp / 1000) > user.lvl.lvl) {
+        await incrementLvl(user)
+        let item = await getLvlUpItem()
+        await giveItemToUser(user, new Item(item))
+        let message = `@${user.userName} is now level ${user.lvl.lvl}\n\nHere is your reward: ${item.name} [${item.rarity}]`
+        await bot.telegram.sendMessage(config.chatId, message, {parse_mode: "HTML"})
+        // send message here
+        console.log('lvl up!')
     }
 }

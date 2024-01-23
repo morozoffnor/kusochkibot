@@ -77,7 +77,7 @@ async function postResultsWith1(users) {
     winner.cockStats.wins = winner.cockStats.wins + 1
     await winner.save()
     const item1 = new Item(await getRandomItem(1))
-    giveItemToUser(winner, item1)
+    await giveItemToUser(winner, item1)
     
     getResultString(users[0].userName, users[0].cockStats.currentSize, chatGPTEnabled).then(async (story) => {
         const message =
@@ -122,7 +122,7 @@ export async function getTopThree() {
     }
 }
 
-function giveItemToUser(user, item) {
+export async function giveItemToUser(user, item) {
     user.items.push(item)
-    user.save()
+    await user.save()
 }

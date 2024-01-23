@@ -88,3 +88,14 @@ function getLegendaryItem() {
     items.push(pump.legendary())
     return items[Math.floor(Math.random() * items.length)]
 }
+
+export async function getLvlUpItem(){
+    let items = []
+    items.push(minimizer.rare())
+    items.push(condom.rare())
+    items.push(pump.rare())
+    items.push(minimizer.legendary())
+    items.push(condom.legendary())
+    items.push(pump.legendary())
+    return items[Math.floor(Math.random() * items.length)]
+}
