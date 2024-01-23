@@ -20,11 +20,12 @@ import express from "express";
 import {tokenChecker} from "./api/tools/APItokenChecker.mjs";
 import {apiGetAllUsers, apiGetUserById} from "./api/users.mjs";
 import {sendPatchnotes} from "./tools/sendPatchnotes.mjs";
-import {ensureStats, giveItems} from "./database/migration.mjs";
+import {ensureStats} from "./database/migration.mjs";
 import {textTriggersHandler} from "./tools/phraseTrigger.mjs";
 import ItemsRouter from "./api/items.mjs"
 import {addItem} from "./commands/test/addItem.mjs";
 import {items} from "./commands/items.mjs";
+import {checkLevels} from "./tools/exp/expHandler.mjs";
 
 // connect to DB
 await connect()
@@ -45,7 +46,6 @@ api.get('/user/:id', async (req, res) => {
 
 api.get('/users/', async (req, res) => {
     await apiGetAllUsers(req, res)
-    logger.info(req.headers)
 })
 
 api.post('/github/webhook/release/', express.json({type: 'application/json'}), async (req, res) => {
@@ -132,7 +132,7 @@ cron.schedule('0 0 0 * * *', async function () {
     })
 })
 
-cron.schedule('0 */15 * * * *', async function () {
+cron.schedule('0 */5 * * * *', async function () {
 
 })
 

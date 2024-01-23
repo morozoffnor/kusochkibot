@@ -5,15 +5,14 @@ import {useItem} from "../tools/items/tools/useItem.mjs";
 
 let ItemsRouter = express.Router()
 
-ItemsRouter.use((req, res, next) => {
-    console.log('got item request')
-    next()
-})
+// ItemsRouter.use((req, res, next) => {
+//     console.log('got item request')
+//     next()
+// })
 
 ItemsRouter.use(tokenChecker)
 ItemsRouter.post('/use', express.json({type: 'application/json'}), async (req, res) => {
     const usedItem = req.body
-    logger.info(usedItem)
     
     if (await useItem(usedItem)) {
         res.status(200).send('Hello World!');

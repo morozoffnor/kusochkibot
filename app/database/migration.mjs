@@ -31,8 +31,10 @@ export async function ensureStats() {
         for (let j = 0; j < statKeys.length; j++) {
             const stat = statKeys[j]
             if (!user.stats[stat]) {
-                user.stats[stat] = null
+                user.stats[stat] = 0
                 counter++
+            } else if (user.stats === null) {
+                user.stats[stat] = 0
             }
         }
         await user.save()
