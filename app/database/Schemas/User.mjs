@@ -16,7 +16,8 @@ const UserSchema = new Schema({
         circlesSent: {type: Number},
         pollsSent: {type: Number},
         botUses: {type: Number},
-        itemsUsed: {type: Number}
+        itemsUsed: {type: Number},
+        yakuza: {type: Number}
     },
     cockStats: {
         currentSize: {type: Number},
