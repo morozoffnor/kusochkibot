@@ -11,7 +11,7 @@ export class ChinesePump {
                 alert: "",
                 title: "Может сработать один из эффектов:"
             },
-            icon: "pump.png",
+            icon: "chinesepumpCommon.png",
             effectInfo: {
                 option1: 1.5,
                 option2: 0.5
@@ -32,7 +32,7 @@ export class ChinesePump {
                 alert: "",
                 title: "Может сработать один из эффектов:"
             },
-            icon: "pump.png",
+            icon: "chinesepumpUncommon.png",
             effectInfo: {
                 option1: 1.7,
                 option2: 0.3
@@ -53,7 +53,7 @@ export class ChinesePump {
                 alert: "",
                 title: "Может сработать один из эффектов:"
             },
-            icon: "pump.png",
+            icon: "chinesepumpRare.png",
             effectInfo: {
                 option1: 2.5,
                 option2: 0.2
@@ -74,7 +74,7 @@ export class ChinesePump {
                 alert: "",
                 title: "Может сработать один из эффектов:"
             },
-            icon: "pump.png",
+            icon: "chinesepumpLegendary.png",
             effectInfo: {
                 option1: 3,
                 option2: 0.1
