@@ -80,6 +80,6 @@ export class Gondonfedi {
     }
     
     useItem(user, item) {
-        return user.cockStats.lowestSize * item.multiplier
+        return (user.cockStats.lowestSize * item.multiplier).toFixed(3)
     }
 }

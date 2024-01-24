@@ -112,6 +112,13 @@ export async function getAllUsers() {
     return await users.exec()
 }
 
+export async function getActiveUsers() {
+    const users = User.find()
+      .where('cockStats.currentSize')
+      .gt(0)
+    return await users.exec()
+}
+
 // Properties
 export async function getProperties() {
     return await Prop.findOne({}).exec()
@@ -269,6 +276,30 @@ export async function incrementLvl(user) {
       {
           $inc: {
               'lvl.lvl': 1
+          }
+      }
+    ).exec()
+    await giveMoney(user.userid, 100)
+}
+
+export async function giveMoney(userid, amount) {
+    await User.findOneAndUpdate(
+      {userid: userid},
+      {
+          $inc: {
+              'money': amount
+          }
+      }
+    ).exec()
+}
+
+export async function withdrawMoney(userid, amount) {
+    amount = amount * -1
+    await User.findOneAndUpdate(
+      {userid: userid},
+      {
+          $inc: {
+              'money': amount
           }
       }
     ).exec()
