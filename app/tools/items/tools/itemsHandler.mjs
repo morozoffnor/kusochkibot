@@ -22,6 +22,8 @@ export async function handleItem(item, size, user) {
 }
 
 
+
+
 export async function getRandomItem(place) {
     const items = getItemsByPlace(place)
     return items[Math.floor(Math.random() * items.length)]
@@ -108,4 +110,25 @@ export async function getLvlUpItem(){
     items.push(bolt.rare())
     items.push(bolt.legendary())
     return items[Math.floor(Math.random() * items.length)]
+}
+
+export async function getAllItemObjects() {
+    let items = []
+    items.push(minimizer.common())
+    items.push(minimizer.uncommon())
+    items.push(minimizer.rare())
+    items.push(minimizer.legendary())
+    items.push(condom.common())
+    items.push(condom.uncommon())
+    items.push(condom.rare())
+    items.push(condom.legendary())
+    items.push(pump.common())
+    items.push(pump.uncommon())
+    items.push(pump.rare())
+    items.push(pump.legendary())
+    items.push(bolt.common())
+    items.push(bolt.uncommon())
+    items.push(bolt.rare())
+    items.push(bolt.legendary())
+    return items
 }

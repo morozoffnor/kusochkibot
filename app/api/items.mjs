@@ -3,6 +3,7 @@ import {tokenChecker} from "./tools/APItokenChecker.mjs";
 import {logger} from "../tools/logger.mjs";
 import {useDebuffItem, useItem} from "../tools/items/tools/useItem.mjs";
 import {getActiveUsers} from "../database/database.mjs";
+import {getAllItemObjects} from "../tools/items/tools/itemsHandler.mjs";
 
 let ItemsRouter = express.Router()
 
@@ -35,6 +36,12 @@ ItemsRouter.get('/activeUsers', express.json({type: 'application/json'}), async 
     const users = await getActiveUsers()
     res.setHeader('Content-Type', 'application/json');
     res.status(200).send({users: users})
+})
+
+ItemsRouter.get('/list', express.json({type: 'application/json'}), async (req, res) => {
+    const items = await getAllItemObjects()
+    res.setHeader('Content-Type', 'application/json');
+    res.status(200).send({items: items})
 })
 
 export default ItemsRouter
