@@ -25,7 +25,6 @@ import {textTriggersHandler} from "./tools/phraseTrigger.mjs";
 import ItemsRouter from "./api/items.mjs"
 import {addItem} from "./commands/test/addItem.mjs";
 import {items} from "./commands/items.mjs";
-import {checkLevels} from "./tools/exp/expHandler.mjs";
 
 // connect to DB
 await connect()
@@ -73,9 +72,13 @@ bot.on(message('voice'), async (ctx, next) => {
     await collectStats(ctx.from.id, 'voice').then(next())
 })
 bot.on(message('text'), async (ctx, next) => {
-    await collectStats(ctx.from.id, 'text').then(next())
-    await detectYakuza(ctx)
-    await textTriggersHandler(ctx)
+    if (!ctx.message.via_bot) {
+        await collectStats(ctx.from.id, 'text').then(next())
+        await detectYakuza(ctx)
+        await textTriggersHandler(ctx)
+    } else {
+        next()
+    }
 })
 bot.on(message('video'), async (ctx, next) => {
     await collectStats(ctx.from.id, 'video').then(next())
