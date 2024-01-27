@@ -172,7 +172,7 @@ export class IncUserStats {
           {
               $inc: {
                   'stats.stickersSent': 1,
-                  'lvl.exp': 2
+                  'lvl.exp': 3
               }
           }
         ).exec()
@@ -224,7 +224,7 @@ export class IncUserStats {
           {
               $inc: {
                   'stats.botUses': 1,
-                  'lvl.exp': 5
+                  'lvl.exp': 13
               }
           }
         ).exec()
