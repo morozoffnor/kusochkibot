@@ -33,14 +33,37 @@ export async function useDebuffItem(usedItem) {
         if (user.items[i]._id == usedItem['itemId']) {
             // console.log('found item in user ' + user.id)
             console.log('debuffing other user')
-            target.activatedItem = user.items[i]
-            const message = `@${user.userName} использовал ${user.items[i].name} [${user.items[i].rarity}] на @${target.userName}`
+            // TODO rewrite this custom thing for Bolt
+            
+            
+            if (user.items[i].effectInfo.v === 2) {
+                switch (user.items[i].rarity) {
+                    case 'Rare':
+                        target.cockStats.currentSize = target.cockStats.currentSize + user.items[i].effectInfo.option1
+                        const message = `@${user.userName} использовал ${user.items[i].name} [${user.items[i].rarity}] на @${target.userName}!\nТеперь его хуй равен ${target.cockStats.currentSize}`
+                        await bot.telegram.sendMessage(config.chatId, message, {parse_mode: "HTML"})
+                        break
+                    case 'Legendary':
+                        target.cockStats.currentSize = (target.cockStats.currentSize * user.items[i].effectInfo.option1).toFixed(3)
+                        const message1 = `@${user.userName} использовал ${user.items[i].name} [${user.items[i].rarity}] на @${target.userName}!\nТеперь его хуй равен ${target.cockStats.currentSize}`
+                        await bot.telegram.sendMessage(config.chatId, message1, {parse_mode: "HTML"})
+                        break
+                }
+                
+                
+                
+                
+            } else {
+                target.activatedItem = user.items[i]
+                const message = `@${user.userName} использовал ${user.items[i].name} [${user.items[i].rarity}] на @${target.userName}`
+                await bot.telegram.sendMessage(config.chatId, message, {parse_mode: "HTML"})
+            }
             user.items.splice(i, 1);
             await user.save()
             await target.save()
             await stats.items(user.userid)
-            await bot.telegram.sendMessage(config.chatId, message, {parse_mode: "HTML"})
             return true
+            
         }
     }
     return false
