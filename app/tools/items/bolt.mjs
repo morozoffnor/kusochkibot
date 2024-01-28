@@ -25,15 +25,16 @@ export class Bolt {
             description: "Очень хорошо кладется на все дела любой сложности и срочности. Самый распространенный предмет в быту.",
             rarity: "Uncommon",
             type: "debuff",
-            subtype: "addition",
+            subtype: "multiply",
             effect: {
-                descriptions: ["прибавляет к размеру хуя цели 10см"],
+                descriptions: ["умножает следующий хуй цели на 2"],
                 alert: "",
                 title: "Использовать предмет можно только на тех, кто уже замерял хуй сегодня. Если у цели уже есть активный предмет, то болт его заменит собой. Но цель так же может использовать предмет, чтобы избавиться от болта.\n\n"
             },
             icon: "boltUncommon.png",
             effectInfo: {
-                option1: 10,
+                option1: 2,
+                v: 2
             }
             
         }
@@ -45,15 +46,16 @@ export class Bolt {
             description: "Очень хорошо кладется на все дела любой сложности и срочности. Самый распространенный предмет в быту.",
             rarity: "Rare",
             type: "debuff",
-            subtype: "multiply",
+            subtype: "addition",
             effect: {
-                descriptions: ["умножает размер хуя цели на 2"],
+                descriptions: ["[current size] + 5"],
                 alert: "",
-                title: "Использовать предмет можно только на тех, кто уже замерял хуй сегодня. Если у цели уже есть активный предмет, то болт его заменит собой. Но цель так же может использовать предмет, чтобы избавиться от болта.\n\n"
+                title: "Использовать предмет можно только на тех, кто уже замерял хуй сегодня.\n\n"
             },
             icon: "boltRare.png",
             effectInfo: {
-                option1: 2,
+                option1: 5,
+                v: 2
             }
             
         }
@@ -67,13 +69,14 @@ export class Bolt {
             type: "debuff",
             subtype: "multiply",
             effect: {
-                descriptions: ["умножает размер хуя цели на 5"],
+                descriptions: ["[current size] * 5"],
                 alert: "",
-                title: "Использовать предмет можно только на тех, кто уже замерял хуй сегодня. Если у цели уже есть активный предмет, то болт его заменит собой. Но цель так же может использовать предмет, чтобы избавиться от болта.\n\n"
+                title: "Использовать предмет можно только на тех, кто уже замерял хуй сегодня.\n\n"
             },
             icon: "boltLegendary.png",
             effectInfo: {
                 option1: 5,
+                v: 2
             }
             
         }
@@ -87,5 +90,7 @@ export class Bolt {
             return (size * item.effectInfo.option1).toFixed(3)
         }
     }
+    
+    
     
 }

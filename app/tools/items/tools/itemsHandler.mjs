@@ -8,7 +8,7 @@ const condom = new Gondonfedi()
 const pump = new ChinesePump()
 const bolt = new Bolt()
 
-export async function handleItem(item, size, user) {
+export async function handleItem(item, size, user, target) {
     switch (item.name) {
         case "Уменьшатор 3000":
             return await minimizer.useItem(item, size)
@@ -18,6 +18,13 @@ export async function handleItem(item, size, user) {
             return await pump.useItem(item, size)
         case "Болтище":
             return await bolt.useItem(item, size)
+    }
+}
+
+export async function handleDebuffItems(item, user, target, size) {
+    switch (item.name) {
+        case "Болтище":
+            return await bolt.useItem(item, target,)
     }
 }
 
