@@ -23,7 +23,6 @@ function getRandomItem(id) {
     const minimizer = new Minimizer300()
     const condom = new Gondonfedi()
     const pump = new ChinesePump()
-    const bolt = new Bolt()
     items.push(minimizer.common(id))
     items.push(minimizer.uncommon(id))
     items.push(minimizer.rare(id))
@@ -36,10 +35,10 @@ function getRandomItem(id) {
     items.push(pump.uncommon())
     items.push(pump.rare())
     items.push(pump.legendary())
-    items.push(bolt.common())
-    items.push(bolt.uncommon())
-    items.push(bolt.rare())
-    items.push(bolt.legendary())
+    items.push(new Bolt().common())
+    items.push(new Bolt().uncommon())
+    items.push(new Bolt().rare())
+    items.push(new Bolt().legendary())
     
     
     

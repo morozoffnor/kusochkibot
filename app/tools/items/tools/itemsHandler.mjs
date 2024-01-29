@@ -17,16 +17,16 @@ export async function handleItem(item, size, user, target) {
         case "Китайская помпа":
             return await pump.useItem(item, size)
         case "Болтище":
-            return await bolt.useItem(item, size)
+            return await new Bolt(item).useItem(size)
     }
 }
 
-export async function handleDebuffItems(item, user, target, size) {
-    switch (item.name) {
-        case "Болтище":
-            return await bolt.useItem(item, target,)
-    }
-}
+// export async function handleDebuffItems(item, user, target, size) {
+//     switch (item.name) {
+//         case "Болтище":
+//             return await bolt.useItem(item, target,)
+//     }
+// }
 
 
 
