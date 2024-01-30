@@ -15,7 +15,7 @@ export async function handleItem(item, size, user, target) {
         case "Гондон Феди":
             return await condom.useItem(user, item)
         case "Китайская помпа":
-            return await pump.useItem(item, size)
+            return await new ChinesePump(item).useItem(size)
         case "Болтище":
             return await new Bolt(item).useItem(size)
     }
@@ -74,8 +74,8 @@ function getCommonItem() {
     let items = []
     items.push(minimizer.common())
     items.push(condom.common())
-    items.push(pump.common())
-    items.push(bolt.common())
+    items.push(new ChinesePump().common())
+    items.push(new Bolt().common())
     return items[Math.floor(Math.random() * items.length)]
 }
 
@@ -83,8 +83,8 @@ function getUncommonItem() {
     let items = []
     items.push(minimizer.uncommon())
     items.push(condom.uncommon())
-    items.push(pump.uncommon())
-    items.push(bolt.uncommon())
+    items.push(new ChinesePump().uncommon())
+    items.push(new Bolt().uncommon())
     return items[Math.floor(Math.random() * items.length)]
 }
 
@@ -92,8 +92,8 @@ function getRareItem() {
     let items = []
     items.push(minimizer.rare())
     items.push(condom.rare())
-    items.push(pump.rare())
-    items.push(bolt.rare())
+    items.push(new ChinesePump().rare())
+    items.push(new Bolt().rare())
     return items[Math.floor(Math.random() * items.length)]
 }
 
@@ -101,8 +101,8 @@ function getLegendaryItem() {
     let items = []
     items.push(minimizer.legendary())
     items.push(condom.legendary())
-    items.push(pump.legendary())
-    items.push(bolt.legendary())
+    items.push(new ChinesePump().legendary())
+    items.push(new Bolt().legendary())
     return items[Math.floor(Math.random() * items.length)]
 }
 
@@ -110,12 +110,12 @@ export async function getLvlUpItem(){
     let items = []
     items.push(minimizer.rare())
     items.push(condom.rare())
-    items.push(pump.rare())
+    items.push(new ChinesePump().rare())
     items.push(minimizer.legendary())
     items.push(condom.legendary())
-    items.push(pump.legendary())
-    items.push(bolt.rare())
-    items.push(bolt.legendary())
+    items.push(new ChinesePump().legendary())
+    items.push(new Bolt().rare())
+    items.push(new Bolt().legendary())
     return items[Math.floor(Math.random() * items.length)]
 }
 
@@ -129,13 +129,13 @@ export async function getAllItemObjects() {
     items.push(condom.uncommon())
     items.push(condom.rare())
     items.push(condom.legendary())
-    items.push(pump.common())
-    items.push(pump.uncommon())
-    items.push(pump.rare())
-    items.push(pump.legendary())
-    items.push(bolt.common())
-    items.push(bolt.uncommon())
-    items.push(bolt.rare())
-    items.push(bolt.legendary())
+    items.push(new ChinesePump().common())
+    items.push(new ChinesePump().uncommon())
+    items.push(new ChinesePump().rare())
+    items.push(new ChinesePump().legendary())
+    items.push(new Bolt().common())
+    items.push(new Bolt().uncommon())
+    items.push(new Bolt().rare())
+    items.push(new Bolt().legendary())
     return items
 }
