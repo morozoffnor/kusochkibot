@@ -39,7 +39,7 @@ export async function useDebuffItem(usedItem) {
             if (user.items[i].effectInfo.v === 2) {
                 switch (user.items[i].rarity) {
                     case 'Rare':
-                        target.cockStats.currentSize = target.cockStats.currentSize + user.items[i].effectInfo.option1
+                        target.cockStats.currentSize = (target.cockStats.currentSize + user.items[i].effectInfo.option1).toFixed(3)
                         const message = `@${user.userName} использовал ${user.items[i].name} [${user.items[i].rarity}] на @${target.userName}!\nТеперь его хуй равен ${target.cockStats.currentSize}`
                         await bot.telegram.sendMessage(config.chatId, message, {parse_mode: "HTML"})
                         break
