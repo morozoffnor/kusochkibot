@@ -1,6 +1,8 @@
 import {getUserById, IncUserStats} from "../../../database/database.mjs";
 import {bot} from "../../../main.mjs";
 import {config} from "../../../config.mjs";
+import {Bolt} from "../bolt.mjs";
+import {handleItem} from "./itemsHandler.mjs";
 
 export async function useItem(usedItem) {
     let user = await getUserById(parseInt(usedItem['userId']))
@@ -33,26 +35,13 @@ export async function useDebuffItem(usedItem) {
         if (user.items[i]._id == usedItem['itemId']) {
             // console.log('found item in user ' + user.id)
             console.log('debuffing other user')
-            // TODO rewrite this custom thing for Bolt
             
-            
-            if (user.items[i].effectInfo.v === 2) {
-                switch (user.items[i].rarity) {
-                    case 'Rare':
-                        target.cockStats.currentSize = (target.cockStats.currentSize + user.items[i].effectInfo.option1).toFixed(3)
-                        const message = `@${user.userName} использовал ${user.items[i].name} [${user.items[i].rarity}] на @${target.userName}!\nТеперь его хуй равен ${target.cockStats.currentSize}`
-                        await bot.telegram.sendMessage(config.chatId, message, {parse_mode: "HTML"})
-                        break
-                    case 'Legendary':
-                        target.cockStats.currentSize = (target.cockStats.currentSize * user.items[i].effectInfo.option1).toFixed(3)
-                        const message1 = `@${user.userName} использовал ${user.items[i].name} [${user.items[i].rarity}] на @${target.userName}!\nТеперь его хуй равен ${target.cockStats.currentSize}`
-                        await bot.telegram.sendMessage(config.chatId, message1, {parse_mode: "HTML"})
-                        break
-                }
-                
-                
-                
-                
+            if (user.items[i].effectInfo.instant) {
+                const targetSize = target.cockStats.currentSize
+                const newTargetSize = await handleItem(user.items[i], targetSize)
+                target.cockStats.currentSize = await newTargetSize
+                const message = `@${user.userName} использовал ${user.items[i].name} [${user.items[i].rarity}] на @${target.userName}!\nТеперь его хуй равен ${target.cockStats.currentSize}`
+                await bot.telegram.sendMessage(config.chatId, message, {parse_mode: "HTML"})
             } else {
                 target.activatedItem = user.items[i]
                 const message = `@${user.userName} использовал ${user.items[i].name} [${user.items[i].rarity}] на @${target.userName}`
