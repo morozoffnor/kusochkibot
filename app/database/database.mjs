@@ -133,7 +133,7 @@ export class IncUserStats {
           {
               $inc: {
                   'stats.messagesSent': 1,
-                  'lvl.exp': 5
+                  'lvl.exp': 1
               }
           }
         ).exec()
