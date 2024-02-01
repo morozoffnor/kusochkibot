@@ -17,6 +17,7 @@ export class Gondonfedi extends BaseItem {
             this.icon = item.icon
             this.effectInfo = item.effectInfo
             this.id = item.id
+            this.multiplier = item.multiplier
         }
     }
     
