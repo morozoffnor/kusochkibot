@@ -61,6 +61,7 @@ export class Bolt {
         }
         this.icon = "boltRare.png"
         this.effectInfo = {
+            instant: true,
             option1: 5,
             v: 2
         }
@@ -79,6 +80,7 @@ export class Bolt {
         }
         this.icon = "boltLegendary.png"
         this.effectInfo = {
+            instant: true,
             option1: 5,
             v: 2
         }
@@ -86,6 +88,10 @@ export class Bolt {
         return this
     }
     
+    /**
+     * @param {{type: Number | NumberConstructor}} size
+     * @returns Number
+     */
     useItem(size) {
         if (this.subtype === 'addition') {
             return size + this.effectInfo.option1
