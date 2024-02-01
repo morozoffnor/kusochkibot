@@ -317,3 +317,38 @@ async function checkForLvlUp(userid) {
         console.log('lvl up!')
     }
 }
+
+// aggregations
+
+export async function getMostUsedNames(limit = 20, sort = -1) {
+    const names = Attempt.aggregate(
+      [
+          {
+              $sortByCount:
+              /**
+               * expression: Grouping expression or string.
+               */
+                
+                "$cockName",
+          },
+          {
+              $sort:
+              /**
+               * Provide any number of field/order pairs.
+               */
+                {
+                    count: sort,
+                },
+          },
+          {
+              $limit:
+              /**
+               * Provide the number of documents to limit.
+               */
+                limit,
+          },
+      ]
+    )
+    
+    return await names.exec()
+}
