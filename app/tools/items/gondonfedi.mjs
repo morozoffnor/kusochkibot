@@ -17,6 +17,7 @@ export class Gondonfedi extends BaseItem {
             this.icon = item.icon
             this.effectInfo = item.effectInfo
             this.id = item.id
+            this.multiplier = item.multiplier
         }
     }
     
@@ -81,6 +82,7 @@ export class Gondonfedi extends BaseItem {
     }
     
     useItem(user) {
+        console.log((user.cockStats.lowestSize * this.multiplier).toFixed(3))
         return (user.cockStats.lowestSize * this.multiplier).toFixed(3)
     }
 }

@@ -13,6 +13,8 @@ export async function handleItem(item, size, user, target) {
         case "Уменьшатор 3000":
             return await minimizer.useItem(item, size)
         case "Гондон Феди":
+            console.log(item)
+            console.log(size)
             return await new Gondonfedi(item).useItem(user)
         case "Китайская помпа":
             return await new ChinesePump(item).useItem(size)
