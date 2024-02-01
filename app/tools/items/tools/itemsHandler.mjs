@@ -3,15 +3,11 @@ import {Gondonfedi} from "../gondonfedi.mjs";
 import {ChinesePump} from "../chinesePump.mjs";
 import {Bolt} from "../bolt.mjs";
 
-const minimizer = new Minimizer300()
-const condom = new Gondonfedi()
-const pump = new ChinesePump()
-const bolt = new Bolt()
 
-export async function handleItem(item, size, user, target) {
+export async function handleItem(item, size, user) {
     switch (item.name) {
         case "Уменьшатор 3000":
-            return await minimizer.useItem(item, size)
+            return await new Minimizer300(item).useItem(size)
         case "Гондон Феди":
             return await new Gondonfedi(item).useItem(user)
         case "Китайская помпа":
@@ -72,7 +68,7 @@ function getItemsByPlace(place) {
 
 function getCommonItem() {
     let items = []
-    items.push(minimizer.common())
+    items.push(new Minimizer300().common())
     items.push(new Gondonfedi().common())
     items.push(new ChinesePump().common())
     items.push(new Bolt().common())
@@ -81,7 +77,7 @@ function getCommonItem() {
 
 function getUncommonItem() {
     let items = []
-    items.push(minimizer.uncommon())
+    items.push(new Minimizer300().uncommon())
     items.push(new Gondonfedi().uncommon())
     items.push(new ChinesePump().uncommon())
     items.push(new Bolt().uncommon())
@@ -90,7 +86,7 @@ function getUncommonItem() {
 
 function getRareItem() {
     let items = []
-    items.push(minimizer.rare())
+    items.push(new Minimizer300().rare())
     items.push(new Gondonfedi().rare())
     items.push(new ChinesePump().rare())
     items.push(new Bolt().rare())
@@ -99,7 +95,7 @@ function getRareItem() {
 
 function getLegendaryItem() {
     let items = []
-    items.push(minimizer.legendary())
+    items.push(new Minimizer300().legendary())
     items.push(new Gondonfedi().legendary())
     items.push(new ChinesePump().legendary())
     items.push(new Bolt().legendary())
@@ -108,10 +104,10 @@ function getLegendaryItem() {
 
 export async function getLvlUpItem(){
     let items = []
-    items.push(minimizer.rare())
+    items.push(new Minimizer300().rare())
     items.push(new Gondonfedi().rare())
     items.push(new ChinesePump().rare())
-    items.push(minimizer.legendary())
+    items.push(new Minimizer300().legendary())
     items.push(new Gondonfedi().legendary())
     items.push(new ChinesePump().legendary())
     items.push(new Bolt().rare())
@@ -121,10 +117,10 @@ export async function getLvlUpItem(){
 
 export async function getAllItemObjects() {
     let items = []
-    items.push(minimizer.common())
-    items.push(minimizer.uncommon())
-    items.push(minimizer.rare())
-    items.push(minimizer.legendary())
+    items.push(new Minimizer300().common())
+    items.push(new Minimizer300().uncommon())
+    items.push(new Minimizer300().rare())
+    items.push(new Minimizer300().legendary())
     items.push(new Gondonfedi().common())
     items.push(new Gondonfedi().uncommon())
     items.push(new Gondonfedi().rare())

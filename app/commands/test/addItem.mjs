@@ -10,7 +10,7 @@ export async function addItem(ctx) {
     if (ctx.from.id === 1345426245) {
         let id  = ctx.from.id
         let user = await getUserById(id)
-        const generatedItem = getRandomItem(id)
+        const generatedItem = getRandomItem()
         const item = new Item(generatedItem)
         user.items.push(item)
         await user.save()
@@ -18,15 +18,12 @@ export async function addItem(ctx) {
     }
 }
 
-function getRandomItem(id) {
+function getRandomItem() {
     let items = []
-    const minimizer = new Minimizer300()
-    const condom = new Gondonfedi()
-    const pump = new ChinesePump()
-    items.push(minimizer.common(id))
-    items.push(minimizer.uncommon(id))
-    items.push(minimizer.rare(id))
-    items.push(minimizer.legendary(id))
+    items.push(new Minimizer300().common())
+    items.push(new Minimizer300().uncommon())
+    items.push(new Minimizer300().rare())
+    items.push(new Minimizer300().legendary())
     items.push(new Gondonfedi().common())
     items.push(new Gondonfedi().uncommon())
     items.push(new Gondonfedi().rare())

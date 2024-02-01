@@ -15,7 +15,8 @@ export const ItemSchema = new Schema({
     createdBy: {type: Number},
     icon: {type: String, required: true},
     multiplier: {type: Number},
-    effectInfo: {}
+    effectInfo: {},
+    receivedAt: {type: Date, required: true, default: Date.now()}
 });
 
 
