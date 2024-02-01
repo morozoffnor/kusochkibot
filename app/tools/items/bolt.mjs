@@ -1,9 +1,12 @@
-export class Bolt {
+import {BaseItem} from "./BaseItem.mjs";
+
+export class Bolt extends BaseItem{
     
     name = "Болтище"
     description = "Очень хорошо кладется на все дела любой сложности и срочности. Самый распространенный предмет в быту."
     
     constructor(item) {
+        super();
         if (item) {
             this.rarity = item.rarity
             this.type = item.type

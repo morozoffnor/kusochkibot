@@ -41,7 +41,7 @@ async function answerInline(ctx) {
         let message = await result.cockName + " у меня " + await result.size + "см"
         if (result.item != null) {
             console.log('found item in last query')
-            message = message + '\nUsing `' + result.item.name + ' [' + result.item.rarity + ']`'
+            message = message + `\nUsing <b>${result.item.name} [${result.item.rarity}]</b>`
         }
         const statsString = await getCockStatsString(ctx.from.id)
         let newArr = [];

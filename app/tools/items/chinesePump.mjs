@@ -1,9 +1,12 @@
-export class ChinesePump {
+import {BaseItem} from "./BaseItem.mjs";
+
+export class ChinesePump extends BaseItem{
     
     name = "Китайская помпа"
     description = "Это мягкое, безболезненное растяжение заставляет клетки внутри кавернозных тел оттягиваться и разделяться. Так же, как мышцы buliding, во время процесса заживления клеток, здоровые новые клетки создаются, позволяя ваш пенис, чтобы стать больше. И с большими кавернозными корпусами ваш пенис может удерживать больше крови, а это означает, что вы также будете наслаждаться большими и тяжелыми эрекциями!"
     
     constructor(item) {
+        super();
         if (item) {
             this.rarity = item.rarity
             this.type = item.type
