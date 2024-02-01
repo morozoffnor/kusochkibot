@@ -62,7 +62,7 @@ async function answerInline(ctx) {
                         id: 0,
                         title: 'Достать линейку',
                         description: `item: ${user.activatedItem.name} [${user.activatedItem.rarity}]`,
-                        input_message_content: {message_text: message}
+                        input_message_content: {message_text: message, parse_mode: 'HTML'}
                     };
                 } else {
                     newArr[0] = {
