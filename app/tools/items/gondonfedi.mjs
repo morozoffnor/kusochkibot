@@ -82,7 +82,6 @@ export class Gondonfedi extends BaseItem {
     }
     
     useItem(user) {
-        console.log((user.cockStats.lowestSize * this.multiplier).toFixed(3))
         return (user.cockStats.lowestSize * this.multiplier).toFixed(3)
     }
 }
