@@ -25,6 +25,7 @@ import {textTriggersHandler} from "./tools/phraseTrigger.mjs";
 import ItemsRouter from "./api/items.mjs"
 import {addItem} from "./commands/test/addItem.mjs";
 import {items} from "./commands/items.mjs";
+import {topUsers} from "./commands/top.mjs";
 
 // connect to DB
 await connect()
@@ -124,6 +125,10 @@ bot.command('additem', async (ctx) => {
 
 bot.command('items', async (ctx) => {
     await items(ctx)
+})
+
+bot.command('top', async (ctx) => {
+    await topUsers(ctx)
 })
 
 
