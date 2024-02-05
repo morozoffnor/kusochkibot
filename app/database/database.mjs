@@ -116,6 +116,7 @@ export async function getActiveUsers() {
     const users = User.find()
       .where('cockStats.currentSize')
       .gt(0)
+      .sort({'cockStats.currentSize': 1})
     return await users.exec()
 }
 
