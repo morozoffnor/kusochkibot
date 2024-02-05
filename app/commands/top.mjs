@@ -5,11 +5,13 @@ export async function topUsers(ctx) {
     const users = await getActiveUsers()
     let msg = `<b>Current top:</b> \n`
     
-    // is it sorted?
-    // maybe wrap it in await-then?
+    
+    if (users.length < 1) {
+        msg = `\nСегодня никто не замерял ещё.`
+    }
     for (let i = 0; i < users.length; i++) {
         let user = users[i]
-        msg = msg + `${i+1}. ${user.cockStats.currentSize}см\n`
+        msg = msg + `${i+1}. ${user.userName} - ${user.cockStats.currentSize}см\n`
     }
     
     await ctx.reply(msg,
