@@ -321,7 +321,7 @@ async function checkForLvlUp(userid) {
 
 // aggregations
 
-export async function getMostUsedNames(limit = 20, sort = -1) {
+export async function getMostUsedNames(limit = 1000, sort = -1) {
     const names = Attempt.aggregate(
       [
           {
