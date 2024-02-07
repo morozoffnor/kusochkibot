@@ -1,7 +1,9 @@
 import express from 'express'
 import {tokenChecker} from "./tools/APItokenChecker.mjs";
-import {createNewName} from "../database/database.mjs";
+import {createNewName, getUserById} from "../database/database.mjs";
 import {checkIfNameExists} from "../tools/namesChecker.mjs";
+import {bot} from "../main.mjs";
+import {config} from "../config.mjs";
 
 let PhrasesRouter = new express.Router()
 
@@ -17,8 +19,10 @@ PhrasesRouter.post('/names', express.json({type: 'application/json'}), async (re
             title: name.name,
             date: Date.now(),
             addedBy: name.addedBy
-        }).then(() => {
+        }).then(async () => {
             res.status(200).send()
+            const user = await getUserById(name.addedBy)
+            await sendMessage(`@${user.userName} добавил имя: ${name.name}`)
         }).catch(() => {
             res.status(500).send('error')
         })
@@ -26,5 +30,9 @@ PhrasesRouter.post('/names', express.json({type: 'application/json'}), async (re
     
     
 })
+
+async function sendMessage(msg) {
+    await bot.telegram.sendMessage(config.chatId, msg, {parse_mode: "HTML"})
+}
 
 export default PhrasesRouter
