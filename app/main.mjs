@@ -27,6 +27,7 @@ import {addItem} from "./commands/test/addItem.mjs";
 import {items} from "./commands/items.mjs";
 import {topUsers} from "./commands/top.mjs";
 import StatsRouter from "./api/stats.mjs";
+import PhrasesRouter from "./api/phrases.mjs";
 
 // connect to DB
 await connect()
@@ -41,6 +42,7 @@ api.listen(port, () => {
 api.use(tokenChecker)
 api.use('/items/', ItemsRouter)
 api.use('/stats/', StatsRouter)
+api.use('/phrases/', PhrasesRouter)
 
 api.get('/user/:id', async (req, res) => {
     await apiGetUserById(req, res)
