@@ -31,5 +31,6 @@ services:
       - MONGOURL=mongodb://bot:kuski@mongo:27017/kuski
       - OPENAPITOKEN=
       - APITOKEN=PLEASE GENERATE STRONG TOKEN
+      - APIHOST=HOST
     volumes:
       - PATH TO RESOURCES:/usr/src/app/resources
