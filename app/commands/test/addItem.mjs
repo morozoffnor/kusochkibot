@@ -4,6 +4,7 @@ import {Minimizer300} from "../../tools/items/minimizer300.mjs";
 import {Gondonfedi} from "../../tools/items/gondonfedi.mjs";
 import {ChinesePump} from "../../tools/items/chinesePump.mjs";
 import {Bolt} from "../../tools/items/bolt.mjs";
+import {Monolith} from "../../tools/items/monolith.mjs";
 
 
 export async function addItem(ctx) {
@@ -36,6 +37,10 @@ function getRandomItem() {
     items.push(new Bolt().uncommon())
     items.push(new Bolt().rare())
     items.push(new Bolt().legendary())
+    items.push(new Monolith().common())
+    items.push(new Monolith().uncommon())
+    items.push(new Monolith().rare())
+    items.push(new Monolith().legendary())
     
     
     

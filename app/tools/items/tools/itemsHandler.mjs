@@ -2,27 +2,50 @@ import {Minimizer300} from "../minimizer300.mjs";
 import {Gondonfedi} from "../gondonfedi.mjs";
 import {ChinesePump} from "../chinesePump.mjs";
 import {Bolt} from "../bolt.mjs";
+import {Monolith} from "../monolith.mjs";
 
 
-export async function handleItem(item, size, user) {
+export async function handleItem(item, size, user, target) {
     switch (item.name) {
         case "Уменьшатор 3000":
-            return await new Minimizer300(item).useItem(size)
+            return await new Minimizer300(item).activateItem(size)
         case "Гондон Феди":
-            return await new Gondonfedi(item).useItem(user)
+            return await new Gondonfedi(item).activateItem(user)
         case "Китайская помпа":
-            return await new ChinesePump(item).useItem(size)
+            return await new ChinesePump(item).activateItem(size)
         case "Болтище":
-            return await new Bolt(item).useItem(size)
+            return await new Bolt(item).activateItem(size)
+        case "Монолит":
+            return await new Monolith(item).activateItem(size)
+    }
+    // if (item.effectInfo.instant) {
+    //     if (item.type === 'debuff') {
+    //
+    //     }
+    // }
+}
+
+export async function activateItem(item, size, user, target){
+    switch (item.name) {
+        case "Уменьшатор 3000":
+            return await new Minimizer300(item).activateItem(size)
+        case "Гондон Феди":
+            return await new Gondonfedi(item).activateItem(user)
+        case "Китайская помпа":
+            return await new ChinesePump(item).activateItem(size)
+        case "Болтище":
+            return await new Bolt(item).activateItem(size)
+        case "Монолит":
+            return await new Monolith(item).activateItem(size)
     }
 }
 
-// export async function handleDebuffItems(item, user, target, size) {
-//     switch (item.name) {
-//         case "Болтище":
-//             return await bolt.useItem(item, target,)
-//     }
-// }
+export async function handleDebuffItems(item, user, target, size) {
+    switch (item.name) {
+        case "Болтище":
+            return await new Bolt(item).useItem(target)
+    }
+}
 
 
 
@@ -72,6 +95,7 @@ function getCommonItem() {
     items.push(new Gondonfedi().common())
     items.push(new ChinesePump().common())
     items.push(new Bolt().common())
+    items.push(new Monolith().common())
     return items[Math.floor(Math.random() * items.length)]
 }
 
@@ -81,6 +105,7 @@ function getUncommonItem() {
     items.push(new Gondonfedi().uncommon())
     items.push(new ChinesePump().uncommon())
     items.push(new Bolt().uncommon())
+    items.push(new Monolith().uncommon())
     return items[Math.floor(Math.random() * items.length)]
 }
 
@@ -90,6 +115,7 @@ function getRareItem() {
     items.push(new Gondonfedi().rare())
     items.push(new ChinesePump().rare())
     items.push(new Bolt().rare())
+    items.push(new Monolith().rare())
     return items[Math.floor(Math.random() * items.length)]
 }
 
@@ -99,6 +125,7 @@ function getLegendaryItem() {
     items.push(new Gondonfedi().legendary())
     items.push(new ChinesePump().legendary())
     items.push(new Bolt().legendary())
+    items.push(new Monolith().legendary())
     return items[Math.floor(Math.random() * items.length)]
 }
 
@@ -112,6 +139,8 @@ export async function getLvlUpItem(){
     items.push(new ChinesePump().legendary())
     items.push(new Bolt().rare())
     items.push(new Bolt().legendary())
+    items.push(new Monolith().rare())
+    items.push(new Monolith().legendary())
     return items[Math.floor(Math.random() * items.length)]
 }
 
@@ -133,5 +162,9 @@ export async function getAllItemObjects() {
     items.push(new Bolt().uncommon())
     items.push(new Bolt().rare())
     items.push(new Bolt().legendary())
+    items.push(new Monolith().common())
+    items.push(new Monolith().uncommon())
+    items.push(new Monolith().rare())
+    items.push(new Monolith().legendary())
     return items
 }
