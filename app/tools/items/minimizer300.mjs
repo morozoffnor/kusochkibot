@@ -79,7 +79,7 @@ export class Minimizer300 extends BaseItem{
         return this
     }
     
-    async useItem(size) {
+    async activateItem(size) {
         return (size * this.multiplier).toFixed(3)
     }
     

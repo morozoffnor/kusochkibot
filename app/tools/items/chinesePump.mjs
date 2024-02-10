@@ -92,7 +92,7 @@ export class ChinesePump extends BaseItem{
         
     }
     
-    async useItem(size) {
+    async activateItem(size) {
         const dice = Math.random()
         if (dice > 0.5) {
             return (size * this.effectInfo.option1).toFixed(3)

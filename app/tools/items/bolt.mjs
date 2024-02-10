@@ -1,4 +1,5 @@
 import {BaseItem} from "./BaseItem.mjs";
+import {getUserById} from "../../database/database.mjs";
 
 export class Bolt extends BaseItem{
     
@@ -92,12 +93,18 @@ export class Bolt extends BaseItem{
     }
     
     /**
+     * @param targetId
      * @param {{type: Number | NumberConstructor}} size
      * @returns Number
      */
-    useItem(size) {
+    async useItem(targetId, size) {
+    
+    }
+    
+    async activateItem(size) {
         if (this.subtype === 'addition') {
             return size + this.effectInfo.option1
+            
         }
         if (this.subtype === 'multiply') {
             return (size * this.effectInfo.option1).toFixed(3)
