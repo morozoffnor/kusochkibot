@@ -61,6 +61,7 @@ async function answerInline(ctx) {
                         type: 'article',
                         id: 0,
                         title: 'Достать линейку',
+                        thumbnail_url: config.apiHost + '/items/' + user.activatedItem.icon,
                         description: `item: ${user.activatedItem.name} [${user.activatedItem.rarity}]`,
                         input_message_content: {message_text: message, parse_mode: 'HTML'}
                     };

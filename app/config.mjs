@@ -8,7 +8,8 @@ export const config = {
     mongoUrl: process.env.MONGOURL,
     openAPItoken: process.env.OPENAPITOKEN,
     openAIIntegration: parseBoolFromEnv(),
-    apiToken: process.env.APITOKEN
+    apiToken: process.env.APITOKEN,
+    apiHost: process.env.APIHOST
 }
 
 function parseBoolFromEnv() {
