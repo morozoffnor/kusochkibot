@@ -24,6 +24,7 @@ function toEscapeMSg(str) {
       .replace(/##/g, "")
       .replace(/@/g, "")
       .replace(/\*\*/gm, "*")
+      .replace(/\* /gm, "- ")
 }
 
 function getHeaderString(release) {
