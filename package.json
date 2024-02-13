@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "NODE_OPTIONS=\"$NODE_OPTIONS --experimental-vm-modules\" jest",
+    "start": "set IS_PUBLIC_PATH_ROOT=true && npx webpack serve"
   },
   "keywords": [],
   "author": "",
@@ -22,6 +23,7 @@
     "winston": "^3.11.0"
   },
   "devDependencies": {
+    "jest": "^29.7.0",
     "mongoose": "^7.5.0",
     "node-cron": "^3.0.2"
   }
