@@ -64,7 +64,7 @@ export class Monolith extends BaseItem{
         this.icon = "monolithRare.png"
         this.multiplier = 0.3
         this.effectInfo = {
-            option1: 1.5,
+            option1: 0.3,
             randomize: true
         }
         
@@ -72,7 +72,6 @@ export class Monolith extends BaseItem{
     }
     
     legendary() {
-        this.description = "фуфелшмерц мне похурейтед (но легендарно)"
         this.rarity = "Legendary"
         this.type = "math"
         this.subtype = "multiply"
