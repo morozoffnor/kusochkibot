@@ -24,6 +24,7 @@ export async function useItem(usedItem) {
                     const newTargetSize = await handleItem(user.items[i], targetSize)
                     target.cockStats.currentSize = await newTargetSize
                     const message = `@${user.userName} использовал ${user.items[i].name} [${user.items[i].rarity}]! Боги рандома выбрали целью @${target.userName}. Теперь его хуй - ${target.cockStats.currentSize}`
+                    user.items.splice(i, 1);
                     await user.save()
                     await target.save()
                     await bot.telegram.sendMessage(config.chatId, message, {parse_mode: "HTML"})
