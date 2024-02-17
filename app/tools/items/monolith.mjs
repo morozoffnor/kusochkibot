@@ -25,7 +25,7 @@ export class Monolith extends BaseItem{
         this.effect = {
             descriptions: ["умножает размер хуя на 0.7"],
             alert: "",
-            title: ""
+            title: "Умножает хуй при следующем замере"
         }
         this.icon = "monolithCommon.png"
         this.effectInfo = {
@@ -42,7 +42,7 @@ export class Monolith extends BaseItem{
         this.effect = {
             descriptions: ["умножает размер хуя на 0.5"],
             alert: "",
-            title: ""
+            title: "Умножает хуй при следующем замере"
         }
         this.icon = "monolithUncommon.png"
         this.effectInfo = {

@@ -4,7 +4,7 @@ import {createQuery, getLastAttempt, getLastQuery, getUserById} from "../databas
 import {createNewUser} from "../tools/createNewUser.mjs";
 import {config} from "../config.mjs";
 import {getCockStatsString} from "../stats/sizeStats.mjs";
-import {handleItem} from "../tools/items/tools/itemsHandler.mjs";
+import {ItemsHandler} from "../items/ItemsHandler.mjs";
 
 /**
  * Creates inline for the user. Creates a new user if necessary
@@ -102,7 +102,12 @@ async function createQueryData(ctx){
     if (user.activatedItem != null) {
         console.log('found activated item in user')
         console.log(user.activatedItem)
-        const affectedSize = await handleItem(user.activatedItem, await getRandomSize(), user)
+        let handler = new ItemsHandler({
+            user: user,
+            item: user.activatedItem,
+            size: await getRandomSize()
+        })
+        const affectedSize = await handler.useItem()
         return {
             userId: ctx.from.id,
             size: affectedSize,

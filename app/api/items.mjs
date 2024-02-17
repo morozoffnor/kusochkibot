@@ -1,9 +1,9 @@
 import express from 'express'
 import {tokenChecker} from "./tools/APItokenChecker.mjs";
 import {logger} from "../tools/logger.mjs";
-import {useDebuffItem, useItem} from "../tools/items/tools/useItem.mjs";
-import {getActiveUsers} from "../database/database.mjs";
+import {getActiveUsers, getUserById} from "../database/database.mjs";
 import {getAllItemObjects} from "../tools/items/tools/itemsHandler.mjs";
+import {ItemsHandler} from "../items/ItemsHandler.mjs";
 
 let ItemsRouter = express.Router()
 
@@ -15,17 +15,26 @@ let ItemsRouter = express.Router()
 ItemsRouter.use(tokenChecker)
 ItemsRouter.post('/use', express.json({type: 'application/json'}), async (req, res) => {
     const usedItem = req.body
-    
-    if (await useItem(usedItem)) {
+    let handler = new ItemsHandler({
+        user: await getUserById(usedItem['userId']),
+        itemId: usedItem['itemId']
+    })
+    if (await handler.activateItem()) {
         res.status(200).send('Hello World!');
         return
+    } else {
+        res.status(500).send('ЧТО-ТО ПОШЛО НЕ ТАК БЛЯТЬ');
     }
-    res.status(500).send('ЧТО-ТО ПОШЛО НЕ ТАК БЛЯТЬ');
 });
 
 ItemsRouter.post('/use/debuff', express.json({type: 'application/json'}), async (req, res) => {
     const usedItem = req.body
-    if (await useDebuffItem(usedItem)) {
+    const handler = new ItemsHandler({
+        user: await getUserById(parseInt(usedItem['userId'])),
+        target: await getUserById(parseInt(usedItem['target'])),
+        itemId: usedItem['itemId']
+    })
+    if (await handler.debuffUser()) {
         res.status(200).send('Hello World!');
         return
     }
