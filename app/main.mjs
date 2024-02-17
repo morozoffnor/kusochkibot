@@ -28,6 +28,7 @@ import {items} from "./commands/items.mjs";
 import {topUsers} from "./commands/top.mjs";
 import StatsRouter from "./api/stats.mjs";
 import PhrasesRouter from "./api/phrases.mjs";
+import {authCommand} from "./commands/auth.mjs";
 
 // connect to DB
 await connect()
@@ -133,6 +134,10 @@ bot.command('items', async (ctx) => {
 
 bot.command('top', async (ctx) => {
     await topUsers(ctx)
+})
+
+bot.command('auth', async (ctx) => {
+    await authCommand(ctx)
 })
 
 
