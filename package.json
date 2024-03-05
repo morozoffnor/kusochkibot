@@ -16,13 +16,15 @@
     "chatgpt": "^5.2.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
+    "luxon": "^3.4.4",
     "node-fetch": "^3.3.2",
     "process": "^0.11.10",
-    "telegraf": "^4.12.2",
+    "telegraf": "=4.16.2",
     "telegraf-command-parts": "^1.0.3",
     "winston": "^3.11.0"
   },
   "devDependencies": {
+    "@types/luxon": "^3.4.2",
     "jest": "^29.7.0",
     "mongoose": "^7.5.0",
     "node-cron": "^3.0.2"

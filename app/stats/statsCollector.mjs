@@ -1,7 +1,14 @@
 import {IncUserStats} from '../database/database.mjs'
+import {EventsCoordinator} from "../events/EventsCoordinator.mjs";
+import {eventGoing} from "../main.mjs";
 
 export async function collectStats(userid, type) {
     const inc = new IncUserStats()
+    const c = new EventsCoordinator()
+    if (eventGoing) {
+        await c.handleExpEvent(userid, type)
+    }
+    
     switch (type) {
         case "text": {
             await inc.message(userid)
@@ -33,6 +40,10 @@ export async function collectStats(userid, type) {
         }
         case "via_bot": {
             await inc.bot(userid)
+            break
+        }
+        case "item": {
+            await inc.items(userid)
             break
         }
         default: {

@@ -6,6 +6,7 @@ import {Gondonfedi} from "../tools/items/gondonfedi.mjs";
 import {Minimizer300} from "../tools/items/minimizer300.mjs";
 import {Monolith} from "../tools/items/monolith.mjs";
 import {Bolt} from "../tools/items/bolt.mjs";
+import {collectStats} from "../stats/statsCollector.mjs";
 
 export class ItemsHandler {
     
@@ -45,7 +46,7 @@ export class ItemsHandler {
                     if (await this.#activateMonolith()) {
                         // save user and collect stats if ok
                         this.user.items.splice(i, 1);
-                        await this.stats.items(this.user.userid)
+                        await collectStats(this.user.userid, "item")
                         this.user.save()
                         return true
                     } else {
@@ -58,7 +59,7 @@ export class ItemsHandler {
                     const message = `@${this.user.userName} использовал ${this.user.items[i].name} [${this.user.items[i].rarity}]`
                     this.user.items.splice(i, 1);
                     await this.user.save()
-                    await this.stats.items(this.user.userid)
+                    await collectStats(this.user.userid, "item")
                     await this.#sendMessage(message)
                     return true
                 }
@@ -93,7 +94,7 @@ export class ItemsHandler {
                 await this.target.save()
                 this.user.items.splice(i, 1);
                 await this.user.save()
-                await this.stats.items(this.user.userid)
+                await collectStats(this.user.userid, "item")
                 await this.#sendMessage(message)
                 return true
             }

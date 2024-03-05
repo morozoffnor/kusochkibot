@@ -32,7 +32,7 @@ export async function addName(ctx) {
                     addedAt: Date.now(),
                     addedBy: ctx.from.id
                 })
-                await ctx.reply(allDoneMessage, {reply_to_message_id: ctx.message.message_id});
+                await ctx.react("👍")
             } catch (e) {
                 logger.error('Error while adding a new name: ', e)
                 const fatalErrorMessage = `Произошла какая-то хуйня и я не смог то, что должен был смочь. НЕ СМОГ Я ЧЕГО ПРИСТАЛИ БЛЯТЬ\n\nВот ошибка для тупого разраба: \n${e}`

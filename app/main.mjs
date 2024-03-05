@@ -29,6 +29,8 @@ import {topUsers} from "./commands/top.mjs";
 import StatsRouter from "./api/stats.mjs";
 import PhrasesRouter from "./api/phrases.mjs";
 import {authCommand} from "./commands/auth.mjs";
+import {EventsCoordinator} from "./events/EventsCoordinator.mjs";
+import EventsRouter from "./api/events.mjs";
 
 // connect to DB
 await connect()
@@ -37,6 +39,16 @@ await connect()
 export const api = express()
 const port = 80
 
+// check if event is going on startup
+export let eventGoing = false
+export let botEvent = {}
+const eventsCoordinator = new EventsCoordinator()
+eventGoing = await eventsCoordinator.isEventGoing()
+export function switchEvent(value, eventData) {
+    eventGoing = value
+    botEvent = eventData
+}
+
 api.listen(port, () => {
     logger.info('API is listening on port ' + port)
 })
@@ -44,6 +56,7 @@ api.use(tokenChecker)
 api.use('/items/', ItemsRouter)
 api.use('/stats/', StatsRouter)
 api.use('/phrases/', PhrasesRouter)
+api.use('/events/', EventsRouter)
 
 api.get('/user/:id', async (req, res) => {
     await apiGetUserById(req, res)
@@ -78,6 +91,7 @@ bot.on(message('voice'), async (ctx, next) => {
     await collectStats(ctx.from.id, 'voice').then(next())
 })
 bot.on(message('text'), async (ctx, next) => {
+    console.log(eventGoing)
     if (!ctx.message.via_bot) {
         await collectStats(ctx.from.id, 'text').then(next())
         await detectYakuza(ctx)
@@ -137,6 +151,7 @@ bot.command('top', async (ctx) => {
 })
 
 bot.command('auth', async (ctx) => {
+    console.log(ctx.message.chat.id)
     await authCommand(ctx)
 })
 
@@ -149,8 +164,13 @@ cron.schedule('0 0 0 * * *', async function () {
     })
 })
 
-cron.schedule('0 */5 * * * *', async function () {
+cron.schedule('0 * * * * *', async function () {
+    await eventsCoordinator.checkForEvent()
+})
 
+cron.schedule('0 1 0 1 * *', async function() {
+    const message = 'Наступил новый месяц! Пора менять аватарку группы, чтобы её снова никто не мог найти!'
+    await bot.telegram.sendMessage(config.chatId, message, {parse_mode: "HTML"})
 })
 
 bot.catch((err) => {

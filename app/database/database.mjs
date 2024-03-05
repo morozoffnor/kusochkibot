@@ -10,6 +10,7 @@ import {giveItemToUser} from "../sizes/results.mjs";
 import {Item} from "./Schemas/Items/Item.mjs";
 import {getLvlUpItem} from "../tools/items/tools/itemsHandler.mjs";
 import {bot} from "../main.mjs";
+import {BotEvent} from "./Schemas/BotEvent.mjs";
 
 connect().catch(err => console.log(err))
 
@@ -128,129 +129,129 @@ export async function getProperties() {
 // User stats class
 export class IncUserStats {
     
-    async message(userid) {
+    async message(userid, exp = 1) {
         await User.findOneAndUpdate(
           {userid: userid},
           {
               $inc: {
                   'stats.messagesSent': 1,
-                  'lvl.exp': 1
+                  'lvl.exp': exp
               }
           }
         ).exec()
         await checkForLvlUp(userid)
     }
     
-    async image(userid) {
+    async image(userid, exp = 15) {
         await User.findOneAndUpdate(
           {userid: userid},
           {
               $inc: {
                   'stats.imagesSent': 1,
-                  'lvl.exp': 15
+                  'lvl.exp': exp
               }
           }
         ).exec()
         await checkForLvlUp(userid)
     }
     
-    async voice(userid) {
+    async voice(userid, exp = 2) {
         await User.findOneAndUpdate(
           {userid: userid},
           {
               $inc: {
                   'stats.voicesSent': 1,
-                  'lvl.exp': 2
+                  'lvl.exp': exp
               }
           }
         ).exec()
         await checkForLvlUp(userid)
     }
     
-    async sticker(userid) {
+    async sticker(userid, exp = 3) {
         await User.findOneAndUpdate(
           {userid: userid},
           {
               $inc: {
                   'stats.stickersSent': 1,
-                  'lvl.exp': 3
+                  'lvl.exp': exp
               }
           }
         ).exec()
         await checkForLvlUp(userid)
     }
     
-    async video(userid) {
+    async video(userid, exp = 15) {
         await User.findOneAndUpdate(
           {userid: userid},
           {
               $inc: {
                   'stats.videosSent': 1,
-                  'lvl.exp': 15
+                  'lvl.exp': exp
               }
           }
         ).exec()
         await checkForLvlUp(userid)
     }
     
-    async circle(userid) {
+    async circle(userid, exp = 7) {
         await User.findOneAndUpdate(
           {userid: userid},
           {
               $inc: {
                   'stats.circlesSent': 1,
-                  'lvl.exp': 7
+                  'lvl.exp': exp
               }
           }
         ).exec()
         await checkForLvlUp(userid)
     }
     
-    async poll(userid) {
+    async poll(userid, exp = 20) {
         await User.findOneAndUpdate(
           {userid: userid},
           {
               $inc: {
                   'stats.pollsSent': 1,
-                  'lvl.exp': 20
+                  'lvl.exp': exp
               }
           }
         ).exec()
         await checkForLvlUp(userid)
     }
     
-    async bot(userid) {
+    async bot(userid, exp = 13) {
         await User.findOneAndUpdate(
           {userid: userid},
           {
               $inc: {
                   'stats.botUses': 1,
-                  'lvl.exp': 13
+                  'lvl.exp': exp
               }
           }
         ).exec()
         await checkForLvlUp(userid)
     }
     
-    async items(userid){
+    async items(userid, exp = 30){
         await User.findOneAndUpdate(
           {userid: userid},
           {
               $inc: {
                   'stats.itemsUsed': 1,
-                  'lvl.exp': 30
+                  'lvl.exp': exp
               }
           }
         ).exec()
         await checkForLvlUp(userid)
     }
     
-    async yakuza(userid) {
+    async yakuza(userid, exp = 1) {
         await User.findOneAndUpdate(
           {userid: userid},
           {
               $inc: {
-                  'stats.yakuza': 1
+                  'stats.yakuza': exp
               }
           }
         ).exec()
@@ -352,4 +353,16 @@ export async function getMostUsedNames(limit = 1000, sort = -1) {
     )
     
     return await names.exec()
+}
+
+// events
+
+export async function getEvents() {
+    const events = BotEvent.find()
+    return await events.exec()
+}
+
+export async function getEvent(id) {
+    const event = BotEvent.findOne({_id: id})
+    return await event.exec()
 }
