@@ -39,4 +39,11 @@ EventsRouter.post('/end',express.json({type: 'application/json'}), async (req, r
     res.status(200).send('OK')
 })
 
+EventsRouter.post('/create',express.json({type: 'application/json'}), async (req, res) => {
+    const event = req.body
+    const c = new EventsCoordinator()
+    await c.createEvent(event)
+    res.status(200).send('OK')
+})
+
 export default EventsRouter

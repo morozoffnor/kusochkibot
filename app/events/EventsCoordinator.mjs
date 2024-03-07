@@ -1,35 +1,36 @@
-import {DateTime, Interval} from "luxon";
+import {DateTime} from "luxon";
 import {BotEvent} from "../database/Schemas/BotEvent.mjs";
-import {getEvents, IncUserStats} from "../database/database.mjs";
+import {getEvent, getEvents, IncUserStats} from "../database/database.mjs";
 import {bot, botEvent, eventGoing, switchEvent} from "../main.mjs";
 import {config} from "../config.mjs";
+import {logger} from "../tools/logger.mjs";
 
 export class EventsCoordinator {
-    
+
     async checkForEvent() {
         console.log('checking event')
         const events = await getEvents()
         console.log(events.length)
         for (let i = 0; i < events.length; i++) {
-            console.log(i)
             const start = DateTime.fromJSDate(events[i].startTime)
-            
-            console.log(start.toString())
+            const end = DateTime.fromJSDate(events[i].endTime)
             const now = DateTime.now()
-            console.log('start ' + start.startOf("minute"))
-            console.log('end ' + now.startOf("minute"))
-            if (start.startOf("minute") === now.startOf("minute")) {
-                console.log("YES")
+
+            const endDiff = now.diff(end, 'minutes').toObject()
+            if (endDiff.minutes < 1 && endDiff.minutes > 0) {
+                await this.endEvent(events[i])
+                console.log("Ending event")
+                continue
             }
-            const interval = Interval.fromDateTimes(start, now)
-            console.log(interval)
-            if (interval.length() < 1000) {
-                console.log('yes')
+
+            const startDiff = now.diff(start, 'minutes').toObject()
+            if (startDiff.minutes < 1 && startDiff.minutes > 0) {
                 await this.startEvent(events[i])
-                return
+                console.log("Starting event")
             }
         }
     }
+
     
     async createEvent(eventData) {
         const event = new BotEvent(eventData)
@@ -39,20 +40,23 @@ export class EventsCoordinator {
     async startEvent(event) {
         if (await this.isEventGoing()) {
             await this.#sendMessage('1event started')
+            logger.error(`Cannot start the event with id - ${event._id}! There is another event going right now`)
             return false
         } else {
-            event.now = true
-            await event.save()
-            switchEvent(true)
+            let eventDoc = await getEvent(event._id)
+            eventDoc.now = true
+            await eventDoc.save()
+            switchEvent(true, eventDoc)
             await this.#sendMessage('event started')
         }
         
     }
     async endEvent(event) {
-        event.now = false
-        event.completed = true
-        await event.save()
-        switchEvent(false, {})
+        let eventDoc = await getEvent(event._id)
+        eventDoc.now = false
+        eventDoc.completed = true
+        await eventDoc.save()
+        switchEvent(false, eventDoc)
         await this.#sendMessage('event ended')
     }
     
@@ -130,14 +134,15 @@ export class EventsCoordinator {
 }
 const c = new EventsCoordinator()
 await c.createEvent({
-    startTime: DateTime.fromISO('2024-03-01T18:13:00.000Z'),
-    endTime: DateTime.fromISO('2024-02-26T14:09:00+00:00', {zone: 'Europe/Moscow'}),
+    startTime: DateTime.fromISO('2024-03-05T08:27:00.000Z'),
+    endTime: DateTime.fromISO('2024-03-05T08:27:00.000Z'),
     type: "exp",
     active: true,
     now: false,
     meta: {
         multiplier: 2,
-        startTime: DateTime.fromISO('2024-02-26T14:08:00+00:00', {zone: 'Europe/Moscow'}),
+        eventName: 'Happy sunday',
+
     }
 })
 await c.checkForEvent()
