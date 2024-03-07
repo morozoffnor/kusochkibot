@@ -2,7 +2,6 @@ import express from 'express'
 import {tokenChecker} from "./tools/APItokenChecker.mjs";
 import {getEvent, getEvents} from "../database/database.mjs";
 import {EventsCoordinator} from "../events/EventsCoordinator.mjs";
-import {BotEvent} from "../database/Schemas/BotEvent.mjs";
 
 let EventsRouter = new express.Router()
 
