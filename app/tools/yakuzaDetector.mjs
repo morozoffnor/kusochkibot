@@ -3,6 +3,9 @@ import {convertNumberToTimeString} from "./timeConverter.mjs";
 
 const YakuzaMessageCooldown = 1000 * 60 * 60 // 1 hour
 
+/**
+ * Updates last time Yakuza was mentioned in db
+ */
 async function updateYakuza() {
     await getProperties().then(properties => {
         properties.yakuzaMention = Date.now()
@@ -42,6 +45,10 @@ async function getTimeDifference() {
     return (Date.now() - lastYakuza)
 }
 
+/**
+ * Sends message with time since Yakuza last mention
+ * @param {*} ctx - message ctx
+ */
 async function sendMessage(ctx) {
     const timeDifference = await getTimeDifference()
     if (timeDifference > YakuzaMessageCooldown) {

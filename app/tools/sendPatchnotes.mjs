@@ -2,7 +2,10 @@ import {bot} from "../main.mjs";
 import {config} from "../config.mjs";
 import {logger} from "./logger.mjs";
 
-
+/**
+ * Sends patch notes to telegram chat specified in config
+ * @param {*} release - release object
+ */
 export async function sendPatchnotes(release) {
     if (release['prerelease']) {
         logger.info('Received pre-release, skipping')
@@ -17,6 +20,10 @@ export async function sendPatchnotes(release) {
     await bot.telegram.sendMessage(config.chatId, `${body}`, {parse_mode: "Markdown"})
 }
 
+/**
+ * @param {string} str
+ * @returns {string} - stripped string
+ */
 function toEscapeMSg(str) {
     return str
       // .replace(/by @\w* in https:\S*\\r/gm, "\n")
@@ -32,7 +39,10 @@ function toEscapeMSg(str) {
 }
 
 
-
+/**
+ * @param {*} release - release object
+ * @returns {string} - header string
+ */
 function getHeaderString(release) {
     return `* New release: ${release['name']}*\n\n`
 }

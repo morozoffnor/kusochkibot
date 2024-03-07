@@ -122,6 +122,10 @@ export async function getTopThree() {
     }
 }
 
+/**
+ * @param {*} user - User object
+ * @param {*} item - Item object
+ * */
 export async function giveItemToUser(user, item) {
     user.items.push(item)
     await user.save()

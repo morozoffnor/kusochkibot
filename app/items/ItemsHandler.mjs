@@ -32,8 +32,11 @@ export class ItemsHandler {
     async #sendMessage(message) {
         await bot.telegram.sendMessage(config.chatId, message, {parse_mode: "HTML"})
     }
-    
-    
+
+    /**
+     * Activates item
+     * @returns {Boolean} - True if item is activated
+     */
     async activateItem() {
         // console.log(this.user)
         console.log(this.item)
@@ -100,7 +103,10 @@ export class ItemsHandler {
             }
         }
     }
-    
+    /**
+     * Activates monolith item
+     * @returns {Boolean} - True if success
+     */
     async #activateMonolith() {
         const activeUsers = await getActiveUsers()
         if (activeUsers.length < 1) {

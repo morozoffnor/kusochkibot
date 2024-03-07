@@ -2,6 +2,11 @@ import {IncUserStats} from '../database/database.mjs'
 import {EventsCoordinator} from "../events/EventsCoordinator.mjs";
 import {eventGoing} from "../main.mjs";
 
+/**
+ * Collects stats and increments corresponding stat. Also checks for event.
+ * @param {Number} userid - User's telegram ID
+ * @param {String} type - User's size returned from an attempt
+ */
 export async function collectStats(userid, type) {
     const inc = new IncUserStats()
     const c = new EventsCoordinator()
