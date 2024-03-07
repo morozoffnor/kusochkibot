@@ -51,6 +51,10 @@ export class EventsCoordinator {
         }
         
     }
+    /**
+     * Ends specified event and marks it as completed.
+     * @param {*} event - event data
+     */
     async endEvent(event) {
         let eventDoc = await getEvent(event._id)
         eventDoc.now = false
@@ -59,7 +63,10 @@ export class EventsCoordinator {
         switchEvent(false, eventDoc)
         await this.#sendMessage('event ended')
     }
-    
+    /**
+     * Checks if any event is active right now
+     * @returns {Boolean}
+     */
     async isEventGoing() {
         const events = await getEvents()
         for (let i = 0; i < events.length; i++) {
@@ -69,7 +76,10 @@ export class EventsCoordinator {
             }
         }
     }
-    
+    /**
+     * Returns currently active event
+     * @returns {Promise< any | undefined >}
+     */
     async getCurrentEvent() {
         const events = await getEvents()
         for (let i = 0; i < events.length; i++) {
